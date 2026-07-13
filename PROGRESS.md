@@ -9,16 +9,19 @@ gate; do not advance past a failing gate. Full gate definitions:
 | Alignment | Sources ingested, Compass v1.0 authored, heart mechanic (the Vigil) specced | ✅ 2026-07-13 |
 | 0 — Scaffold | Repo layout, content schema + validator, FSM skeleton, 3 seed encounters, test harness | ✅ 2026-07-13 — **Gate 0 green** (`npm run gate0`: content valid, 24 tests, typecheck, build 4.9 KB gz of 300 KB, file:// boot check; verified end-to-end in real Chromium incl. keyboard-only and 375px viewport) |
 | 1 — The Spine | Six acts authored, nine verbs reachable, posture variants, confirmation pattern, profiles | ✅ 2026-07-13 — **Gate 1 green** (43 tests: 6 archetypes → 6 distinct verbs, graph audit, dominance floor, 13 profile titles; verified in Chromium at 900/375/320px — mobile audit caught + fixed a doors-bar overlap; 18.4 KB gz) |
-| 2 — The Vigil | Temptation ladder, visibility-gated timing, END GAME, Node Ω | ⬜ |
+| 2 — The Vigil | Temptation ladder, visibility-gated timing, END GAME, Node Ω | ✅ 2026-07-13 — **Gate 2 green** (52 tests: full-ladder walk in 7–10 min window, folds tally `V:<rung>`, hidden-tab time never counts, options never expire, aria-live rungs, digit-free conformity beat, in-Vigil crisis signposting; driven in real Chromium via `page.clock` at 900/375/320px — caught + fixed a body-height bug that trapped the doors bar; 23.3 KB gz). **§9.3 human review: Vigil copy awaits CD sign-off** |
 | 3 — The Ledger | Worker + KV, reveal-after-lock, offline census, totenpass, dashboard | ⬜ |
 | 4 — The Body | Sigil, share glyph, Soul Analysis, Rorschach, a11y pass | ⬜ |
 | 5 — The Breath | Reincarnation variants, codex, optional audio, ship checklist | ⬜ |
 
 ## Awaiting creative director
 
-Still open: OD-3, OD-4, OD-6, OD-8, OD-12, OD-13 (Compass §12) — none block
-Phase 0. OD-13 (standing-exit tally mapping) is decided during Phase 1
-authoring.
+- **§9.3 sign-off on the Vigil copy** (`content/vigil/ladder.json`,
+  `content/system/omega.json`): the hope/loss/guilt rungs, the END GAME
+  passage, and the disclosure's retraction were authored under the
+  bereavement/suicidality rules and need the CD's human review before Phase 2
+  is considered shipped.
+- Still open: OD-3, OD-4, OD-6, OD-8, OD-12 (Compass §12) — none block Phase 3.
 
 ## Log
 

@@ -36,6 +36,12 @@
       "_missing": "no verdict was ever filed"
     }
   },
+  "omega": {
+    "title": "The Unprocessed",
+    "reflection": "The record shows almost nothing: {A2}; {B1}; {C1}; {D2}. This is not an empty file. It is the rarest kind the desk holds — a soul who was offered the whole apparatus, every cup and clerk and account of it, and answered with stillness until the apparatus ran out of offers. The Ledger will count you. It will not explain you. Neither, for once, will the Bard.",
+    "shadow": "SHADOW ON FILE: stillness that is only fear with good posture is also called waiting. From this side of the desk the two are identical. You get the last word.",
+    "question": "CARRIED FORWARD: now that you have declined the game — what will you enter, and on whose terms?"
+  },
   "overrides": [
     {
       "id": "early_return",

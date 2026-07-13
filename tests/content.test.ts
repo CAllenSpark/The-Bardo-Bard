@@ -10,6 +10,11 @@ describe('content schema and graph integrity (Gate 0)', () => {
     expect(nodeCount).toBeGreaterThanOrEqual(30);
   });
 
+  it('the engine imports every content file the validator sees (no silent drift)', () => {
+    const { nodeCount } = validateContent() as { nodeCount: number };
+    expect(Object.keys(buildGraph().nodes)).toHaveLength(nodeCount);
+  });
+
   it('assembles the graph with a boot start node, all six acts, and all six exit passages', () => {
     const graph = buildGraph();
     expect(graph.nodes[graph.start]).toBeDefined();

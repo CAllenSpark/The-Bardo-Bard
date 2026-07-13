@@ -42,7 +42,11 @@ records) run a tap-target audit: every button ≥ 40px tall, no horizontal page
 scroll, and — scrolled to the bottom — no button hidden under the doors bar.
 The doors bar is `position: sticky` in flow (a fixed overlay failed this audit
 once already; don't reintroduce it). Scroll buttons to `block: 'center'`
-before clicking on small viewports.
+before clicking on small viewports. Two more audit points, both from real
+regressions: at full scroll an in-play doors bar must sit fully inside the
+viewport (`body { height: 100% }` once shrank `#bardo` to one viewport and
+trapped the bar mid-page — body uses `min-height`, `#bardo` uses `100dvh` +
+`flex-shrink: 0`), and the crisis footer must overlap no content.
 
 ## Flows worth driving
 
@@ -59,9 +63,17 @@ before clicking on small viewports.
    curious light ("naming it feels important").
 5. Keyboard-only: Tab + Enter must drive everything.
 6. Collect console errors for the whole session; expect zero.
-7. Vigil (Phase 2+): timers are visibility-gated — use fake timers in vitest for
-   ladder timing; in Playwright, only smoke-test that stillness produces the
-   first authored beat.
+7. The Vigil, fully drivable in real Chromium: `await page.clock.install()`
+   before `goto`, then `page.clock.runFor(ms)` — NOT `fastForward`, which
+   fires each interval once and starves the tick-counting VigilClock. Walk:
+   begin → runFor(61s) → patience rung → runFor to 516s → all ten options
+   (four A1 + nine rungs + END GAME) accreted, nothing expired → END GAME →
+   faceless light (no doors) → GO ON → disclosure ("THE DESK IS CLOSED",
+   retraction, "The Unprocessed", zero buttons). Also drive a fold: click a
+   rung mid-ladder → V tally, ack line, A1 restored, ladder gone for good.
+   Hidden-tab pausing stays a vitest concern (visibilitychange + fake timers).
+8. Crisis signpost: `.crisis` footer with the findahelpline.com link exists
+   from boot and survives to the disclosure.
 
 ## Gotchas
 

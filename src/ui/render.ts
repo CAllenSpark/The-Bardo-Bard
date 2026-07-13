@@ -6,6 +6,12 @@ import { computeProfile } from '../engine/profile';
 export interface RenderHandlers {
   onChoice: (choiceId: string) => void;
   onExit: (exitId: StandingExitId) => void;
+  onVigil: (rungId: string) => void;
+}
+
+export interface RenderOptions {
+  /** A one-line acknowledgment played above the node text (a Vigil fold). */
+  ackLine?: string;
 }
 
 const EXIT_LABELS: Record<StandingExitId, string> = {
@@ -13,8 +19,10 @@ const EXIT_LABELS: Record<StandingExitId, string> = {
   exit_light: 'WALK INTO THE LIGHT',
 };
 
-/** True once the player is past the boot screens and inside the game proper. */
+/** True once the player is past the boot screens and inside the game proper.
+ *  The omega passages sit outside the game's frame — no doors there. */
 function inPlay(graph: ContentGraph, state: GameState): boolean {
+  if (state.node.startsWith('omega_')) return false;
   return !state.ended && getNode(graph, state.node).act >= 1;
 }
 
@@ -23,6 +31,7 @@ export function render(
   graph: ContentGraph,
   state: GameState,
   handlers: RenderHandlers,
+  options: RenderOptions = {},
 ): void {
   const node = getNode(graph, state.node);
   root.textContent = '';
@@ -31,12 +40,26 @@ export function render(
   screen.className = 'screen';
   screen.setAttribute('aria-label', node.a11y);
 
+  if (options.ackLine) {
+    const ack = document.createElement('pre');
+    ack.className = 'bard-text ack';
+    ack.textContent = options.ackLine;
+    screen.appendChild(ack);
+  }
+
   const text = document.createElement('pre');
   text.className = 'bard-text';
-  text.setAttribute('role', 'status');
-  text.setAttribute('aria-live', 'polite');
   text.textContent = pickText(node.text, state.flags);
   screen.appendChild(text);
+
+  // The Vigil speaks into this region; aria-live announces each new beat
+  // without re-reading the whole screen. Present (empty) on every node so the
+  // live region exists before content arrives.
+  const vigilLog = document.createElement('div');
+  vigilLog.className = 'vigil-log';
+  vigilLog.setAttribute('role', 'log');
+  vigilLog.setAttribute('aria-live', 'polite');
+  screen.appendChild(vigilLog);
 
   const choices = document.createElement('div');
   choices.className = 'choices';
@@ -96,4 +119,48 @@ export function render(
     }
     root.appendChild(doors);
   }
+}
+
+/** Append a Vigil beat to the live log — announced, never re-announced. */
+export function appendVigilBeat(root: HTMLElement, text: string): void {
+  const log = root.querySelector('.vigil-log');
+  if (!log) return;
+  const beat = document.createElement('pre');
+  beat.className = 'bard-text vigil-beat';
+  beat.textContent = text;
+  log.appendChild(beat);
+}
+
+/** Append a Vigil option. Options accrete and never expire (Compass §4.1). */
+export function appendVigilOption(
+  root: HTMLElement,
+  rungId: string,
+  label: string,
+  handlers: RenderHandlers,
+): void {
+  const choices = root.querySelector('.choices');
+  if (!choices) return;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = rungId === 'endgame' ? 'choice endgame' : 'choice rung';
+  button.dataset.rungId = rungId;
+  button.textContent = `[ ${label} ]`;
+  button.addEventListener('click', () => handlers.onVigil(rungId));
+  choices.appendChild(button);
+}
+
+/** The crisis signpost (Compass §9.3/§9.8): present site-wide, quiet, real. */
+export function ensureCrisisFooter(): void {
+  if (document.querySelector('.crisis')) return;
+  const footer = document.createElement('footer');
+  footer.className = 'crisis';
+  const line = document.createElement('p');
+  line.append('This is a game about death — not a substitute for a person. If you are carrying more than a game should ask: ');
+  const link = document.createElement('a');
+  link.href = 'https://findahelpline.com';
+  link.rel = 'noopener';
+  link.textContent = 'findahelpline.com';
+  line.appendChild(link);
+  footer.appendChild(line);
+  document.body.appendChild(footer);
 }

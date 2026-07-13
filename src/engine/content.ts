@@ -2,6 +2,7 @@ import type { ContentGraph, EncounterNode } from './types';
 
 import bootFile from '../../content/system/boot.json';
 import exitsFile from '../../content/system/exits.json';
+import omegaFile from '../../content/system/omega.json';
 import act1File from '../../content/acts/act1.json';
 import act2File from '../../content/acts/act2.json';
 import act3File from '../../content/acts/act3.json';
@@ -16,6 +17,7 @@ interface ContentFile {
 const FILES: ContentFile[] = [
   bootFile as unknown as ContentFile,
   exitsFile as unknown as ContentFile,
+  omegaFile as unknown as ContentFile,
   act1File as unknown as ContentFile,
   act2File as unknown as ContentFile,
   act3File as unknown as ContentFile,

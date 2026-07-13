@@ -617,3 +617,21 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   phase** — added to the verify skill; first run caught the fixed doors bar
   covering choice buttons on long screens → replaced with a sticky in-flow bar,
   re-verified green at all three widths. Bundle: 18.4 KB gz of 300 KB.
+- **2026-07-13 — Session 1 (cont.), Phase 2 complete (Gate 2 green).** THE
+  VIGIL lives. Ladder authored (`content/vigil/ladder.json`): nine rungs in
+  the CD's escalation order + END GAME, each with beat, label, acknowledgment,
+  and posture flags; §9.3 held throughout — hope insinuates and never promises
+  ("Someone could be there… Wouldn't they?"), the END GAME light is faceless,
+  the disclosure names every lever and retracts the reunion bait ("I have no
+  way to know. It usually works."), grief invites goodbyes never joining, the
+  §4.6 shadow-of-presence hands the player the last word. Conformity rung:
+  digit-free before its lock (validator-enforced); post-lock quotes only
+  labeled census truth via the seed-census stub. Engine: `vigilFold` /
+  `vigilEndGame` (pure), VigilClock wired to `visibilitychange` (one dry line
+  per §4.3), tally stub emits the exact {node,choice} events the Phase 3
+  Worker will receive, Ω soul record "The Unprocessed" (14 titles now).
+  Crisis signposting: site-wide quiet footer → findahelpline.com, asserted by
+  Gate 2. Real-Chromium verification via page.clock at 3 widths caught a
+  body-height flex bug (sticky doors bar trapped mid-page on long screens) —
+  fixed, audits strengthened. **Awaiting CD §9.3 sign-off on Vigil copy.**
+  Bundle 23.3 KB gz. Next: Phase 3, the Ledger.

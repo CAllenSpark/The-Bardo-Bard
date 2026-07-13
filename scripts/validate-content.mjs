@@ -85,8 +85,10 @@ export function validateContent() {
 
   // Graph audit (Gate 1): every node reachable — via choices from the start,
   // or via the engine-injected standing exits.
-  const reachable = new Set(['boot_notice']);
-  const queue = ['boot_notice'];
+  // BFS seeds: the boot screen plus engine-injected entry points (the Vigil's
+  // END GAME lands on omega_light without a graph edge).
+  const reachable = new Set(['boot_notice', 'omega_light']);
+  const queue = ['boot_notice', 'omega_light'];
   while (queue.length > 0) {
     const node = nodes.get(queue.shift());
     for (const choice of node?.choices ?? []) {
@@ -97,8 +99,9 @@ export function validateContent() {
     }
   }
   for (const node of nodes.values()) {
-    const isExit = /^exit_(return|light)_(early|mid|late)$/.test(node.id);
-    if (!reachable.has(node.id) && !isExit) {
+    const engineInjected =
+      /^exit_(return|light)_(early|mid|late)$/.test(node.id) || node.id === 'omega_light';
+    if (!reachable.has(node.id) && !engineInjected) {
       errors.push(`unreachable node: ${node.id}`);
     }
   }
@@ -130,8 +133,40 @@ export function validateContent() {
     }
   }
 
+  // Vigil ladder: every scheduled rung has authored beat/label (and ack +
+  // fold for temptation rungs); the conformity rung's pre-lock copy contains
+  // no digits (Compass §4.4 — numbers only after the V:conformity lock).
+  const ladder = loadJson(join(CONTENT, 'vigil', 'ladder.json'));
+  const ladderIds = [...ladder.rungs.map((r) => r.id), ladder.endgame.id];
+  for (const rung of ladder.rungs) {
+    if (!rung.beat || !rung.label || !rung.ack) {
+      errors.push(`vigil rung ${rung.id}: beat, label, and ack are all required`);
+    }
+    if (rung.id === 'conformity' && /\d/.test(`${rung.beat}${rung.label}`)) {
+      errors.push('conformity rung: beat/label must contain no digits before the lock (Compass §4.4)');
+    }
+  }
+  if (!ladder.endgame.beat || !ladder.endgame.label) {
+    errors.push('vigil endgame: beat and label are required');
+  }
+  if (ladder.endgame.ack) {
+    errors.push('vigil endgame must have no ack — it does not fold, it leaves');
+  }
+  if (!ladder.hiddenTabLine) errors.push('vigil ladder: hiddenTabLine is required');
+
+  // Omega passage exists and ends the game.
+  const omegaLight = nodes.get('omega_light');
+  const omegaDisclosure = nodes.get('omega_disclosure');
+  if (!omegaLight) errors.push('omega_light missing');
+  if (!omegaDisclosure) errors.push('omega_disclosure missing');
+  else if (!omegaDisclosure.terminal) errors.push('omega_disclosure must be terminal');
+
   // Vigil schedule: shape, order, and the §4.3 hard timing constraint.
   const schedule = loadJson(join(CONTENT, 'vigil', 'schedule.json'));
+  const scheduleIds = schedule.rungs.map((r) => r.id);
+  if (JSON.stringify(scheduleIds) !== JSON.stringify(ladderIds)) {
+    errors.push(`vigil schedule/ladder mismatch: [${scheduleIds}] vs [${ladderIds}]`);
+  }
   const rungIds = schedule.rungs.map((r) => r.id);
   if (JSON.stringify(rungIds) !== JSON.stringify(LADDER_RUNGS)) {
     errors.push(`vigil ladder rungs must be exactly [${LADDER_RUNGS.join(', ')}], got [${rungIds.join(', ')}]`);

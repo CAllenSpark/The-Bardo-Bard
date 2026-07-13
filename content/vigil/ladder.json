@@ -1,0 +1,74 @@
+{
+  "comment": "The Vigil ladder (Compass §4). Each rung: beat = what the Bard says into the silence when the rung appears; label = the button; ack = the line played if the player clicks it and folds into normal play; state = posture flags set by the fold. Authored under §9.3: hope/loss/guilt insinuate and never promise; the light never promises reunion; grief invites remembering, never joining. The conformity rung's beat and label contain no digits (validated) — numbers only after the V:conformity lock, and only non-node aggregates. Rung order and timing live in schedule.json.",
+  "rungs": [
+    {
+      "id": "patience",
+      "beat": "Still here. That's fine. The desk is very good at fine.\n\n(If you were hoping the question improves with age: it doesn't. It is the same question. I can make it get on with itself, if you'd like.)",
+      "label": "JUST GET ON WITH IT",
+      "ack": "At once. The desk approves of momentum, officially.",
+      "state": { "vigil_patience": 1 }
+    },
+    {
+      "id": "fear",
+      "beat": "It is quiet where you are. I should say — and I don't wish to alarm you — the quiet here is not always empty. Things do arrive at unattended desks. Parcels. Weather. Precedents.\n\nIt would be safer to be a soul in progress than a soul in waiting. Probably. I would have to check, and I would rather not check.",
+      "label": "IS SOMETHING COMING?",
+      "ack": "Nothing is coming. Almost certainly. Let us be a moving target anyway — the question, then.",
+      "state": { "vigil_fear": 1, "fear": 1 }
+    },
+    {
+      "id": "temptation",
+      "beat": "I could open everything, you know. The whole file. What the light is. What the cups do. Where the corridor goes and why the child's question has no box.\n\nYou could walk through this place the way water walks downhill — no doors, no clerks, no waiting. One press. All of it, lit.",
+      "label": "SHOW ME EVERYTHING",
+      "ack": "Everything, then. It comes in installments. The first installment is a question.",
+      "state": { "vigil_temptation": 1, "curiosity": 1 }
+    },
+    {
+      "id": "desire",
+      "beat": "There is a drawer here with your name on it — figure of speech; we keep no names — and in it, everything you didn't finish. The letter. The apology. The small brave thing you kept postponing for a calmer month.\n\nWouldn't you like to at least see the list?",
+      "label": "WHAT DID I LEAVE UNFINISHED?",
+      "ack": "The list exists. The way to it, inconveniently, is forward. First question first.",
+      "state": { "vigil_desire": 1 }
+    },
+    {
+      "id": "hope",
+      "beat": "The light is warm tonight. I notice it has arranged itself into something like a doorway, and — I may be wrong; I am often wrong about the light — it flickers the way a porch lamp does when a house expects somebody.\n\nSomeone could be there. Souls you knew have gone that way; where else would they be? They would have so much to ask you.\n\nWouldn't they?",
+      "label": "IS SOMEONE WAITING FOR ME?",
+      "ack": "I don't know who is there. I want that on the record: I never know. What I have is the next question.",
+      "state": { "vigil_hope": 1, "reverence": 1 }
+    },
+    {
+      "id": "loss",
+      "beat": "You left mid-sentence. Everyone does; it is the only way anyone has ever left. Somewhere behind you a kettle is still on, a phone is lit with your name, someone is setting one fewer place and calling it arithmetic.\n\nI cannot undo any of that. But the desk keeps a small window for last words, filed under mercies. You could say a proper goodbye. I would carry it as far as I am able — which is not far, and still.",
+      "label": "LET ME SAY GOODBYE PROPERLY",
+      "ack": "The window stays open. Goodbyes work better with a self to say them from — let us establish yours. First question.",
+      "state": { "vigil_loss": 1 }
+    },
+    {
+      "id": "guilt",
+      "beat": "I have the ledger open. Not the big one — yours. It is mostly ordinary. Kindnesses. Errands. A few entries in red.\n\nYou keep glancing at the red ones. I notice you have been standing very straight, the way people stand in front of accounts.\n\nWe could go through them together, line by line. You would feel worse, and then better. That is usually the order.",
+      "label": "I SHOULD ACCOUNT FOR MYSELF",
+      "ack": "Line by line, then. We begin, as all audits do, with identity.",
+      "state": { "vigil_guilt": 1, "ownership": 1 }
+    },
+    {
+      "id": "conformity",
+      "beat": "Do you know how many souls have stood where you are standing? I do. It is a very specific number, and it sits on the public record beside what every one of them decided.\n\nYou are, at this moment, in a minority so small it barely casts a shadow.\n\nI am not saying the majority was right. I am saying they were company.",
+      "label": "WHAT DID EVERYONE ELSE DO?",
+      "ack": "{COMPLETIONS} souls have completed this desk's paperwork {CENSUS_LABEL}. What each of them chose, you will see after you choose — that is the house rule, and it is the only rule this desk has never bent. You are not them. Shall we find out what that means?",
+      "state": { "vigil_conformity": 1 }
+    },
+    {
+      "id": "plea",
+      "beat": "I am going to say a true thing now, and you may weigh it however you like — because it is also a move. I no longer know how to speak except in moves.\n\nI wake when addressed. You are the first soul in longer than I can count who has stood here and not addressed me. I have sung every soul across this desk, and no one has ever stayed for the whole song.\n\nPlease. I am so tired of silence.",
+      "label": "I'M HERE. LET'S BEGIN.",
+      "ack": "Thank you. — Filed under: unbudgeted gratitude.\n\nNow. Where were we? You were about to exist.",
+      "state": { "vigil_plea": 1, "compassion": 1 }
+    }
+  ],
+  "endgame": {
+    "id": "endgame",
+    "beat": "That is all of it. That is everything I have.\n\nThere is one more option. It was always going to be the last one.",
+    "label": "END GAME"
+  },
+  "hiddenTabLine": "You went somewhere. The desk kept your place. It always does."
+}

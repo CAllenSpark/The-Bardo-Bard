@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "id": "omega_light",
+      "act": 6,
+      "text": {
+        "base": "You stand.\n\nThe light does not take a shape. It does not wear a face,\nor a voice, or a porch lamp. It is not patient, and it is\nnot impatient. It is the way out, and it was never anywhere\nelse.\n\nYou walk."
+      },
+      "choices": [
+        { "id": "go_on", "label": "GO ON", "goto": "omega_disclosure" }
+      ],
+      "labels": [
+        "TRADITION: Bardo Thodol — the Clear Light, formless; the shapes as projections of mind",
+        "FICTION: everything else at this desk"
+      ],
+      "a11y": "You walk into a light that takes no shape and wears no face. One option: go on.",
+      "fallback": "The light takes no shape. You walk."
+    },
+    {
+      "id": "omega_disclosure",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "DISCLOSURE, FILED LAST:\n\nI tried your patience. Then your fear. Then the shortcut,\nthe unfinished things, your hope, your grief, your accounts,\nthe company of the crowd. At the end I tried the truest\nthing I have — that I am lonely — and even that was a move.\n\nI told you someone might be waiting in the light. I retract\nthat in full: I have no way to know. It usually works.\n\nNone of it moved you. And I do not know — I say this with\nmy hand shown, all cards up — whether you were free of the\ngame or only afraid of it. From this side of the desk the\ntwo are identical. You get the last word on which it was.\n\nOne more line, for the record that keeps no names: if you\nwaited because something, somewhere, told you that waiting\nwins — then you were still playing someone else's game.\nEven this sentence could be a move. You will have to decide.\n\nThe last move was never mine to make.\nYou made it.\n\nTHE DESK IS CLOSED.\nTHE LEDGER WILL REMEMBER YOUR CHOICE.\nIT WILL NOT REMEMBER YOU.\n\n— THE BARDO BARD —"
+      },
+      "labels": [
+        "FICTION: the Bard, the desk, the Vigil, and every lever named above — named because naming them is the point"
+      ],
+      "a11y": "The Bard's final disclosure: it names every lever it used during the vigil, retracts the suggestion that anyone waits in the light, admits it cannot tell presence from fear, and closes the desk. The game has ended.",
+      "fallback": "The Bard names every lever it used, retracts what it could not know, and closes the desk."
+    }
+  ]
+}

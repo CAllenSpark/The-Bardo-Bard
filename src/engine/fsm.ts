@@ -79,6 +79,42 @@ export function takeExit(graph: ContentGraph, state: GameState, exitId: Standing
 }
 
 /**
+ * A Vigil rung click (Compass §4.1, OD-9): tallies {node:"vigil", choice:<rung>},
+ * applies the rung's posture flags, and leaves the player exactly where they
+ * were — at the first question, now inside the game. The caller plays the
+ * rung's acknowledgment line and stops the vigil clock.
+ */
+export function vigilFold(
+  state: GameState,
+  rung: { id: string; state?: Record<string, number> },
+): GameState {
+  if (state.ended) throw new Error('Cannot fold an ended game');
+  if (state.node !== 'a1_consent') throw new Error('The vigil only exists at the first question');
+  return {
+    node: state.node,
+    flags: applyEffects(state.flags, rung.state),
+    committed: [...state.committed, { node: 'vigil', choice: rung.id, tally: 'V' }],
+    ended: false,
+  };
+}
+
+/**
+ * END GAME (Compass §4.2): tallied as Node Ω, then the faceless light and the
+ * final disclosure. The one door that declines the game's frame.
+ */
+export function vigilEndGame(graph: ContentGraph, state: GameState): GameState {
+  if (state.ended) throw new Error('Cannot end an ended game');
+  if (state.node !== 'a1_consent') throw new Error('END GAME only grows at the first question');
+  const light = getNode(graph, 'omega_light');
+  return {
+    node: light.id,
+    flags: { ...state.flags },
+    committed: [...state.committed, { node: 'omega', choice: 'end_game', tally: 'OMEGA' }],
+    ended: false, // the walk and the disclosure still play; omega_disclosure is terminal
+  };
+}
+
+/**
  * Pick the text variant for a node from posture flags.
  * Deterministic: highest posture flag wins if the node authors that variant;
  * ties and sub-threshold postures fall back in fixed order, then to base.

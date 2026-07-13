@@ -23,6 +23,7 @@ interface ProfileDef extends Profile {
 
 interface ProfilesData {
   clauses: Record<string, Record<string, string>>;
+  omega: Profile;
   overrides: ProfileDef[];
   buckets: Record<string, Profile>;
 }
@@ -64,11 +65,15 @@ function overrideApplies(def: ProfileDef, state: GameState, verb: string): boole
 /** Compute the soul record for an ended run. Null when no destination was ever committed. */
 export function computeProfile(state: GameState): Profile | null {
   if (!state.ended) return null;
-  const verb = committedChoiceByTally(state, 'F1');
-  if (!verb) return null; // declining at boot leaves no record — by design
 
-  const def =
-    DATA.overrides.find((o) => overrideApplies(o, state, verb)) ?? DATA.buckets[verb];
+  // The Vigil's END GAME (Node Ω) has its own record — the near-blank one.
+  const def = committedChoiceByTally(state, 'OMEGA')
+    ? DATA.omega
+    : (() => {
+        const verb = committedChoiceByTally(state, 'F1');
+        if (!verb) return null; // declining at boot leaves no record — by design
+        return DATA.overrides.find((o) => overrideApplies(o, state, verb)) ?? DATA.buckets[verb];
+      })();
   if (!def) return null;
 
   return {
@@ -81,5 +86,9 @@ export function computeProfile(state: GameState): Profile | null {
 
 /** Exposed for tests: the gate requires 12–18 authored titles. */
 export function allTitles(): string[] {
-  return [...DATA.overrides.map((o) => o.title), ...Object.values(DATA.buckets).map((b) => b.title)];
+  return [
+    DATA.omega.title,
+    ...DATA.overrides.map((o) => o.title),
+    ...Object.values(DATA.buckets).map((b) => b.title),
+  ];
 }
