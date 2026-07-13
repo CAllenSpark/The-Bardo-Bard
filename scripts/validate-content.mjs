@@ -70,11 +70,64 @@ export function validateContent() {
     }
   }
 
-  // Standing exits exist and are terminal (Compass §3).
+  // Standing exits: all six progress-scaled passages exist, terminal, tallied F1 (Compass §3, OD-13).
   for (const exitId of STANDING_EXITS) {
-    const exit = nodes.get(exitId);
-    if (!exit) errors.push(`standing exit missing: ${exitId}`);
-    else if (!exit.terminal) errors.push(`standing exit ${exitId} must be terminal`);
+    for (const scale of ['early', 'mid', 'late']) {
+      const id = `${exitId}_${scale}`;
+      const exit = nodes.get(id);
+      if (!exit) errors.push(`standing exit missing: ${id}`);
+      else {
+        if (!exit.terminal) errors.push(`standing exit ${id} must be terminal`);
+        if (exit.tally !== 'F1') errors.push(`standing exit ${id} must tally F1`);
+      }
+    }
+  }
+
+  // Graph audit (Gate 1): every node reachable — via choices from the start,
+  // or via the engine-injected standing exits.
+  const reachable = new Set(['boot_notice']);
+  const queue = ['boot_notice'];
+  while (queue.length > 0) {
+    const node = nodes.get(queue.shift());
+    for (const choice of node?.choices ?? []) {
+      if (!reachable.has(choice.goto) && nodes.has(choice.goto)) {
+        reachable.add(choice.goto);
+        queue.push(choice.goto);
+      }
+    }
+  }
+  for (const node of nodes.values()) {
+    const isExit = /^exit_(return|light)_(early|mid|late)$/.test(node.id);
+    if (!reachable.has(node.id) && !isExit) {
+      errors.push(`unreachable node: ${node.id}`);
+    }
+  }
+
+  // Posture-variant coverage (Gate 1): every Act I–III node except the game's
+  // first question carries at least one authored posture variant.
+  for (const node of nodes.values()) {
+    if (node.act >= 1 && node.act <= 3 && node.id !== 'a1_consent') {
+      const variants = Object.keys(node.text).filter((k) => k !== 'base');
+      if (variants.length === 0) errors.push(`act ${node.act} node ${node.id} has no posture variants`);
+    }
+  }
+
+  // Dominance proxy (Gate 1): no two choices at a node are mechanically
+  // interchangeable or strictly redundant — every choice must differ in
+  // destination or state effects. (Flags are non-valenced by design — MDD v1
+  // §11: no variable reads as universally good — so full dominance is a copy
+  // review concern; this is the machine-checkable floor.)
+  for (const node of nodes.values()) {
+    const seenEffects = new Map();
+    for (const choice of node.choices ?? []) {
+      const signature = `${choice.goto}|${JSON.stringify(choice.state ?? {})}`;
+      if (seenEffects.has(signature)) {
+        errors.push(
+          `node ${node.id}: choices "${seenEffects.get(signature)}" and "${choice.id}" are mechanically identical`,
+        );
+      }
+      seenEffects.set(signature, choice.id);
+    }
   }
 
   // Vigil schedule: shape, order, and the §4.3 hard timing constraint.

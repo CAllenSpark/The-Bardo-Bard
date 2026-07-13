@@ -558,7 +558,7 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
 | OD-10 | **Conformity rung** (`[WHAT DID EVERYONE ELSE DO?]`) — builder addition | **Ratified by CD 2026-07-13** ("with radical vigor"); social pressure elevated to a named instrument of the piece (§3 Layer C) |
 | OD-11 | Dashboard vs. reveal-after-lock: how much census may a prospective player see pre-play? | **Resolved by CD 2026-07-13:** headlines only ("souls served" + the unexplained Ω row); per-node splits after a completed run; time-series trends deferred |
 | OD-12 | Share-glyph compact code carries the full committed-choice vector (more than the visible emoji), with a copy-time disclosure line | Open — proposed as specced in §7; CD may prefer code = visible emoji only (weakens Soul Analysis to act-level comparison) |
-| OD-13 | Standing-exit tally mapping: do early exits share F1 choices with Act VI verbs (`return` → RETURN; `light` as a tenth F1 choice), or get distinct early-exit choice IDs? | Open — decide during Phase 1 authoring. Proposed: shared choices, no early/late distinction (the Ledger stores no "when" anyway) |
+| OD-13 | Standing-exit tally mapping | **Resolved 2026-07-13 (Phase 1):** shared choices — exits tally F1 as `return` / `light` (`light` is the tenth F1 choice); no early/late distinction server-side. Passages scale early/mid/late client-side by act |
 
 ## 13. Session log (append-only)
 
@@ -598,3 +598,22 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   added** (§3): return-to-Earth and into-the-light available at every node from
   Act I; early exits fully honored with scaled endings; distinct from the
   Vigil's END GAME. Opened OD-13 (exit tally mapping). Phase 0 fully unblocked.
+- **2026-07-13 — Session 1 (cont.), Phase 1 complete (Gate 1 green).** The
+  spine authored end to end: all six acts as button-first encounters (consent →
+  light → cart + keeping question → Department + password subplot with Dead
+  Letter Office → symbolic life review → verdict → per-bucket interpretation
+  with the CORRECT/COMPLICATE/ACCEPT/REFUSE confirmation pattern → the Bard's
+  confession + Mirror beat → disclosure with per-posture lever receipts → nine
+  verb endings, each with its own sincere register per §8 parity). Six
+  progress-scaled standing-exit passages. Soul records: 13 authored titles
+  (12–18 gate) with reflections built strictly from committed choices via a
+  clause system, one shadow and one carried-forward question each. OD-13
+  resolved (shared `return`/`light` F1 choices). Gate 1 asserts: six archetype
+  playthroughs → six distinct verbs; graph audit (reachability, no dead ends,
+  fallback + a11y everywhere, posture variants on all Act I–III nodes, both
+  doors at every encounter, exit runs valid from first node and mid-game);
+  mechanical dominance floor (no two choices at a node interchangeable).
+  **CD directive recorded: mobile layout verification (375px + 320px) at every
+  phase** — added to the verify skill; first run caught the fixed doors bar
+  covering choice buttons on long screens → replaced with a sticky in-flow bar,
+  re-verified green at all three widths. Bundle: 18.4 KB gz of 300 KB.

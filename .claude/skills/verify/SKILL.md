@@ -34,18 +34,32 @@ Useful handles:
   present from Act I on, absent on boot and terminal screens.
 - All copy renders inside `#bardo`; assert on `page.textContent('#bardo')`.
 
+## Mobile is mandatory (CD directive 2026-07-13)
+
+Drive every flow at three widths: desktop (900px), 375px, and 320px. On each
+content-heavy screen (the seven-cup cart, the nine verbs, endings with soul
+records) run a tap-target audit: every button ≥ 40px tall, no horizontal page
+scroll, and — scrolled to the bottom — no button hidden under the doors bar.
+The doors bar is `position: sticky` in flow (a fixed overlay failed this audit
+once already; don't reintroduce it). Scroll buttons to `block: 'center'`
+before clicking on small viewports.
+
 ## Flows worth driving
 
-1. Boot → notice (`NOTICE, FILED IN PLAIN LANGUAGE`) → BEGIN → A1 (four options
-   + both doors) → seed path to `SEED CENSUS BOUNDARY` (fully terminal).
-2. Gentle decline at boot (`NOT TODAY` → "Go well", terminal).
-3. A standing exit mid-run — ends the run, no buttons remain.
+1. Boot → notice (`NOTICE, FILED IN PLAIN LANGUAGE`) → BEGIN → full spine to a
+   verb ending: A1 → light → cart (`lethe` detours through the keeping
+   question) → Department (`offer_password` → `key` detours through the Dead
+   Letter Office) → life review → verdict → interpretation → confession →
+   disclosure → nine verbs. Assert the ending passage AND the `— SOUL RECORD —`
+   block (title, reflection traceable to the actual choices, shadow, question).
+2. Gentle decline at boot (`NOT TODAY` → "Go well", terminal, NO soul record).
+3. Standing exits at each scale: early (act 1), mid (acts 2–4), late (acts 5–6)
+   get different passages; all end the run with a record.
 4. Posture variants: choose `define_you` (curiosity) then check A2 serves the
    curious light ("naming it feels important").
 5. Keyboard-only: Tab + Enter must drive everything.
-6. 375px viewport: buttons ≥ 44px tall.
-7. Collect console errors for the whole session; expect zero.
-8. Vigil (Phase 2+): timers are visibility-gated — use fake timers in vitest for
+6. Collect console errors for the whole session; expect zero.
+7. Vigil (Phase 2+): timers are visibility-gated — use fake timers in vitest for
    ladder timing; in Playwright, only smoke-test that stillness produces the
    first authored beat.
 

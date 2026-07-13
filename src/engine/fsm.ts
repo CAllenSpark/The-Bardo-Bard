@@ -56,18 +56,23 @@ export function advance(graph: ContentGraph, state: GameState, choiceId: string)
 
 /**
  * Take a standing exit (Compass §3: the doors are always in the room).
- * Valid from any non-terminal node once play has begun; ends the run.
+ * Valid from any non-terminal node once play has begun; ends the run with a
+ * passage scaled to how far the player got (early / mid / late by act).
+ * OD-13 (resolved): exits tally F1 with the shared choices `return` / `light`.
  */
 export function takeExit(graph: ContentGraph, state: GameState, exitId: StandingExitId): GameState {
   if (state.ended) throw new Error('Cannot exit an ended game');
   if (!STANDING_EXITS.includes(exitId)) throw new Error(`Unknown exit: ${exitId}`);
-  const exitNode = getNode(graph, exitId);
+  const act = getNode(graph, state.node).act;
+  const scale = act <= 1 ? 'early' : act <= 4 ? 'mid' : 'late';
+  const exitNode = getNode(graph, `${exitId}_${scale}`);
+  const f1Choice = exitId === 'exit_return' ? 'return' : 'light';
   return {
     node: exitNode.id,
     flags: { ...state.flags },
     committed: [
       ...state.committed,
-      { node: exitNode.id, choice: exitId, ...(exitNode.tally ? { tally: exitNode.tally } : {}) },
+      { node: exitNode.id, choice: f1Choice, ...(exitNode.tally ? { tally: exitNode.tally } : {}) },
     ],
     ended: true,
   };

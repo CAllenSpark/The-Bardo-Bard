@@ -1,6 +1,7 @@
 import type { ContentGraph, GameState, StandingExitId } from '../engine/types';
 import { STANDING_EXITS } from '../engine/types';
 import { getNode, pickText } from '../engine/fsm';
+import { computeProfile } from '../engine/profile';
 
 export interface RenderHandlers {
   onChoice: (choiceId: string) => void;
@@ -49,6 +50,34 @@ export function render(
     choices.appendChild(button);
   }
   screen.appendChild(choices);
+
+  // The soul record — rendered on every true ending (never at the boot decline).
+  if (state.ended && node.act >= 1) {
+    const profile = computeProfile(state);
+    if (profile) {
+      const record = document.createElement('section');
+      record.className = 'profile';
+      record.setAttribute('aria-label', 'Your soul record: a title, a reflection, a shadow, and a question carried forward.');
+      const heading = document.createElement('p');
+      heading.className = 'profile-rule';
+      heading.textContent = '— SOUL RECORD —';
+      const title = document.createElement('h2');
+      title.className = 'profile-title';
+      title.textContent = profile.title;
+      const reflection = document.createElement('p');
+      reflection.className = 'profile-body';
+      reflection.textContent = profile.reflection;
+      const shadow = document.createElement('p');
+      shadow.className = 'profile-dim';
+      shadow.textContent = profile.shadow;
+      const question = document.createElement('p');
+      question.className = 'profile-dim';
+      question.textContent = profile.question;
+      record.append(heading, title, reflection, shadow, question);
+      screen.appendChild(record);
+    }
+  }
+
   root.appendChild(screen);
 
   // The doors are always in the room (Compass §3) — from Act I on, never after the end.

@@ -4,11 +4,18 @@ import { advance, createState, pickText, stateVector, takeExit } from '../src/en
 
 const graph = buildGraph();
 
-function playedToA1() {
-  return advance(graph, createState(graph), 'begin');
+function playPath(choices: string[]) {
+  let state = createState(graph);
+  for (const choice of choices) state = advance(graph, state, choice);
+  return state;
 }
 
-describe('deterministic FSM (Gate 0)', () => {
+const SPIRAL_PATH = [
+  'begin', 'define_you', 'question', 'distillation', 'take_number', 'answer',
+  'loved_well', 'both', 'accept', 'answer_question', 'stand', 'spiral',
+];
+
+describe('deterministic FSM (Gates 0-1)', () => {
   it('boots to the notice and reaches Act I on BEGIN', () => {
     const state = createState(graph);
     expect(state.node).toBe('boot_notice');
@@ -17,54 +24,69 @@ describe('deterministic FSM (Gate 0)', () => {
     expect(a1.ended).toBe(false);
   });
 
-  it('is deterministic: identical inputs produce identical states and vectors', () => {
-    const run = () => {
-      let s = playedToA1();
-      s = advance(graph, s, 'define_you');
-      s = advance(graph, s, 'question');
-      s = advance(graph, s, 'distillation');
-      return s;
-    };
-    const a = run();
-    const b = run();
+  it('is deterministic across the full spine: identical inputs, identical vectors', () => {
+    const a = playPath(SPIRAL_PATH);
+    const b = playPath(SPIRAL_PATH);
     expect(a).toEqual(b);
     expect(stateVector(a)).toBe(stateVector(b));
-    expect(a.ended).toBe(true); // seed boundary is terminal
+    expect(a.node).toBe('end_spiral');
+    expect(a.ended).toBe(true);
   });
 
   it('applies additive state effects from choices', () => {
-    let s = playedToA1();
-    s = advance(graph, s, 'who_is_asking');
+    let s = playPath(['begin', 'who_is_asking']);
     expect(s.flags['defiance']).toBe(1);
     s = advance(graph, s, 'refuse');
     expect(s.flags['defiance']).toBe(2);
   });
 
   it('records committed choices with their Ledger tally keys', () => {
-    let s = playedToA1();
-    s = advance(graph, s, 'yes');
-    const committed = s.committed.at(-1);
-    expect(committed).toMatchObject({ node: 'a1_consent', choice: 'yes', tally: 'A1' });
+    const s = playPath(['begin', 'yes']);
+    expect(s.committed.at(-1)).toMatchObject({ node: 'a1_consent', choice: 'yes', tally: 'A1' });
   });
 
-  it('rejects unknown choices and unknown nodes', () => {
-    const s = playedToA1();
+  it('routes Lethe and Mercy through the keeping question; other cups skip it', () => {
+    expect(playPath(['begin', 'yes', 'approach', 'lethe']).node).toBe('b2_keep_one');
+    expect(playPath(['begin', 'yes', 'approach', 'mercy']).node).toBe('b2_keep_one');
+    expect(playPath(['begin', 'yes', 'approach', 'tap_water']).node).toBe('c0_dept_intro');
+  });
+
+  it('the recited-not-meant password routes through the Dead Letter Office, gently', () => {
+    const s = playPath(['begin', 'yes', 'approach', 'tap_water', 'take_number', 'offer_password', 'key']);
+    expect(s.node).toBe('c2_dead_letter');
+    const onward = advance(graph, s, 'continue');
+    expect(onward.node).toBe('d1_review');
+  });
+
+  it('rejects unknown choices', () => {
+    const s = playPath(['begin']);
     expect(() => advance(graph, s, 'recite_the_password')).toThrow(/Unknown choice/);
   });
+});
 
-  it('standing exits end the run from any non-terminal node and tally F1', () => {
-    const atA1 = takeExit(graph, playedToA1(), 'exit_light');
-    expect(atA1.ended).toBe(true);
-    expect(atA1.committed.at(-1)).toMatchObject({ node: 'exit_light', tally: 'F1' });
+describe('standing exits (Compass §3, OD-13)', () => {
+  it('scales the passage to progress: early, mid, late', () => {
+    const early = takeExit(graph, playPath(['begin']), 'exit_light');
+    expect(early.node).toBe('exit_light_early');
 
-    let mid = advance(graph, playedToA1(), 'no');
-    const atA2 = takeExit(graph, mid, 'exit_return');
-    expect(atA2.ended).toBe(true);
-    expect(atA2.node).toBe('exit_return');
+    const mid = takeExit(graph, playPath(['begin', 'no', 'refuse', 'tap_water']), 'exit_return');
+    expect(mid.node).toBe('exit_return_mid');
+
+    const late = takeExit(graph, playPath(SPIRAL_PATH.slice(0, 10)), 'exit_light'); // at f0, act 6
+    expect(late.node).toBe('exit_light_late');
+  });
+
+  it('tallies F1 with the shared return/light choices', () => {
+    const light = takeExit(graph, playPath(['begin']), 'exit_light');
+    expect(light.committed.at(-1)).toMatchObject({ choice: 'light', tally: 'F1' });
+    expect(light.ended).toBe(true);
+
+    const ret = takeExit(graph, playPath(['begin', 'yes']), 'exit_return');
+    expect(ret.committed.at(-1)).toMatchObject({ choice: 'return', tally: 'F1' });
   });
 
   it('refuses to advance or exit an ended game', () => {
-    const ended = takeExit(graph, playedToA1(), 'exit_light');
+    const ended = takeExit(graph, playPath(['begin']), 'exit_light');
     expect(() => advance(graph, ended, 'yes')).toThrow(/ended/);
     expect(() => takeExit(graph, ended, 'exit_return')).toThrow(/ended/);
   });
@@ -79,7 +101,6 @@ describe('posture-variant text selection', () => {
 
   it('serves the dominant authored posture variant deterministically', () => {
     expect(pickText(node.text, { curiosity: 2, fear: 1 })).toBe(node.text.curiosity);
-    // Tie goes to fixed variant order (fear before curiosity), same answer every time.
     expect(pickText(node.text, { curiosity: 1, fear: 1 })).toBe(node.text.fear);
   });
 

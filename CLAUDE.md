@@ -54,3 +54,5 @@ It is also an anonymous census (the Ledger) and an art piece about agency.
   quieter and funnier than you first drafted.
 - Claude is a full creative collaborator: raise emotional/intellectual design
   questions with the creative director rather than silently resolving them.
+- **Mobile always**: verify every phase's work at 375px and 320px widths as
+  well as desktop (CD directive 2026-07-13; protocol in the verify skill).

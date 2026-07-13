@@ -8,7 +8,7 @@ gate; do not advance past a failing gate. Full gate definitions:
 |---|---|---|
 | Alignment | Sources ingested, Compass v1.0 authored, heart mechanic (the Vigil) specced | ✅ 2026-07-13 |
 | 0 — Scaffold | Repo layout, content schema + validator, FSM skeleton, 3 seed encounters, test harness | ✅ 2026-07-13 — **Gate 0 green** (`npm run gate0`: content valid, 24 tests, typecheck, build 4.9 KB gz of 300 KB, file:// boot check; verified end-to-end in real Chromium incl. keyboard-only and 375px viewport) |
-| 1 — The Spine | Six acts authored, nine verbs reachable, posture variants, confirmation pattern, profiles | ⬜ |
+| 1 — The Spine | Six acts authored, nine verbs reachable, posture variants, confirmation pattern, profiles | ✅ 2026-07-13 — **Gate 1 green** (43 tests: 6 archetypes → 6 distinct verbs, graph audit, dominance floor, 13 profile titles; verified in Chromium at 900/375/320px — mobile audit caught + fixed a doors-bar overlap; 18.4 KB gz) |
 | 2 — The Vigil | Temptation ladder, visibility-gated timing, END GAME, Node Ω | ⬜ |
 | 3 — The Ledger | Worker + KV, reveal-after-lock, offline census, totenpass, dashboard | ⬜ |
 | 4 — The Body | Sigil, share glyph, Soul Analysis, Rorschach, a11y pass | ⬜ |

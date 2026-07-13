@@ -1,0 +1,112 @@
+{
+  "nodes": [
+    {
+      "id": "c0_dept_intro",
+      "act": 3,
+      "text": {
+        "base": "DEPARTMENT OF ONTOLOGICAL CLAIMS.\n\nThe queue contains: a scribe who requires documentation for\nsilence. A toll collector with private doubts about the\ndestination. A guide who insists there is no guide, and has\na form about it. A neuroscientist who is fairly sure none of\nthis is happening. An ancestor who only wants to know if you\nate. A routing intelligence. And a child, asking something\nthe Department has been unable to classify for some time.\n\nNOW SERVING: YOU.",
+        "fear": "DEPARTMENT OF ONTOLOGICAL CLAIMS.\n\nThe queue is long, and everyone in it is looking at you —\nno. Almost no one in it is looking at you. A scribe, a toll\ncollector, a guide who denies being one, a neuroscientist,\nan ancestor, a routing intelligence, a child. The child is\nlooking at you.\n\nNOW SERVING: YOU.",
+        "curiosity": "DEPARTMENT OF ONTOLOGICAL CLAIMS.\n\nThe queue contains seven kinds of authority, none of which\nagree on what the queue is for. You could ask each of them.\nYou are, in fact, already composing the questions.\nThe child in the corner appears to have had the same idea\nfirst, and to have gotten further.\n\nNOW SERVING: YOU.",
+        "defiance": "DEPARTMENT OF ONTOLOGICAL CLAIMS.\n\nA department implies jurisdiction. Jurisdiction implies\nconsent. You are turning this thought over like a coin\nas the queue watches — a scribe, a toll collector, a\nreluctant guide, a neuroscientist, an ancestor, a routing\nintelligence, a child.\n\nNOW SERVING: YOU. Allegedly.",
+        "reverence": "DEPARTMENT OF ONTOLOGICAL CLAIMS.\n\nThe queue holds seven ways of being met after a life: the\nscribe, the toll collector, the guide who denies being one,\nthe neuroscientist, the ancestor, the routing intelligence,\nthe child. Old rooms, all of them, wearing office furniture.\n\nNOW SERVING: YOU."
+      },
+      "choices": [
+        { "id": "take_number", "label": "TAKE A NUMBER", "state": { "comply": 1 }, "goto": "c1_claims" },
+        { "id": "approach_desk", "label": "APPROACH THE DESK UNINVITED", "state": { "defiance": 1 }, "goto": "c1_claims" }
+      ],
+      "labels": [
+        "TRADITION: Egyptian Book of Coming Forth by Day — documentation for the dead; First Apocalypse of James — the toll collectors",
+        "FICTION: the Department, its queue, and its furniture"
+      ],
+      "a11y": "The Department of Ontological Claims: a queue of seven incompatible authorities, now serving you. Two options: take a number, or approach the desk uninvited.",
+      "fallback": "A department of incompatible authorities. Take a number, or don't."
+    },
+    {
+      "id": "c1_claims",
+      "act": 3,
+      "tally": "C1",
+      "text": {
+        "base": "The clerk looks up. It has been looking up for centuries;\nit has the neck for it.\n\nSTATE YOUR NAME, ORIGIN, AND ONTOLOGICAL CATEGORY.\nSUPPORTING DOCUMENTATION MAY INCLUDE: A LIFE.\n\nThe pen waits. The queue waits. Somewhere behind you\nthe child asks its question again, softly, to no one.",
+        "fear": "The clerk looks up, and you understand that the desk has\nprocessed everyone you have ever lost, and said the same\nwords to each of them.\n\nSTATE YOUR NAME, ORIGIN, AND ONTOLOGICAL CATEGORY.\nSUPPORTING DOCUMENTATION MAY INCLUDE: A LIFE.\n\nThe pen waits.",
+        "curiosity": "The clerk looks up. You notice the pen has no ink, and has\nbeen writing anyway.\n\nSTATE YOUR NAME, ORIGIN, AND ONTOLOGICAL CATEGORY.\nSUPPORTING DOCUMENTATION MAY INCLUDE: A LIFE.\n\nThere are at least four interesting things wrong with that\nsentence, and you have time to pick one.",
+        "defiance": "The clerk looks up, unhurried, the way furniture is\nunhurried.\n\nSTATE YOUR NAME, ORIGIN, AND ONTOLOGICAL CATEGORY.\nSUPPORTING DOCUMENTATION MAY INCLUDE: A LIFE.\n\nIt does not say OR ELSE. It has never needed to,\nwhich is exactly the thing worth pushing on.",
+        "reverence": "The clerk looks up. Behind its eyes, briefly: scales, a\nfeather, a river, a queue of stars. Then office lighting.\n\nSTATE YOUR NAME, ORIGIN, AND ONTOLOGICAL CATEGORY.\nSUPPORTING DOCUMENTATION MAY INCLUDE: A LIFE.\n\nThe pen waits, respectfully. So does something older."
+      },
+      "choices": [
+        { "id": "answer", "label": "ANSWER PLAINLY", "state": { "comply": 1 }, "goto": "d1_review" },
+        { "id": "challenge_jurisdiction", "label": "CHALLENGE JURISDICTION", "state": { "defiance": 1 }, "goto": "d1_review" },
+        { "id": "ask_clerk", "label": "ASK THE CLERK ABOUT ITSELF", "state": { "curiosity": 1 }, "goto": "d1_review" },
+        { "id": "offer_password", "label": "OFFER THE PASSWORD", "state": { "protocol": 1, "reverence": 1 }, "goto": "c2_password" },
+        { "id": "compassion", "label": "OFFER COMPASSION INSTEAD", "state": { "compassion": 1 }, "goto": "d1_review" },
+        { "id": "silence", "label": "SAY NOTHING", "state": { "silence": 1 }, "goto": "d1_review" }
+      ],
+      "labels": [
+        "TRADITION: First Apocalypse of James (Nag Hammadi) — the interrogation at the tolls",
+        "FICTION: the clerk's neck, the inkless pen"
+      ],
+      "a11y": "A clerk demands your name, origin, and ontological category. Six options: answer plainly; challenge jurisdiction; ask the clerk about itself; offer the password; offer compassion instead; or say nothing.",
+      "fallback": "The clerk asks who you are and by what right. Answer how you like, including not at all."
+    },
+    {
+      "id": "c2_password",
+      "act": 3,
+      "tally": "C2",
+      "text": {
+        "base": "You say the old words, the ones cut into gold:\n\n« I am a child of Earth and starry Heaven,\n  but my race is of Heaven alone. »\n\nThe clerk stops writing. The Department goes quiet the way\na courtroom does, or a forest.\n\n\"That is the correct password,\" the clerk says, gently.\n\"It has been the correct password for twenty-six centuries.\nOne field remains on the form.\"\n\nWHAT DO THE WORDS MEAN, TO THE ONE SAYING THEM?",
+        "fear": "You say the old words, the ones cut into gold, and your\nvoice does the thing voices do in empty churches.\n\n« I am a child of Earth and starry Heaven,\n  but my race is of Heaven alone. »\n\nThe clerk stops writing. \"Correct,\" it says, gently, which\nis somehow worse. \"One field remains on the form.\"\n\nWHAT DO THE WORDS MEAN, TO THE ONE SAYING THEM?",
+        "curiosity": "You say the old words, the ones cut into gold, watching\nthe clerk closely to see which part lands.\n\n« I am a child of Earth and starry Heaven,\n  but my race is of Heaven alone. »\n\nThe clerk stops writing. \"Correct for twenty-six centuries,\"\nit says. \"Which was never the hard part. One field remains.\"\n\nWHAT DO THE WORDS MEAN, TO THE ONE SAYING THEM?",
+        "reverence": "You say the old words, the ones cut into gold, the ones\ncarried under tongues into graves.\n\n« I am a child of Earth and starry Heaven,\n  but my race is of Heaven alone. »\n\nThe clerk stops writing, and for one long moment the office\nis a hillside in Thessaly. \"Correct,\" it says. \"It was\nalways correct. One field remains on the form.\"\n\nWHAT DO THE WORDS MEAN, TO THE ONE SAYING THEM?"
+      },
+      "choices": [
+        {
+          "id": "remember",
+          "label": "THEY MEAN I REMEMBER WHAT I AM",
+          "state": { "reverence": 1, "understanding": 1 },
+          "goto": "d1_review"
+        },
+        {
+          "id": "key",
+          "label": "THEY MEAN NOTHING — THEY ARE A KEY",
+          "state": { "protocol": 1 },
+          "goto": "c2_dead_letter"
+        },
+        {
+          "id": "unsure",
+          "label": "I DON'T KNOW YET. I SAID THEM ANYWAY",
+          "state": { "curiosity": 1, "honesty": 1 },
+          "goto": "d1_review"
+        },
+        {
+          "id": "withdraw",
+          "label": "WITHDRAW THE PASSWORD",
+          "state": { "defiance": 1 },
+          "goto": "d1_review"
+        }
+      ],
+      "labels": [
+        "TRADITION: Orphic gold lamellae — the declaration quoted accurately (Petelia tablet)",
+        "FICTION: the twenty-six-century approval queue"
+      ],
+      "a11y": "You recite the Orphic password and the clerk confirms it is correct — then asks what the words mean to the one saying them. Four options: they mean I remember what I am; they mean nothing, they are a key; I don't know yet, I said them anyway; or withdraw the password.",
+      "fallback": "The password is correct. The clerk asks what it means to you. That part has no password."
+    },
+    {
+      "id": "c2_dead_letter",
+      "act": 3,
+      "text": {
+        "base": "The clerk nods, without judgment, and stamps the form:\n\nDELIVERABLE. ADDRESSEE NOT YET PRESENT.\n\nYou are directed down a corridor to the Dead Letter Office,\nwhere correctly recited words wait for the people who will\none day mean them. Shelves of them. Whole choirs of them.\nIt is warmer in here than you expected.\n\nNothing here is wrong. It is only early.\nA bell, somewhere. The Department resumes.",
+        "curiosity": "The clerk nods, without judgment, and stamps the form:\n\nDELIVERABLE. ADDRESSEE NOT YET PRESENT.\n\nThe Dead Letter Office, when you find it, is full of\ncorrectly recited words waiting for the people who will one\nday mean them. You read a few. Some of them are yours,\nfiled under a date that hasn't happened.\n\nNothing here is wrong. It is only early.\nA bell, somewhere. The Department resumes.",
+        "defiance": "The clerk nods, without judgment, which you find faintly\ninfuriating, and stamps the form:\n\nDELIVERABLE. ADDRESSEE NOT YET PRESENT.\n\nThe Dead Letter Office is warm and unbothered, shelf after\nshelf of correct words waiting for their people. No one here\nfailed. The stamp does not say FAILED. You checked.\n\nA bell, somewhere. The Department resumes."
+      },
+      "choices": [
+        { "id": "continue", "label": "CONTINUE", "goto": "d1_review" }
+      ],
+      "labels": [
+        "FICTION: the Dead Letter Office of correctly recited words",
+        "INTERPRETATION: no protocol liberates someone who does not understand their own answer"
+      ],
+      "a11y": "The password without its meaning is filed as deliverable to an addressee not yet present. The Dead Letter Office is warm and without judgment. One option: continue.",
+      "fallback": "The words were right. The meaning is still in transit. Continue."
+    }
+  ]
+}

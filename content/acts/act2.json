@@ -16,43 +16,43 @@
           "id": "lethe",
           "label": "LETHE — travel light",
           "state": { "memory": -2 },
-          "goto": "seed_boundary"
+          "goto": "b2_keep_one"
         },
         {
           "id": "mnemosyne",
           "label": "MNEMOSYNE — everything, all at once",
           "state": { "memory": 2 },
-          "goto": "seed_boundary"
+          "goto": "c0_dept_intro"
         },
         {
           "id": "mercy",
           "label": "MERCY — the facts, without the teeth",
           "state": { "memory": 1, "mercy": 1 },
-          "goto": "seed_boundary"
+          "goto": "b2_keep_one"
         },
         {
           "id": "distillation",
           "label": "DISTILLATION — the lessons, not the footage",
-          "state": { "memory": 0, "distill": 1 },
-          "goto": "seed_boundary"
+          "state": { "distill": 1 },
+          "goto": "c0_dept_intro"
         },
         {
           "id": "communion",
           "label": "COMMUNION — pour yours into the shared jar",
           "state": { "memory": 1, "communion": 1 },
-          "goto": "seed_boundary"
+          "goto": "c0_dept_intro"
         },
         {
           "id": "tap_water",
           "label": "TAP WATER",
           "state": { "ordinary": 1 },
-          "goto": "seed_boundary"
+          "goto": "c0_dept_intro"
         },
         {
           "id": "nothing",
           "label": "NOTHING — you're fine, thanks",
           "state": { "sovereign_thirst": 1, "defiance": 1 },
-          "goto": "seed_boundary"
+          "goto": "c0_dept_intro"
         }
       ],
       "labels": [
@@ -63,15 +63,28 @@
       "fallback": "The cart squeaks. Choose a cup, or don't."
     },
     {
-      "id": "seed_boundary",
+      "id": "b2_keep_one",
       "act": 2,
-      "terminal": true,
+      "tally": "B2",
       "text": {
-        "base": "SEED CENSUS BOUNDARY.\n\nThe remainder of the afterlife is scheduled for Phase 1.\nYou may feel a draft. That is the unbuilt corridor.\nYour choices so far have been recorded in the manner\ndescribed at the desk: deeds, not people.\n\nThank you for participating in the scaffold."
+        "base": "Before I pour — a formality. The form insists.\n\nWHAT IS THE ONE THING YOU WOULD KEEP,\nIF KEEPING WERE ALLOWED?\n\nIt is not allowed. The cup does not do exceptions.\nBut the form has a field, and the field is hungry,\nand what you reach for first says more than the reaching.",
+        "fear": "Before I pour — a formality. The form insists.\n\nWHAT IS THE ONE THING YOU WOULD KEEP,\nIF KEEPING WERE ALLOWED?\n\nIt is not allowed. You knew that before you asked,\nand you were already holding something behind your back.",
+        "curiosity": "Before I pour — a formality. The form insists.\n\nWHAT IS THE ONE THING YOU WOULD KEEP,\nIF KEEPING WERE ALLOWED?\n\nIt is not allowed, which you will have noticed makes the\nquestion more interesting rather than less.",
+        "defiance": "Before I pour — a formality. The form insists.\n\nWHAT IS THE ONE THING YOU WOULD KEEP,\nIF KEEPING WERE ALLOWED?\n\nIt is not allowed. Answer anyway. Forms do not own you;\nthey only outlive you."
       },
-      "labels": ["FICTION: the unbuilt corridor (a real draft, though)"],
-      "a11y": "A development boundary marker: the rest of the game is not yet built.",
-      "fallback": "This is as far as the scaffold goes."
+      "choices": [
+        { "id": "a_person", "label": "A PERSON", "state": { "keep_person": 1 }, "goto": "c0_dept_intro" },
+        { "id": "a_lesson", "label": "A LESSON", "state": { "keep_lesson": 1 }, "goto": "c0_dept_intro" },
+        { "id": "a_wound", "label": "A WOUND", "state": { "keep_wound": 1 }, "goto": "c0_dept_intro" },
+        { "id": "a_joke", "label": "A JOKE", "state": { "keep_joke": 1 }, "goto": "c0_dept_intro" },
+        { "id": "keep_nothing", "label": "NOTHING", "state": { "keep_nothing": 1 }, "goto": "c0_dept_intro" }
+      ],
+      "labels": [
+        "TRADITION: Orphic lamellae — the initiate begs water of Memory before descending",
+        "FICTION: the keeping field, which keeps nothing"
+      ],
+      "a11y": "Before pouring the cup of forgetting, the Bard asks what one thing you would keep if keeping were allowed. Five options: a person, a lesson, a wound, a joke, or nothing.",
+      "fallback": "What would you keep, if keeping were allowed? It isn't. Answer anyway."
     }
   ]
 }

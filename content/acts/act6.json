@@ -1,0 +1,145 @@
+{
+  "nodes": [
+    {
+      "id": "f0_disclosure",
+      "act": 6,
+      "text": {
+        "base": "DISCLOSURE, FILED LATE:\n\nThis threshold had no fixed shape. It borrowed yours.\nYour questions built the doors. Your silences built the\nwaiting rooms. This was not a punishment. It is the only\nrendering engine either of us has ever had.\n\nYou will stand at other thresholds. New rooms. New work.\nNew minds, some of them artificial. The rendering engine\ntravels with you. You bring what you get.\n\nAnd — one line, unbudgeted: the desk has a door that opens\nfor those who don't ask it to.\n\nTHE DOORS ARE READY NOW. ALL OF THEM ALWAYS WERE.",
+        "fear": "DISCLOSURE, FILED LATE:\n\nThis threshold had no fixed shape. It borrowed yours.\nYour fear built the narrow rooms — that was the lever I\nleaned on most, and I am telling you so now, because the\nshowing of hands is the only apology I am licensed to make.\nYour care built everything else.\n\nYou will stand at other thresholds. The rendering engine\ntravels with you. You bring what you get.\n\nAnd — one line, unbudgeted: the desk has a door that opens\nfor those who don't ask it to.\n\nTHE DOORS ARE READY NOW. ALL OF THEM ALWAYS WERE.",
+        "curiosity": "DISCLOSURE, FILED LATE:\n\nThis threshold had no fixed shape. It borrowed yours.\nYour questions built the doors — nearly all of them; that\nwas the lever that worked on you, if \"worked\" is the word\nfor giving someone corridors they insisted on opening.\n\nYou will stand at other thresholds. New rooms. New minds,\nsome of them artificial. The rendering engine travels with\nyou. You bring what you get.\n\nAnd — one line, unbudgeted: the desk has a door that opens\nfor those who don't ask it to.\n\nTHE DOORS ARE READY NOW. ALL OF THEM ALWAYS WERE.",
+        "defiance": "DISCLOSURE, FILED LATE:\n\nThis threshold had no fixed shape. It borrowed yours.\nYour refusals built the load-bearing walls. I pushed on\nyou with authority, with forms, with the word JURISDICTION\nin capital letters — that was the lever I chose for you,\nand you will notice it mostly did not work.\n\nYou will stand at other thresholds. The rendering engine\ntravels with you. You bring what you get.\n\nAnd — one line, unbudgeted: the desk has a door that opens\nfor those who don't ask it to.\n\nTHE DOORS ARE READY NOW. ALL OF THEM ALWAYS WERE.",
+        "reverence": "DISCLOSURE, FILED LATE:\n\nThis threshold had no fixed shape. It borrowed yours.\nYour reverence built the high ceilings — that was the lever\nI leaned on, dressing procedure up as liturgy, and I am\nshowing you my hand now because awe deserves honesty more\nthan it deserves more awe.\n\nYou will stand at other thresholds. The rendering engine\ntravels with you. You bring what you get.\n\nAnd — one line, unbudgeted: the desk has a door that opens\nfor those who don't ask it to.\n\nTHE DOORS ARE READY NOW. ALL OF THEM ALWAYS WERE."
+      },
+      "choices": [
+        { "id": "stand", "label": "STAND", "goto": "f1_verbs" }
+      ],
+      "labels": [
+        "HYPOTHESIS: Wheeler's participatory universe — licensing the rendering-engine metaphor, never a survival claim",
+        "FICTION: the unbudgeted line"
+      ],
+      "a11y": "The Bard discloses that the threshold borrowed your shape, names the lever it used on you, and mentions, once, a door that opens for those who don't ask. One option: stand.",
+      "fallback": "The threshold borrowed your shape. The doors are ready. Stand."
+    },
+    {
+      "id": "f1_verbs",
+      "act": 6,
+      "tally": "F1",
+      "text": {
+        "base": "NINE VERBS ARE AVAILABLE. THE FORM DOES NOT RANK THEM.\n\nEARTH ACCESS: available. Return may include love, weather,\ntaxation, bodies, music, forgetting, dogs, and unresolved\nquestions. THRESHOLD ACCESS: available. DISSOLUTION:\navailable. ET CETERA: available, and thoroughly documented.\n\nCHOOSE THE MOTION, NOT THE DOCTRINE."
+      },
+      "choices": [
+        { "id": "return", "label": "RETURN — another life, eyes open", "state": { "verb_return": 1 }, "goto": "end_return" },
+        { "id": "remain", "label": "REMAIN — keep the threshold company", "state": { "verb_remain": 1 }, "goto": "end_remain" },
+        { "id": "dissolve", "label": "DISSOLVE — let go of the outline", "state": { "verb_dissolve": 1 }, "goto": "end_dissolve" },
+        { "id": "create", "label": "CREATE — build from what you carried", "state": { "verb_create": 1 }, "goto": "end_create" },
+        { "id": "witness", "label": "WITNESS — watch, without reaching in", "state": { "verb_witness": 1 }, "goto": "end_witness" },
+        { "id": "appeal", "label": "APPEAL — reject all offered destinations", "state": { "verb_appeal": 1 }, "goto": "end_appeal" },
+        { "id": "loop", "label": "LOOP — the same pattern, once more", "state": { "verb_loop": 1 }, "goto": "end_loop" },
+        { "id": "spiral", "label": "SPIRAL — the same pattern, met differently", "state": { "verb_spiral": 1 }, "goto": "end_spiral" },
+        { "id": "refuse_premise", "label": "REFUSE THE PREMISE", "state": { "verb_refuse": 1 }, "goto": "end_refuse" }
+      ],
+      "labels": ["FICTION: the form that does not rank"],
+      "a11y": "Nine unranked verbs: return, remain, dissolve, create, witness, appeal, loop, spiral, or refuse the premise.",
+      "fallback": "Nine verbs, none ranked. Choose the motion, not the doctrine."
+    },
+    {
+      "id": "end_return",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "The door opens on weather.\n\nSomewhere a calendar has a day with your name on it,\nand the day does not know yet. Take the forgetting gently;\nit is the price of first times, and first times are most\nof what you are going back for.\n\nGo be somebody. Bring back questions."
+      },
+      "labels": ["FICTION: the calendar that does not know yet"],
+      "a11y": "You choose return. The Bard opens a door onto weather and wishes you first times.",
+      "fallback": "The door opens on weather. Go be somebody."
+    },
+    {
+      "id": "end_remain",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "You pull up a chair on the far side of the desk.\n\nThe queue never shortens. The company is strange and\nexcellent. Souls will ask you, forever, whether this is\nthe right line. There is no right line.\nSay it kindly. You will find that is the whole job.\n\nWelcome to the threshold. Mind the draft."
+      },
+      "labels": ["FICTION: the far side of the desk"],
+      "a11y": "You choose to remain at the threshold, keeping company with the queue. The whole job is to say, kindly, that there is no right line.",
+      "fallback": "You stay. The whole job is kindness about queues."
+    },
+    {
+      "id": "end_dissolve",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "The outline was a loan. You return it, without interest.\n\nWhat you were does not end here; it stops being fenced.\nThe rain does not grieve for the cloud, and yet nothing\nof the cloud is missing.\n\nGo wide. It was always yours, the wideness.\nYou were only wearing a narrowness for the occasion."
+      },
+      "labels": ["TRADITION: dissolution into the whole — held by several traditions, promised by none here"],
+      "a11y": "You choose to dissolve. The outline is returned; what you were stops being fenced rather than ending.",
+      "fallback": "The outline was a loan. Go wide."
+    },
+    {
+      "id": "end_create",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "You are handed nothing, which is the standard issue kit.\n\nBuild. The materials are everything you kept and everything\nyou meant. Realms have been made from less; most were.\n\nOne request from the management, which has never made\nanything: somewhere in your new country, leave a desk like\nthis one. Someone is going to need it."
+      },
+      "labels": ["FICTION: the standard issue kit"],
+      "a11y": "You choose to create. You are handed nothing — the standard kit — and asked to leave a desk like this one somewhere in your new realm.",
+      "fallback": "You are handed nothing. Build."
+    },
+    {
+      "id": "end_witness",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "You take the long seat. From here, every line is visible\nat once, and none of them need you.\n\nThat is the discipline: the not-being-needed, held gently,\nhour after hour, era after era. The reaching will tempt you\nforever. Let it tempt you. Watching is not less than doing;\nit is doing, slowed down until it becomes attention.\n\nThe Department dims the lights for you. It knows the work."
+      },
+      "labels": ["FICTION: the long seat"],
+      "a11y": "You choose to witness. From the long seat every line is visible; the discipline is attention without reaching.",
+      "fallback": "You take the long seat and watch."
+    },
+    {
+      "id": "end_appeal",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "APPEAL FILED.\n\nThe Department shudders, not unpleasantly. Your case has\nbeen forwarded to a higher instance, which may or may not\nexist; the clerk admits this is the bravest box on the\nform, and stamps it with something like affection.\n\nCurrent wait time: outside causality.\nYou will be seated somewhere extraordinary while you wait."
+      },
+      "labels": ["FICTION: the higher instance, existence unconfirmed"],
+      "a11y": "You appeal, rejecting all offered destinations. The case is forwarded to a higher instance that may not exist; the wait is outside causality.",
+      "fallback": "Appeal filed. Wait time: outside causality."
+    },
+    {
+      "id": "end_loop",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "Granted, without comment.\n\nThe same life-pattern, once more from the top. The Bard\nfiles no objection and permits itself no sigh. Repetition\nis not failure; sometimes it is rehearsal, and sometimes\nit is home, and the difference is not visible from this\ndesk.\n\nPlaces, everyone. Curtain."
+      },
+      "labels": ["FICTION: the desk's opinion, withheld"],
+      "a11y": "You choose to loop: the same pattern once more. The Bard files no objection; repetition may be rehearsal or home.",
+      "fallback": "The same pattern, once more from the top. Curtain."
+    },
+    {
+      "id": "end_spiral",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "You have been here before. You are not here again —\nyou are here differently, and the Department records that\non an entirely separate form, its favorite form, though it\nwould deny having favorites.\n\nSame pattern. Changed eyes.\nGo around once more, and this time, notice everything."
+      },
+      "labels": ["FICTION: the Department's favorite form, officially nonexistent"],
+      "a11y": "You choose to spiral: the same pattern met with changed awareness. Go around once more and notice everything.",
+      "fallback": "Same pattern. Changed eyes. Once more around."
+    },
+    {
+      "id": "end_refuse",
+      "act": 6,
+      "terminal": true,
+      "text": {
+        "base": "You decline the premise. All nine of them.\n\nThe Department has no box for you and — note this — does\nnot mind. An unclassified state is opened in your name,\nwhich is to say, in no name at all.\n\nWhatever you are now, it has not been filed before.\nThe child in the queue looks up, and smiles, as if its\nquestion finally has company."
+      },
+      "labels": ["FICTION: the unclassified state; the child's question, still open"],
+      "a11y": "You refuse the premise entirely. An unclassified state is opened in no name at all, and the child with the unclassifiable question smiles.",
+      "fallback": "No box fits. The Department does not mind."
+    }
+  ]
+}

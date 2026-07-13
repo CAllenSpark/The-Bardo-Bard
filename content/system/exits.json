@@ -1,28 +1,76 @@
 {
   "nodes": [
     {
-      "id": "exit_return",
+      "id": "exit_return_early",
       "act": 6,
       "tally": "F1",
       "terminal": true,
       "text": {
-        "base": "You turn back toward the weather.\n\nEARTH ACCESS GRANTED.\nReturn may include love, weather, taxation, bodies, music,\nforgetting, dogs, and unresolved questions.\n\nThe desk stamps nothing, because you never filed anything\nit could stamp. It seems to respect this.\nGo be somebody. Again."
+        "base": "You've seen enough. Or exactly enough.\n\nEARTH ACCESS GRANTED, NO QUESTIONS ASKED — well.\nNo further questions asked.\n\nAn incomplete form is still a form. The desk does not mind;\nthe desk has drawers full of first pages, and it keeps\nevery one.\n\nGo be somebody. Again."
       },
-      "labels": ["FICTION: the return door, which was always in the room"],
-      "a11y": "You choose to return to Earth. The Bard grants access and wishes you a life.",
-      "fallback": "You go back. The desk does not mind."
+      "labels": ["FICTION: the drawer of first pages"],
+      "a11y": "You return to Earth almost immediately. The Bard grants access without further questions and keeps your first page.",
+      "fallback": "You go back, early. The desk keeps your first page."
     },
     {
-      "id": "exit_light",
+      "id": "exit_return_mid",
       "act": 6,
       "tally": "F1",
       "terminal": true,
       "text": {
-        "base": "You walk toward it.\n\nIt does not congratulate you. It does not need to.\nThe paperwork, such as it was, remains on the desk —\nincomplete, and, it turns out, always optional.\n\nGo gently. Mind the brightness."
+        "base": "The clerk half-rises, then thinks better of ceremony.\n\nYou leave the form where it lies — half-answered, which is,\nthe Bard notes, how most forms are left, and how most lives\nare too, and neither fact has ever stopped the weather.\n\nEARTH ACCESS GRANTED.\nReturn may include love, weather, taxation, bodies, music,\nforgetting, dogs, and unresolved questions.\nYours are packed. Mind the step."
       },
-      "labels": ["FICTION: the light door, which was always in the room"],
-      "a11y": "You choose to walk into the light. The Bard lets you go without ceremony.",
-      "fallback": "You walk into the light. The form was always optional."
+      "labels": ["FICTION: the half-risen clerk"],
+      "a11y": "You return to Earth mid-way through the paperwork. The form stays half-answered; your unresolved questions are packed for the trip.",
+      "fallback": "You leave mid-form. Your questions are packed."
+    },
+    {
+      "id": "exit_return_late",
+      "act": 6,
+      "tally": "F1",
+      "terminal": true,
+      "text": {
+        "base": "So close to the end of the form — and you choose the door\nyou came in by.\n\nThe Bard respects this enormously, and says so, twice,\nwhich for the Bard is an outburst. To walk the whole\ncorridor and still pick the weather: that is not indecision.\nThat is testimony.\n\nEARTH ACCESS GRANTED.\nGo home the long way. You know the way now."
+      },
+      "labels": ["FICTION: the Bard's outburst"],
+      "a11y": "Nearly at the end, you choose to return to Earth. The Bard calls it testimony, not indecision.",
+      "fallback": "You walked the whole corridor and chose the weather."
+    },
+    {
+      "id": "exit_light_early",
+      "act": 6,
+      "tally": "F1",
+      "terminal": true,
+      "text": {
+        "base": "You barely give the desk a glance.\n\nYou walk toward it. It does not congratulate you.\nIt does not need to.\n\nThe paperwork stays where it is — untouched and, it turns\nout, always optional.\n\nGo gently. Mind the brightness."
+      },
+      "labels": ["FICTION: the untouched paperwork"],
+      "a11y": "You walk into the light almost immediately, without ceremony. The paperwork was always optional.",
+      "fallback": "You walk into the light, early and unbothered."
+    },
+    {
+      "id": "exit_light_mid",
+      "act": 6,
+      "tally": "F1",
+      "terminal": true,
+      "text": {
+        "base": "You set the form down mid-question and walk toward it.\n\nThe light does not hurry you. It has never hurried anyone;\nthat is somebody else's department.\n\nThe paperwork stays on the desk — incomplete and, it turns\nout, always optional.\n\nGo gently."
+      },
+      "labels": ["FICTION: the department of hurrying, unstaffed"],
+      "a11y": "Mid-way through the questions, you walk into the light. It does not hurry you; the paperwork was always optional.",
+      "fallback": "You set the form down and walk into the light."
+    },
+    {
+      "id": "exit_light_late",
+      "act": 6,
+      "tally": "F1",
+      "terminal": true,
+      "text": {
+        "base": "After everything — the cups, the clerks, the cards —\nyou choose the simple door.\n\nThe light receives you without one word about the\npaperwork. It was always going to.\n\nGo gently. You already know how."
+      },
+      "labels": ["FICTION: the simple door"],
+      "a11y": "After nearly the whole journey, you choose the light. It receives you without a word about the paperwork.",
+      "fallback": "After everything, the simple door."
     }
   ]
 }

@@ -4,6 +4,10 @@ import bootFile from '../../content/system/boot.json';
 import exitsFile from '../../content/system/exits.json';
 import act1File from '../../content/acts/act1.json';
 import act2File from '../../content/acts/act2.json';
+import act3File from '../../content/acts/act3.json';
+import act4File from '../../content/acts/act4.json';
+import act5File from '../../content/acts/act5.json';
+import act6File from '../../content/acts/act6.json';
 
 interface ContentFile {
   nodes: EncounterNode[];
@@ -14,6 +18,10 @@ const FILES: ContentFile[] = [
   exitsFile as unknown as ContentFile,
   act1File as unknown as ContentFile,
   act2File as unknown as ContentFile,
+  act3File as unknown as ContentFile,
+  act4File as unknown as ContentFile,
+  act5File as unknown as ContentFile,
+  act6File as unknown as ContentFile,
 ];
 
 export const START_NODE = 'boot_notice';
