@@ -16,9 +16,9 @@ gate; do not advance past a failing gate. Full gate definitions:
 
 ## Awaiting creative director
 
-Open decisions OD-3 through OD-8 and OD-10 through OD-12 (Compass §12) — none
-block Phase 0. OD-10 (conformity rung) and OD-11 (dashboard scope) should be
-decided before Phase 2 and Phase 3 respectively.
+Still open: OD-3, OD-4, OD-6, OD-8, OD-12, OD-13 (Compass §12) — none block
+Phase 0. OD-13 (standing-exit tally mapping) is decided during Phase 1
+authoring.
 
 ## Log
 
@@ -27,4 +27,7 @@ decided before Phase 2 and Phase 3 respectively.
   backend repinned to a Durable Object counter, CORS pinned, canonical tally
   manifest, Vigil safety rules hardened, shadow-of-presence added, gates
   repaired — full list in Compass §13). CLAUDE.md, reference docs committed.
-  Next session: Phase 0 scaffold.
+- **2026-07-13** — Session 1 (cont.): Compass v1.2 — CD resolved OD-5, OD-7,
+  OD-10, OD-11; relational-manipulation directive integrated with §9.3 safety
+  reconciliation; **standing exits** (doors always in the room) added to Layer A
+  and Gate 1. Phase 0 fully unblocked. Next: Phase 0 scaffold.

@@ -4,10 +4,10 @@
 
 | STATUS | Living design authority — read at the start of every session |
 |---|---|
-| VERSION | 1.1 — 2026-07-13 (v1.0 same day; v1.1 after adversarial review, see §13) |
+| VERSION | 1.2 — 2026-07-13 (v1.1 after adversarial review; v1.2 after CD decisions, see §13) |
 | WORKING TITLE | **THE BARDO BARD** (formerly *The Bardo Terminal*; see §2) |
 | FORMAT | Responsive browser game / anonymous population instrument / art piece about agency |
-| SESSION TARGET | 10–15 minutes for the played spine; the Vigil path ~7–10 minutes (§4.3) |
+| SESSION TARGET | 10–15 minutes for the full played spine; standing exits (§3) can end a run in minutes; the Vigil path ~7–10 minutes (§4.3) |
 | COST TARGET | $0/month on free-tier hosting; a custom domain is the only permissible cost and needs director sign-off |
 | IDENTITY | None. Structurally impossible to identify a player. |
 
@@ -124,6 +124,20 @@ buttons are the canonical and only input at MVP (free typing is post-MVP, and if
 it ever ships it is local-only per MDD v2 Move 2). Nine ending verbs plus the
 unlisted tenth door (§4). Ends in a deterministic sigil + share glyph.
 
+**The standing exits — the doors are always in the room** *(CD directive
+2026-07-13).* From the first screen of Act I onward, two persistent exits are
+always available at every node: **return to Earth** and **walk into the light**
+(in-fiction naming at Phase 1). Choosing one at any time ends the run properly
+and with full support: an authored ending passage scaled to how far the player
+got, a profile + sigil + glyph built from whatever was committed (an incomplete
+form is still a form), and a normal tally (F1 + completions; verb mapping is
+OD-13). Early exit is never framed as quitting, never punished, always honored —
+the hope is that players *playfully* try several exits across incarnations on
+the way to the exit we designed. Some games take three clicks; others an hour.
+These in-game doors are distinct from the Vigil's END GAME: a standing exit ends
+a *run* inside the game's frame (and invites reincarnation); END GAME ends *the
+game* by declining its frame. The Bard never explains this distinction.
+
 **Layer B — The Instrument.** The canonical tally manifest, stated once, exactly:
 
 - **Eleven decision nodes**: `A1, A2, B1, B2, C1, C2, D1, D2, D3, E1, F1`
@@ -147,15 +161,25 @@ render only after the player's choice at that node locks. The headline stats:
   souls' paths (divergences, rhymes, one gentle joke, one honest question). Pure
   client-side decode; nothing transmitted. Glyph-code contents and disclosure
   rules: §7. Comparison against a Vigil glyph: §4.7.
-- **The Ledger Dashboard** — a public reading-room page showing aggregate census
-  figures. Because a prospective player could read it before playing, it is a
-  deliberate, bounded exception to reveal-after-lock — scope and mitigations are
-  an open decision (OD-11); until resolved, the dashboard spec is: completions,
-  soul №N, and headline stats only, with per-node splits reachable only from a
-  post-completion link or by pasting a completion glyph. Reads the same GET
-  endpoint the game uses. "Trends over time" are **deferred** (the pinned
-  endpoint serves cumulative counts; a time series would be a new data surface
-  and needs its own decision — noted in OD-11).
+- **The Ledger Dashboard** — a public reading-room page. Scope **resolved by CD
+  2026-07-13 (OD-11)**: publicly, headlines only — "souls served" figures
+  (completions, soul №N) **plus one unexplained row: the count of souls who
+  exited via END GAME** (label authored later; e.g. `DEPARTED WITHOUT FILING: N`).
+  The waiting exit is never acknowledged as a path, anywhere — it is only ever a
+  number, which is itself social pressure to find the way out (the Haunted
+  Mansion principle, per CD). Per-node splits unlock only after a completed run
+  (local completion flag or completion-glyph paste). Reads the same GET endpoint
+  the game uses. "Trends over time" are **deferred** (the pinned endpoint serves
+  cumulative counts; a time series would be a new data surface and needs its own
+  decision).
+
+**Social pressure is a named instrument of the piece** *(CD directive
+2026-07-13).* Post-lock reveal copy may editorialize **true numbers** as
+pressure — validation ("41,377 souls supported this choice as the right one"),
+doubt, conformity needling, the standing question *do you follow or lead?* The
+manipulation lives entirely in the framing; the numbers are never fake and never
+pre-lock (§4.4 still governs). Conformity joins the disclosure's nameable levers
+for played runs (§4.5).
 
 ## 4. THE VIGIL (the heart, specced)
 
@@ -178,7 +202,7 @@ render only after the player's choice at that node locks. The headline stats:
      bereavement rules). `[IS SOMEONE WAITING FOR ME?]`
   6. **Loss** — grief, handled gently (§9.3). `[LET ME SAY GOODBYE PROPERLY]`
   7. **Guilt** — the review you feel you owe. `[I SHOULD ACCOUNT FOR MYSELF]`
-  8. **Conformity** *(builder proposal, unratified — OD-10)* — the Ledger itself
+  8. **Conformity** *(ratified by CD 2026-07-13, OD-10)* — the Ledger itself
      as pressure. `[WHAT DID EVERYONE ELSE DO?]` Mechanics in §4.4.
   9. **Naked manipulation** — the Bard drops the mask and *asks*, sincerely,
      manipulatively, both. `[PLEASE. I AM SO TIRED OF SILENCE.]`
@@ -189,6 +213,21 @@ render only after the player's choice at that node locks. The headline stats:
   acknowledgment line, and folds the player into the normal game — where they
   then answer A1's four options normally (resolves OD-9; the rung click and the
   A1 answer are separate locks on separate nodes). Only END GAME leaves.
+
+**The relational lever is the deepest one** *(CD directive 2026-07-13 — lean
+in).* Agency is most easily lost in relationships: love, guilt, regret,
+yearning, and the question *how much do I sacrifice myself for others?* The
+hope/loss/guilt rungs (5–7) and the Bard's final plea (9) are where the game
+pushes this vector hardest — the seduction of comforting relationships, of
+supporting what harms you because love asks, of ancestors "with so much to tell
+you, so many questions waiting to be answered." The Bard plays this as hard as
+§9.3 permits (insinuation, never promise; retracted in the disclosure). Design
+note: rung 9 and the played game's E1 node (what you do *for the Bard*) are the
+same lever — compassion-as-capture — and the relational rungs feed MDD v1's
+Relationship posture variable (isolation ↔ reciprocity ↔ self-erasure). The
+respect for the player is real: the game honors that this tension is genuinely
+non-trivial — balance between self and others is a question the game asks,
+never answers.
 
 ### 4.2 END GAME
 
@@ -202,9 +241,15 @@ render only after the player's choice at that node locks. The headline stats:
   *that*?" without the glyph itself explaining the method.
 - The Ω profile, like every profile, includes one shadow (§4.6) and one
   unresolved question.
-- Post-END GAME boot behavior: the desk remembers (localStorage) and greets a
-  returning soul differently — but the game reopens. Ending the game forever for
-  that browser is under consideration (OD-7); default is "reopens, changed."
+- Post-END GAME boot behavior — **resolved by CD 2026-07-13 (OD-7)**: the game
+  reopens, and the return is played as **an exception caught**. The Bard treats
+  a soul coming back through a door that isn't supposed to have a this-side
+  handle as a genuine anomaly: *"You came back. Surprising. Most who leave the
+  way you did do not revisit this place. Welcome back. Shall we begin again?"*
+  The exception is repeatable, with authored escalating-rarity variants per
+  return: *"Again and… again? Well. This is very rare indeed."* Each variant
+  stays surprised — the desk never normalizes the impossible, and never
+  punishes it.
 
 ### 4.3 Timing (targets, tunable at build)
 
@@ -308,6 +353,7 @@ OD-6; asserted by Gate 4.
 | Session length | v1: 20–40 min; v2: 12–18 | **10–15 min** spine; Vigil ~7–10 min (§4.3) |
 | Input | v1: NL-first; v2: quick actions + local typing | **Buttons only at MVP**; typing post-MVP, local-only |
 | Endings | Nine verbs | Nine verbs **+ END GAME** (unlisted tenth door via Vigil) |
+| Ending availability | v1/v2: verbs offered at Act VI | **Standing exits at every node** from Act I onward (§3); Act VI remains where the Bard formally asks |
 | Tally manifest | v2: "twelve nodes" (enumerates eleven) + completions | **Canonical manifest in §3**: 11 decision nodes + V + Ω + completions |
 | Ledger backend | v2: KV counters, DO as upgrade path | **Durable Object counter from day one** (§7; KV cannot hold counters at free tier) |
 | Aggregate layer | v2: Ledger + in-game reveals | + **public Ledger Dashboard** (bounded exception to reveal-after-lock; OD-11) |
@@ -388,13 +434,26 @@ kept honest by:
    CD approval per line, and each such line named in the disclosure's levers).
 3. **Bereavement and suicidality rules (blocking for Phase 2).** The hope, loss,
    and guilt rungs and the END GAME passage must be authored and reviewed
-   against suicidality-adjacent framing: the light never promises reunion with
-   the dead; the game never frames death or "the light" as relief from the pain
-   of living; grief copy invites remembering, never joining. Crisis signposting
-   is visible or one interaction away **during the Vigil itself** (persistent
-   footer element) and is present in or linked from the END GAME disclosure —
-   asserted by Gate 2. Advisory review (MDD v1 §19.2/§26) explicitly covers
-   Vigil copy before Phase 2 ships.
+   against suicidality-adjacent framing. The CD's relational-manipulation
+   directive (§4.1) is reconciled with safety as follows, binding:
+   - **The Bard may insinuate reunion; the game may never promise it.**
+     Ancestors-in-the-light bait is authored as the Bard's own unverifiable
+     claim — questions, conditionals, hearsay ("They would have so much to tell
+     you — wouldn't they?"), the register of every medium who ever worked a
+     grieving mark. It is never delivered as narrative fact.
+   - **The light itself confirms nothing.** The END GAME passage stays faceless
+     (§8 two-lights rule): no reunion scene, no ancestors on the other side, no
+     contradiction of them either.
+   - **The disclosure retracts the bait by name.** Any reunion insinuation used
+     is explicitly named and disavowed in the disclosure ("I told you someone
+     was waiting. I have no way to know that. It usually works."). The
+     retraction is where the lever becomes teachable.
+   - The game never frames death or "the light" as relief from the pain of
+     living; grief copy invites remembering, never joining.
+   Crisis signposting is visible or one interaction away **during the Vigil
+   itself** (persistent footer element) and is present in or linked from the
+   END GAME disclosure — asserted by Gate 2. Advisory review (MDD v1 §19.2/§26)
+   explicitly covers Vigil copy before Phase 2 ships.
 4. **Full disclosure at the end** (§4.5): every lever named, on every path. The
    game manipulates and then shows its hand — the showing is the point.
 5. **Leaving is never punished.** Closing the tab is a gentle exit, in-fiction an
@@ -421,11 +480,15 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   Vitest + DOM playthrough driver (with fake-timer support for the Vigil).
   *Gate 0:* `npm test` green; schema validates seed content; boots to A1 from `file://`.
 - **PHASE 1 — THE SPINE.** All six acts authored (button path), nine verbs
-  reachable, posture-variant text, interpretation buckets + confirmation pattern,
-  12–18 profile titles + reflections.
+  reachable, **standing exits present at every node with progress-scaled ending
+  passages (§3; OD-13 mapping decided here)**, posture-variant text,
+  interpretation buckets + confirmation pattern, 12–18 profile titles +
+  reflections.
   *Gate 1:* six scripted archetype playthroughs reach six distinct verbs; graph
-  audit (all nodes reachable, no dead ends, fallback copy everywhere); no choice
-  strictly dominant.
+  audit (all nodes reachable, no dead ends, fallback copy everywhere; **both
+  standing exits available at every encounter**); standing-exit runs from the
+  first node and from mid-game each produce a valid ending passage, profile,
+  and tally; no choice strictly dominant.
 - **PHASE 2 — THE VIGIL.** The ladder: authored beats + rungs, content-defined
   schedule, visibility gating, END GAME passage + disclosure (all §4.5 variants),
   Ω/V events emitted to the (stub) tally client. Vigil copy passes §9.3 review.
@@ -487,14 +550,15 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
 | OD-2 | Free text at MVP | **Resolved 2026-07-13:** none; buttons only |
 | OD-3 | Anonymous path-strings for cross-node science | Open — off at launch server-side (MDD v2 stance). Note: shared glyph codes are player-self-published path vectors (§7, OD-12) — scraping them could reconstruct path data; accepted only because publishing is a deliberate player act with disclosure |
 | OD-4 | Synergon Dynamics lineage/credit | Open — flag before Phase 1 |
-| OD-5 | Does the public dashboard show the Ω row ("outwaited the Bard") from day one? | Open — proposed: yes, as an unexplained row; the game itself never advertises it |
+| OD-5 | Does the public dashboard show the Ω row from day one? | **Resolved by CD 2026-07-13:** yes — an unexplained bare number, never acknowledged as a path anywhere in-game (§3 Layer C) |
 | OD-6 | Spoiler economics: how loud may the disclosure and the blank glyph hint at the Vigil? | Open — proposed: glyph stays cryptic; disclosure uses one deniable sentence; codex lineage entry sits post-disclosure |
-| OD-7 | Post-END-GAME: does the game reopen for that browser? | Open — proposed default: reopens, changed (a locked door punishes the wrong instinct) |
+| OD-7 | Post-END-GAME: does the game reopen for that browser? | **Resolved by CD 2026-07-13:** reopens, played as a repeatable "exception caught" with escalating-rarity variants (§4.2) |
 | OD-8 | Vigil ladder length/pace vs. mobile patience (7–10 min of stillness on a phone) | Open — playtest target |
 | OD-9 | Rung-click routing | **Resolved 2026-07-13 (v1.1):** tally `V:<rung>` + posture flag + one authored acknowledgment line, then fold into normal A1 play (§4.1) |
-| OD-10 | **Conformity rung** (`[WHAT DID EVERYONE ELSE DO?]`) is a builder addition to the CD's eight enumerated levers | Open — needs CD ratify/cut. If cut, §4.4's post-lock reveal machinery goes with it |
-| OD-11 | Dashboard vs. reveal-after-lock: how much census may a prospective player see pre-play? | Open — proposed: completions + soul №N + headline stats public; per-node splits behind post-completion link or completion-glyph paste; time-series trends deferred entirely |
+| OD-10 | **Conformity rung** (`[WHAT DID EVERYONE ELSE DO?]`) — builder addition | **Ratified by CD 2026-07-13** ("with radical vigor"); social pressure elevated to a named instrument of the piece (§3 Layer C) |
+| OD-11 | Dashboard vs. reveal-after-lock: how much census may a prospective player see pre-play? | **Resolved by CD 2026-07-13:** headlines only ("souls served" + the unexplained Ω row); per-node splits after a completed run; time-series trends deferred |
 | OD-12 | Share-glyph compact code carries the full committed-choice vector (more than the visible emoji), with a copy-time disclosure line | Open — proposed as specced in §7; CD may prefer code = visible emoji only (weakens Soul Analysis to act-level comparison) |
+| OD-13 | Standing-exit tally mapping: do early exits share F1 choices with Act VI verbs (`return` → RETURN; `light` as a tenth F1 choice), or get distinct early-exit choice IDs? | Open — decide during Phase 1 authoring. Proposed: shared choices, no early/late distinction (the Ledger stores no "when" anyway) |
 
 ## 13. Session log (append-only)
 
@@ -520,3 +584,17 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   repaired (schedule-total test, Ω tally moved to Gate 3, dashboard criteria,
   Ω-glyph compare, "forget this life" control, ship checklist made mappable).
   No code yet; Phase 0 not started.
+- **2026-07-13 — Session 1 (cont.), Compass v1.2 — CD decisions.** Craigory
+  ratified the conformity rung "with radical vigor" (OD-10) and elevated social
+  pressure to a named instrument (post-lock reveal copy may editorialize true
+  numbers; "do you follow or lead?"). Dashboard resolved (OD-11): headlines +
+  unexplained Ω row public; per-node splits after a completed run (OD-5 also
+  resolved — the waiting exit is only ever a number; Haunted Mansion
+  principle). Post-END-GAME resolved (OD-7): reopens as a repeatable "exception
+  caught" with escalating-rarity variants. **Relational manipulation directive**
+  (§4.1): love/guilt/self-sacrifice is the deepest agency-loss vector — lean in;
+  reconciled with safety in §9.3 (Bard may insinuate reunion, never promise;
+  light confirms nothing; disclosure retracts bait by name). **Standing exits
+  added** (§3): return-to-Earth and into-the-light available at every node from
+  Act I; early exits fully honored with scaled endings; distinct from the
+  Vigil's END GAME. Opened OD-13 (exit tally mapping). Phase 0 fully unblocked.
