@@ -7,11 +7,18 @@ export interface RenderHandlers {
   onChoice: (choiceId: string) => void;
   onExit: (exitId: StandingExitId) => void;
   onVigil: (rungId: string) => void;
+  onImport: (token: string) => void;
 }
 
 export interface RenderOptions {
   /** A one-line acknowledgment played above the node text (a Vigil fold). */
   ackLine?: string;
+  /** Reveal-after-lock block for the previously locked node (Compass §3). */
+  reveal?: { node: string; text: string } | null;
+  /** VI.c — the full census block on played endings. */
+  fullLedger?: string;
+  /** Export token offered on played endings. */
+  totenpass?: string;
 }
 
 const EXIT_LABELS: Record<StandingExitId, string> = {
@@ -45,6 +52,14 @@ export function render(
     ack.className = 'bard-text ack';
     ack.textContent = options.ackLine;
     screen.appendChild(ack);
+  }
+
+  if (options.reveal) {
+    const reveal = document.createElement('pre');
+    reveal.className = 'bard-text ledger-reveal';
+    reveal.dataset.node = options.reveal.node;
+    reveal.textContent = options.reveal.text;
+    screen.appendChild(reveal);
   }
 
   const text = document.createElement('pre');
@@ -99,6 +114,60 @@ export function render(
       record.append(heading, title, reflection, shadow, question);
       screen.appendChild(record);
     }
+
+    if (options.fullLedger) {
+      const ledger = document.createElement('pre');
+      ledger.className = 'bard-text full-ledger';
+      ledger.textContent = options.fullLedger;
+      screen.appendChild(ledger);
+    }
+
+    if (options.totenpass) {
+      const row = document.createElement('div');
+      row.className = 'system-row';
+      const exportButton = document.createElement('button');
+      exportButton.type = 'button';
+      exportButton.className = 'system';
+      exportButton.dataset.systemId = 'export_totenpass';
+      exportButton.textContent = 'EXPORT TOTENPASS';
+      exportButton.addEventListener('click', () => {
+        const token = document.createElement('pre');
+        token.className = 'totenpass-token';
+        token.setAttribute('aria-label', 'Your totenpass token. Copy it to carry this incarnation to another device.');
+        token.textContent = options.totenpass!;
+        row.replaceChildren(token);
+        void navigator.clipboard?.writeText(options.totenpass!).catch(() => undefined);
+      });
+      row.appendChild(exportButton);
+      screen.appendChild(row);
+    }
+  }
+
+  // The passport desk: importing a totenpass, boot screen only.
+  if (node.id === 'boot_notice') {
+    const row = document.createElement('div');
+    row.className = 'system-row';
+    const importButton = document.createElement('button');
+    importButton.type = 'button';
+    importButton.className = 'system';
+    importButton.dataset.systemId = 'import_totenpass';
+    importButton.textContent = 'IMPORT TOTENPASS';
+    importButton.addEventListener('click', () => {
+      const field = document.createElement('input');
+      field.className = 'totenpass-input';
+      field.setAttribute('aria-label', 'Paste a totenpass token');
+      field.placeholder = 'BB1.…';
+      const restore = document.createElement('button');
+      restore.type = 'button';
+      restore.className = 'system';
+      restore.dataset.systemId = 'restore_totenpass';
+      restore.textContent = 'RESTORE';
+      restore.addEventListener('click', () => handlers.onImport(field.value.trim()));
+      row.replaceChildren(field, restore);
+      field.focus();
+    });
+    row.appendChild(importButton);
+    screen.appendChild(row);
   }
 
   root.appendChild(screen);

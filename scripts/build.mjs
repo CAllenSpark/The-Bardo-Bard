@@ -11,21 +11,24 @@ const DIST = join(ROOT, 'dist');
 
 mkdirSync(DIST, { recursive: true });
 
-await build({
-  entryPoints: [join(ROOT, 'src', 'main.ts')],
-  bundle: true,
-  format: 'iife',
-  minify: true,
-  sourcemap: false,
-  target: 'es2020',
-  outfile: join(DIST, 'bardo.js'),
-});
+for (const [entry, outfile] of [['main.ts', 'bardo.js'], ['dashboard.ts', 'dashboard.js']]) {
+  await build({
+    entryPoints: [join(ROOT, 'src', entry)],
+    bundle: true,
+    format: 'iife',
+    minify: true,
+    sourcemap: false,
+    target: 'es2020',
+    outfile: join(DIST, outfile),
+  });
+}
 
 copyFileSync(join(ROOT, 'src', 'index.html'), join(DIST, 'index.html'));
+copyFileSync(join(ROOT, 'src', 'dashboard.html'), join(DIST, 'dashboard.html'));
 
 const BUDGET_GZ = 300 * 1024; // Compass §7: < 300 KB gz for the complete run
 let total = 0;
-for (const file of ['bardo.js', 'index.html']) {
+for (const file of ['bardo.js', 'index.html', 'dashboard.js', 'dashboard.html']) {
   const raw = readFileSync(join(DIST, file));
   const gz = gzipSync(raw).length;
   total += gz;

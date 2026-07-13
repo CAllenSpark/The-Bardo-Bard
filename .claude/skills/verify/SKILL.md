@@ -74,6 +74,19 @@ trapped the bar mid-page — body uses `min-height`, `#bardo` uses `100dvh` +
    Hidden-tab pausing stays a vitest concern (visibilitychange + fake timers).
 8. Crisis signpost: `.crisis` footer with the findahelpline.com link exists
    from boot and survives to the disclosure.
+9. The Ledger (Phase 3+): start the real handler locally —
+   `PORT=8787 ALLOW_ORIGINS=null node worker/node-server.mjs` (the exact
+   module the Cloudflare Worker wraps; only storage differs). Set the game's
+   endpoint per page via `page.addInitScript('window.BARDO_LEDGER_URL = …')`.
+   Assert: a file:// (Origin: null) playthrough increments A1/F1/completions
+   via `GET /tally` deltas (fire-and-forget queue needs ~600ms to drain);
+   reveals lose the seed label when live; with no endpoint the run completes
+   offline with `(last census — the Ledger is unreachable)` everywhere;
+   `dist/dashboard.html` shows live headlines with splits locked, and
+   degrades to the labeled seed against a dead port. Deliberate dead-port
+   steps log `ERR_CONNECTION_REFUSED` to the console — filter those, fail on
+   anything else. Totenpass: export button reveals `.totenpass-token`; import
+   via the boot-screen system row (`data-system-id` handles).
 
 ## Gotchas
 

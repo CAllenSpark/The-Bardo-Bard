@@ -1,0 +1,16 @@
+name = "bardo-ledger"
+main = "index.mjs"
+compatibility_date = "2026-07-01"
+
+# The public game origin(s) allowed to talk to the Ledger, comma-separated.
+# 'null' admits file:// and sandboxed previews — the census-degraded contexts.
+[vars]
+ALLOW_ORIGINS = "null"
+
+[[durable_objects.bindings]]
+name = "LEDGER"
+class_name = "LedgerCounter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["LedgerCounter"]

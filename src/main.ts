@@ -1,12 +1,16 @@
 import { buildGraph } from './engine/content';
-import { advance, createState, takeExit, vigilEndGame, vigilFold } from './engine/fsm';
+import { advance, createState, getNode, takeExit, vigilEndGame, vigilFold } from './engine/fsm';
 import type { GameState, StandingExitId } from './engine/types';
 import { VigilClock } from './engine/vigil';
-import { fillCensus } from './engine/census';
-import { recordTally } from './engine/tally';
+import { configureCensus, fillCensus, refreshCensus } from './engine/census';
+import { configureTally, queueTally, recordTally } from './engine/tally';
+import { buildFullLedger, buildReveal } from './engine/reveal';
+import { exportTotenpass, importTotenpass } from './engine/totenpass';
 import { appendVigilBeat, appendVigilOption, ensureCrisisFooter, render } from './ui/render';
+import type { RenderOptions } from './ui/render';
 import ladderFile from '../content/vigil/ladder.json';
 import scheduleFile from '../content/vigil/schedule.json';
+import manifestFile from '../worker/manifest.json';
 
 interface RungDef {
   id: string;
@@ -24,11 +28,22 @@ interface Ladder {
 
 const LADDER = ladderFile as unknown as Ladder;
 const SCHEDULE = scheduleFile as unknown as { rungs: { id: string; afterMs: number }[] };
+const MANIFEST_KEYS = Object.keys(manifestFile as Record<string, string[]>);
+
+const IMPORT_ERROR_LINE =
+  'This tablet is from another underworld. The desk returns it, apologetically.';
 
 export function mount(root: HTMLElement): void {
   const graph = buildGraph();
   let state: GameState = createState(graph);
   let tallied = 0;
+  let completionsSent = false;
+
+  // The Ledger endpoint; empty string = offline by design (seed census).
+  const ledgerUrl = (globalThis as { BARDO_LEDGER_URL?: string }).BARDO_LEDGER_URL ?? '';
+  configureTally({ url: ledgerUrl });
+  configureCensus({ url: ledgerUrl });
+  void refreshCensus(MANIFEST_KEYS);
 
   // ── The Vigil (Compass §4): grows only in visible stillness at the first
   //    question, once per run; any click ends it for good.
@@ -37,8 +52,29 @@ export function mount(root: HTMLElement): void {
   let hiddenLineShown = false;
 
   const flushTallies = (): void => {
-    for (; tallied < state.committed.length; tallied += 1) {
-      recordTally(state.committed[tallied]!);
+    const fresh = state.committed.slice(tallied);
+    tallied = state.committed.length;
+    for (const entry of fresh) {
+      recordTally(entry);
+      if (entry.tally) void refreshCensus([entry.tally]);
+    }
+  };
+
+  /** The reveal for the most recent lock — never the node still pending. */
+  const latestReveal = (): RenderOptions['reveal'] => {
+    const last = state.committed.at(-1);
+    return last ? buildReveal(graph, last) : null;
+  };
+
+  const onEnded = (): void => {
+    if (state.ended && getNode(graph, state.node).act >= 1 && !completionsSent) {
+      completionsSent = true;
+      queueTally('completions', 'done');
+      try {
+        localStorage.setItem('bardo_completed', '1');
+      } catch {
+        /* an unrecorded incarnation — by design */
+      }
     }
   };
 
@@ -56,13 +92,15 @@ export function mount(root: HTMLElement): void {
       if (clock) stopVigil();
       state = advance(graph, state, choiceId);
       flushTallies();
-      rerender();
+      onEnded();
+      rerender({ reveal: latestReveal() });
     },
     onExit: (exitId: StandingExitId) => {
       if (clock) stopVigil();
       state = takeExit(graph, state, exitId);
       flushTallies();
-      rerender();
+      onEnded();
+      rerender({ reveal: latestReveal() });
     },
     onVigil: (rungId: string) => {
       stopVigil();
@@ -74,7 +112,19 @@ export function mount(root: HTMLElement): void {
         const rung = rungById(rungId);
         state = vigilFold(state, rung);
         flushTallies();
-        rerender(rung.ack ? fillCensus(rung.ack) : undefined);
+        rerender({ ackLine: rung.ack ? fillCensus(rung.ack) : undefined });
+      }
+    },
+    onImport: (token: string) => {
+      try {
+        const restored = importTotenpass(graph, token);
+        state = restored;
+        tallied = state.committed.length; // an old life is not re-counted
+        completionsSent = true;
+        stopVigil();
+        rerender();
+      } catch {
+        rerender({ ackLine: IMPORT_ERROR_LINE });
       }
     },
   };
@@ -90,8 +140,15 @@ export function mount(root: HTMLElement): void {
     clock.start();
   };
 
-  const rerender = (ackLine?: string): void => {
-    render(root, graph, state, handlers, { ackLine });
+  const rerender = (options: RenderOptions = {}): void => {
+    const ended = state.ended && getNode(graph, state.node).act >= 1;
+    const playedEnding = ended && !state.node.startsWith('omega_');
+    render(root, graph, state, handlers, {
+      ...options,
+      // Ω keeps its quiet: no census recap, no export chrome — the record only.
+      fullLedger: playedEnding ? buildFullLedger(graph, state) : undefined,
+      totenpass: playedEnding ? exportTotenpass(state) : undefined,
+    });
     startVigilIfEligible();
   };
 

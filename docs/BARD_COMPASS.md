@@ -635,3 +635,24 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   body-height flex bug (sticky doors bar trapped mid-page on long screens) —
   fixed, audits strengthened. **Awaiting CD §9.3 sign-off on Vigil copy.**
   Bundle 23.3 KB gz. Next: Phase 3, the Ledger.
+- **2026-07-13 — Session 1 (cont.), Phase 3 complete (Gate 3 green).** The
+  census counts. Worker: portable Ledger handler (`worker/ledger.mjs` —
+  manifest validation, bare-tallies enforcement, CORS incl. Origin null, soft
+  hashed-IP rate limit) wrapped by the Cloudflare entry (`index.mjs`, one
+  SQLite Durable Object, wrangler.toml ready to deploy) and by a Node adapter
+  used for the Gate 3 real-browser integration (same handler byte-for-byte;
+  workerd smoke happens at first deploy — recorded deviation from the
+  wrangler/miniflare wording in §10). Manifest generated from content
+  (`scripts/gen-manifest.mjs`, 14 keys) so game and Worker cannot drift.
+  Client: fire-and-forget tally queue (one retry, never blocks), census cache
+  with labeled seed fallback, reveal-after-lock blocks (young-Ledger copy
+  under 500 tallies; percentages above), VI.c full-ledger recap on played
+  endings, totenpass export/import (system chrome, not narrative input — the
+  buttons-only invariant governs answers, not save tokens), completions
+  emitted once per true ending, `bardo_completed` local flag for dashboard
+  unlock. Dashboard ships per OD-11: public headlines + the unexplained
+  DEPARTED WITHOUT FILING row; splits unlock after a completed run. Artistic
+  calls logged: V and Ω emit no in-game reveal blocks (the Vigil manipulates
+  quietly; the walk stays unnarrated); the Ω ending carries no census recap
+  or export chrome — the near-blank record only. Bundle 28.4 KB gz.
+  Next: Phase 4, the body (sigil, glyph, Soul Analysis, Rorschach, a11y).

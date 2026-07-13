@@ -4,6 +4,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Ajv from 'ajv';
+import { writeManifest } from './gen-manifest.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'content');
@@ -191,6 +192,8 @@ export function validateContent() {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const manifest = writeManifest();
+  console.log(`ledger manifest: ${manifest.keys} tally keys${manifest.changed ? ' (regenerated)' : ''}`);
   const { errors, nodeCount } = validateContent();
   if (errors.length > 0) {
     console.error(`CONTENT INVALID (${errors.length} error${errors.length === 1 ? '' : 's'}):`);

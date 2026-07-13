@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>THE LEDGER — public reading room</title>
+<style>
+  :root { --ink: #d8d8ce; --dim: #8a8a80; --field: #0a0a0c; --accent: #b8c4a8; }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    min-height: 100%;
+    margin: 0;
+    background: var(--field);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", "Menlo", "Consolas", monospace;
+    font-size: clamp(14px, 2.4vw, 17px);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #ledger-room { width: 100%; max-width: 44rem; padding: 2rem 1.25rem; flex-shrink: 0; }
+  .room-title { color: var(--dim); letter-spacing: 0.15em; margin: 0 0 2rem; }
+  .headline { font-size: 1.25em; margin: 0 0 0.75rem; }
+  .unexplained { color: var(--accent); }
+  .census-label, .locked { color: var(--dim); margin: 1.5rem 0 0; }
+  .splits { margin-top: 2rem; }
+  .splits-title { color: var(--dim); margin: 0 0 1rem; }
+  .split-row { margin: 0 0 0.5rem; overflow-wrap: break-word; }
+  .back { display: inline-block; margin-top: 2.5rem; color: var(--dim); }
+  .back:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div id="ledger-room"></div>
+<script src="./dashboard.js"></script>
+</body>
+</html>

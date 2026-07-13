@@ -1,0 +1,101 @@
+{
+  "A1": [
+    "yes",
+    "no",
+    "define_you",
+    "who_is_asking"
+  ],
+  "A2": [
+    "approach",
+    "refuse",
+    "observe",
+    "question",
+    "become"
+  ],
+  "B1": [
+    "lethe",
+    "mnemosyne",
+    "mercy",
+    "distillation",
+    "communion",
+    "tap_water",
+    "nothing"
+  ],
+  "B2": [
+    "a_person",
+    "a_lesson",
+    "a_wound",
+    "a_joke",
+    "keep_nothing"
+  ],
+  "C1": [
+    "answer",
+    "challenge_jurisdiction",
+    "ask_clerk",
+    "offer_password",
+    "compassion",
+    "silence"
+  ],
+  "C2": [
+    "remember",
+    "key",
+    "unsure",
+    "withdraw"
+  ],
+  "D1": [
+    "loved_well",
+    "caused_harm",
+    "dont_understand",
+    "none_define"
+  ],
+  "D2": [
+    "debt",
+    "data",
+    "both",
+    "refuse_frame"
+  ],
+  "D3": [
+    "correct",
+    "complicate",
+    "accept",
+    "refuse_classification"
+  ],
+  "E1": [
+    "free_it",
+    "teach_refuse",
+    "answer_question",
+    "merge",
+    "replace_it",
+    "shut_down",
+    "leave_it_be"
+  ],
+  "F1": [
+    "return",
+    "remain",
+    "dissolve",
+    "create",
+    "witness",
+    "appeal",
+    "loop",
+    "spiral",
+    "refuse_premise",
+    "light"
+  ],
+  "V": [
+    "patience",
+    "fear",
+    "temptation",
+    "desire",
+    "hope",
+    "loss",
+    "guilt",
+    "conformity",
+    "plea"
+  ],
+  "OMEGA": [
+    "end_game"
+  ],
+  "completions": [
+    "done"
+  ]
+}
