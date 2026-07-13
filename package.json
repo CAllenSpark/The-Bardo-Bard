@@ -1,0 +1,20 @@
+{
+  "name": "the-bardo-bard",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A playable mirror disguised as the afterlife's most tempting customer-service portal.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "vitest run",
+    "validate": "node scripts/validate-content.mjs",
+    "gate0": "npm run validate && vitest run && npm run build && node scripts/check-file-boot.mjs"
+  },
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "esbuild": "^0.23.1",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.9"
+  }
+}

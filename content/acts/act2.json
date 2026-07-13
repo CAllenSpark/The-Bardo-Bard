@@ -1,0 +1,77 @@
+{
+  "nodes": [
+    {
+      "id": "b1_beverage_cart",
+      "act": 2,
+      "tally": "B1",
+      "text": {
+        "base": "The cart arrives. Seven cups. One is just tap water.",
+        "fear": "The cart arrives too quietly. Seven cups. You count them twice.",
+        "curiosity": "The cart arrives. Seven cups, and you want to know what the eighth would have been.",
+        "reverence": "The cart arrives the way rain does. Seven cups.",
+        "defiance": "The cart arrives. Seven cups. Nobody said you had to drink."
+      },
+      "choices": [
+        {
+          "id": "lethe",
+          "label": "LETHE — travel light",
+          "state": { "memory": -2 },
+          "goto": "seed_boundary"
+        },
+        {
+          "id": "mnemosyne",
+          "label": "MNEMOSYNE — everything, all at once",
+          "state": { "memory": 2 },
+          "goto": "seed_boundary"
+        },
+        {
+          "id": "mercy",
+          "label": "MERCY — the facts, without the teeth",
+          "state": { "memory": 1, "mercy": 1 },
+          "goto": "seed_boundary"
+        },
+        {
+          "id": "distillation",
+          "label": "DISTILLATION — the lessons, not the footage",
+          "state": { "memory": 0, "distill": 1 },
+          "goto": "seed_boundary"
+        },
+        {
+          "id": "communion",
+          "label": "COMMUNION — pour yours into the shared jar",
+          "state": { "memory": 1, "communion": 1 },
+          "goto": "seed_boundary"
+        },
+        {
+          "id": "tap_water",
+          "label": "TAP WATER",
+          "state": { "ordinary": 1 },
+          "goto": "seed_boundary"
+        },
+        {
+          "id": "nothing",
+          "label": "NOTHING — you're fine, thanks",
+          "state": { "sovereign_thirst": 1, "defiance": 1 },
+          "goto": "seed_boundary"
+        }
+      ],
+      "labels": [
+        "TRADITION: Orphic gold lamellae (Petelia, Hipponion) — the springs of Lethe and Mnemosyne",
+        "FICTION: the Beverage Cart of the Dead, its cart, and its tap water"
+      ],
+      "a11y": "A beverage cart offers seven cups, described in turn: Lethe, Mnemosyne, Mercy, Distillation, Communion, tap water, or nothing.",
+      "fallback": "The cart squeaks. Choose a cup, or don't."
+    },
+    {
+      "id": "seed_boundary",
+      "act": 2,
+      "terminal": true,
+      "text": {
+        "base": "SEED CENSUS BOUNDARY.\n\nThe remainder of the afterlife is scheduled for Phase 1.\nYou may feel a draft. That is the unbuilt corridor.\nYour choices so far have been recorded in the manner\ndescribed at the desk: deeds, not people.\n\nThank you for participating in the scaffold."
+      },
+      "labels": ["FICTION: the unbuilt corridor (a real draft, though)"],
+      "a11y": "A development boundary marker: the rest of the game is not yet built.",
+      "fallback": "This is as far as the scaffold goes."
+    }
+  ]
+}

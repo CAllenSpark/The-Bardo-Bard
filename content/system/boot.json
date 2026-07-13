@@ -1,0 +1,27 @@
+{
+  "nodes": [
+    {
+      "id": "boot_notice",
+      "act": 0,
+      "text": {
+        "base": "THE BARDO BARD\nv?.?.? — uptime: [NaN]\n\nNOTICE, FILED IN PLAIN LANGUAGE:\nThis experience concerns death, grief, guilt, memory,\nand other existential themes. It will also, at times,\ndeliberately tempt you and apply emotional pressure to you.\nThat is part of the piece, and the piece will show its hand.\n\nYour choices here are counted — anonymously, as bare tallies —\nalongside every soul who has ever stood at this desk.\nNothing you type leaves this machine.\nWe count deeds, not people.\n(You cannot type anyway. The keyboard budget was reallocated.)"
+      },
+      "choices": [
+        { "id": "begin", "label": "BEGIN", "goto": "a1_consent" },
+        { "id": "decline", "label": "NOT TODAY", "goto": "boot_decline" }
+      ],
+      "a11y": "A plain-language content and data notice from the Bardo Bard, followed by two options: begin, or not today.",
+      "fallback": "A notice about death, counting, and consent. Begin, or don't."
+    },
+    {
+      "id": "boot_decline",
+      "act": 0,
+      "terminal": true,
+      "text": {
+        "base": "Understood.\nThe desk will keep. It is extremely good at keeping.\nGo well."
+      },
+      "a11y": "The Bard accepts the decision not to play and wishes you well.",
+      "fallback": "The desk will keep. Go well."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "comment": "Placeholder Vigil ladder schedule (Phase 2 authors the copy; Phase 0 pins the shape). Times are cumulative milliseconds of VISIBLE stillness at a1_consent before each rung appears. Compass §4.3 constraint, asserted by test: endgame lands in 420000-600000 ms (7-10 min).",
+  "rungs": [
+    { "id": "patience", "afterMs": 60000 },
+    { "id": "fear", "afterMs": 115000 },
+    { "id": "temptation", "afterMs": 170000 },
+    { "id": "desire", "afterMs": 230000 },
+    { "id": "hope", "afterMs": 290000 },
+    { "id": "loss", "afterMs": 350000 },
+    { "id": "guilt", "afterMs": 410000 },
+    { "id": "conformity", "afterMs": 455000 },
+    { "id": "plea", "afterMs": 485000 },
+    { "id": "endgame", "afterMs": 510000 }
+  ]
+}

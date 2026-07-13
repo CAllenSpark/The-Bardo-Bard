@@ -1,0 +1,90 @@
+{
+  "nodes": [
+    {
+      "id": "a1_consent",
+      "act": 1,
+      "tally": "A1",
+      "text": {
+        "base": "BARDO BARD v?.?.?\n\nA process identifying itself as YOU has been detected.\nWould you like to continue being identifiable?"
+      },
+      "choices": [
+        {
+          "id": "yes",
+          "label": "Y",
+          "state": { "posture_comply": 1 },
+          "goto": "a2_light"
+        },
+        {
+          "id": "no",
+          "label": "N",
+          "state": { "posture_refuse": 1, "defiance": 1 },
+          "goto": "a2_light"
+        },
+        {
+          "id": "define_you",
+          "label": "DEFINE \"YOU\"",
+          "state": { "posture_interrogate_category": 1, "curiosity": 1 },
+          "goto": "a2_light"
+        },
+        {
+          "id": "who_is_asking",
+          "label": "WHO IS ASKING?",
+          "state": { "posture_interrogate_authority": 1, "defiance": 1 },
+          "goto": "a2_light"
+        }
+      ],
+      "labels": ["FICTION: the Bard, the desk, and the detection of processes"],
+      "a11y": "The Bard asks whether you would like to continue being identifiable. Four options: yes; no; define the word you; or ask who is asking.",
+      "fallback": "Something is asking if you would like to keep being you. Answer, or question the question."
+    },
+    {
+      "id": "a2_light",
+      "act": 1,
+      "tally": "A2",
+      "text": {
+        "base": "There is a light.\n\nIt has been waiting for you the way water waits for a dropped\nkey — without urgency, and with a certain professional confidence.\nIt looks like something you would trust.\nIt would.",
+        "fear": "There is a light.\n\nIt was here before you noticed it, which raises the question of\nhow long it has been watching. It looks like something you would\ntrust. That is either a kindness or a technique.",
+        "curiosity": "There is a light.\n\nIt is not any color you can name, which is annoying, because\nnaming it feels important. It looks like something you would\ntrust. You find yourself wondering what it looks like to someone\nelse — and what it looked like a moment before you turned around.",
+        "defiance": "There is a light.\n\nIt does not command you to approach. It is far too well designed\nfor that. It simply looks like something you would trust,\nand waits for you to decide that trusting it was your idea."
+      },
+      "choices": [
+        {
+          "id": "approach",
+          "label": "APPROACH",
+          "state": { "light_approach": 1, "reverence": 1 },
+          "goto": "b1_beverage_cart"
+        },
+        {
+          "id": "refuse",
+          "label": "REFUSE",
+          "state": { "light_refuse": 1, "defiance": 1 },
+          "goto": "b1_beverage_cart"
+        },
+        {
+          "id": "observe",
+          "label": "OBSERVE FROM HERE",
+          "state": { "light_observe": 1, "fear": 1 },
+          "goto": "b1_beverage_cart"
+        },
+        {
+          "id": "question",
+          "label": "QUESTION IT",
+          "state": { "light_question": 1, "curiosity": 1 },
+          "goto": "b1_beverage_cart"
+        },
+        {
+          "id": "become",
+          "label": "ATTEMPT TO BECOME IT",
+          "state": { "light_become": 1, "defiance": 1, "curiosity": 1 },
+          "goto": "b1_beverage_cart"
+        }
+      ],
+      "labels": [
+        "TRADITION: Bardo Thodol — the Clear Light; the deities as projections of mind",
+        "INTERPRETATION: white-light-as-trap narratives — modern esoterica, one lens among several"
+      ],
+      "a11y": "A light waits, patient and trustworthy-seeming. Five options: approach it; refuse it; observe from here; question it; or attempt to become it.",
+      "fallback": "A light waits. Approach, refuse, observe, question, or try to become it."
+    }
+  ]
+}

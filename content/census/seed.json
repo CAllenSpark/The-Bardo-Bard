@@ -1,0 +1,7 @@
+{
+  "comment": "Offline seed census. Always labeled in-game as: (last census — the Ledger is unreachable). Placeholder values until first real export; never presented as live numbers. Compass §7 degraded mode.",
+  "label": "(last census — the Ledger is unreachable)",
+  "counts": {
+    "completions": 0
+  }
+}

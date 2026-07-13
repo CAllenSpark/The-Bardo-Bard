@@ -1,0 +1,28 @@
+{
+  "nodes": [
+    {
+      "id": "exit_return",
+      "act": 6,
+      "tally": "F1",
+      "terminal": true,
+      "text": {
+        "base": "You turn back toward the weather.\n\nEARTH ACCESS GRANTED.\nReturn may include love, weather, taxation, bodies, music,\nforgetting, dogs, and unresolved questions.\n\nThe desk stamps nothing, because you never filed anything\nit could stamp. It seems to respect this.\nGo be somebody. Again."
+      },
+      "labels": ["FICTION: the return door, which was always in the room"],
+      "a11y": "You choose to return to Earth. The Bard grants access and wishes you a life.",
+      "fallback": "You go back. The desk does not mind."
+    },
+    {
+      "id": "exit_light",
+      "act": 6,
+      "tally": "F1",
+      "terminal": true,
+      "text": {
+        "base": "You walk toward it.\n\nIt does not congratulate you. It does not need to.\nThe paperwork, such as it was, remains on the desk —\nincomplete, and, it turns out, always optional.\n\nGo gently. Mind the brightness."
+      },
+      "labels": ["FICTION: the light door, which was always in the room"],
+      "a11y": "You choose to walk into the light. The Bard lets you go without ceremony.",
+      "fallback": "You walk into the light. The form was always optional."
+    }
+  ]
+}
