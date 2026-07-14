@@ -3,8 +3,19 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import Ajv from 'ajv';
 import { writeManifest } from './gen-manifest.mjs';
+
+// ajv is a devDependency; a fresh clone must `npm install` first.
+let Ajv;
+try {
+  Ajv = (await import('ajv')).default;
+} catch (err) {
+  if (err?.code === 'ERR_MODULE_NOT_FOUND') {
+    console.error('\n  Dependencies are not installed — run: npm install\n');
+    process.exit(1);
+  }
+  throw err;
+}
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'content');

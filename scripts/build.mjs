@@ -1,10 +1,26 @@
 // Build: single IIFE bundle + one HTML entry. No module scripts, relative
 // paths only — the built game must boot from file:// (Gate 0).
-import { build } from 'esbuild';
 import { copyFileSync, mkdirSync, statSync, readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gzipSync } from 'node:zlib';
+
+// esbuild is a devDependency; a fresh clone must `npm install` first. Turn the
+// cryptic ERR_MODULE_NOT_FOUND into a plain instruction.
+let build;
+try {
+  ({ build } = await import('esbuild'));
+} catch (err) {
+  if (err?.code === 'ERR_MODULE_NOT_FOUND') {
+    console.error('\n  Dependencies are not installed — esbuild is missing.\n');
+    console.error('  Run this first, in the project folder:\n');
+    console.error('      npm install\n');
+    console.error('  If that still fails (e.g. a lock file made on another OS):\n');
+    console.error('      rm -rf node_modules package-lock.json && npm install\n');
+    process.exit(1);
+  }
+  throw err;
+}
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = join(ROOT, 'dist');
