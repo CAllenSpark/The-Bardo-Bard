@@ -560,6 +560,33 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
 | OD-12 | Share-glyph compact code carries the full committed-choice vector (more than the visible emoji), with a copy-time disclosure line | Open — proposed as specced in §7; CD may prefer code = visible emoji only (weakens Soul Analysis to act-level comparison) |
 | OD-13 | Standing-exit tally mapping | **Resolved 2026-07-13 (Phase 1):** shared choices — exits tally F1 as `return` / `light` (`light` is the tenth F1 choice); no early/late distinction server-side. Passages scale early/mid/late client-side by act |
 
+## 14. Pre-playtest design evaluation
+
+A five-critic design panel (pacing · feedback/legibility · showcase moments ·
+holistic integrity · Journey/Undertale SWOT), grounded in the authored content
+at feature-complete, is recorded in `docs/DESIGN_EVAL.md`. It surfaced **three
+CD decisions** that gate how the piece is received — do not treat as bugs:
+
+- **Decision A — is the Vigil meant to be discoverable?** The build answers "no"
+  in practice while §11 measures success as if "yes". The one in-game breadcrumb
+  currently misdirects to the standing `WALK INTO THE LIGHT` decoy door, which
+  satisfies the exact curiosity the Vigil should reward. Pick: invisible-on-
+  purpose (and stop measuring success by discovery) or meant-to-be-found (seed
+  one earlier deniable stillness breadcrumb + a distinguishable true-light).
+- **Decision B — the prestige gradient.** The meta-apparatus (near-blank "rarest"
+  glyph, "out-waited the desk", the unexplained dashboard row, "juries notice the
+  blank glyph") manufactures the very hierarchy §4.2 disavows. Either drop the
+  no-hierarchy claim or neutralize the meta-prestige.
+- **Decision C — cold-start census.** Reveals, the conformity number, and the
+  dashboard row render 0/placeholder until real traffic (or forever offline).
+  Accept the slow burn (say so) or seed a labeled non-zero "last census" floor.
+
+Cheap pre-playtest wins the panel recommends (no thesis change): fold **E1** into
+the soul record (phrases already in `glyph.json`); author four **D3** acks; give
+**LOOP** one sincere beat (§8 parity); progressive **Vigil cadence** + ~45s first
+beat; a soft in-place retraction for the **hope/loss** rungs if left un-clicked
+(safety). Full detail and the prioritized P0/P1/P2 list: `docs/DESIGN_EVAL.md`.
+
 ## 13. Session log (append-only)
 
 - **2026-07-13 — Session 1.** Repo initialized. Sources ingested (MDD v1 docx,
