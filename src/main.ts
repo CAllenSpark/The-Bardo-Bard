@@ -19,6 +19,7 @@ import { mountAudioToggle } from './ui/audio';
 import reincarnationFile from '../content/reincarnation/reincarnation.json';
 import ladderFile from '../content/vigil/ladder.json';
 import scheduleFile from '../content/vigil/schedule.json';
+import confirmationFile from '../content/confirmation/confirmation.json';
 import manifestFile from '../worker/manifest.json';
 
 interface RungDef {
@@ -32,6 +33,7 @@ interface RungDef {
 interface Ladder {
   rungs: RungDef[];
   endgame: RungDef;
+  softRetractions?: Array<{ id: string; afterMs: number; beat: string }>;
   hiddenTabLine: string;
 }
 
@@ -57,6 +59,7 @@ function fillMemory(template: string, prior: Life): string | null {
   return missing ? null : filled;
 }
 const SCHEDULE = scheduleFile as unknown as { rungs: { id: string; afterMs: number }[] };
+const CONFIRMATION_ACKS = (confirmationFile as unknown as { acks: Record<string, string> }).acks;
 const MANIFEST_KEYS = Object.keys(manifestFile as Record<string, string[]>);
 
 const IMPORT_ERROR_LINE =
@@ -135,6 +138,7 @@ export function mount(root: HTMLElement): void {
   // ── The Vigil (Compass §4): grows only in visible stillness at the first
   //    question, once per run; any click ends it for good.
   let clock: VigilClock | null = null;
+  let retractClock: VigilClock | null = null; // soft relational retractions (P0-6)
   let vigilSpent = false;
   let hiddenLineShown = false;
   let vigilSparseness = 0; // each rung thins the face; the plea leaves a pulse
@@ -168,7 +172,9 @@ export function mount(root: HTMLElement): void {
 
   const stopVigil = (): void => {
     clock?.stop();
+    retractClock?.stop();
     clock = null;
+    retractClock = null;
     vigilSpent = true;
     vigilSparseness = 0;
   };
@@ -183,13 +189,16 @@ export function mount(root: HTMLElement): void {
 
   const handlers = {
     onChoice: (choiceId: string) => {
-      const choice = getNode(graph, state.node).choices?.find((c) => c.id === choiceId);
+      const leaving = getNode(graph, state.node);
+      const choice = leaving.choices?.find((c) => c.id === choiceId);
       reactToChoice(choice?.state);
+      // The confirmation pattern pays off: 'the record, working' shown working.
+      const ackLine = leaving.tally === 'D3' ? CONFIRMATION_ACKS[choiceId] : undefined;
       if (clock) stopVigil();
       state = advance(graph, state, choiceId);
       flushTallies();
       onEnded();
-      rerender({ reveal: latestReveal() });
+      rerender({ reveal: latestReveal(), ackLine });
     },
     onExit: (exitId: StandingExitId) => {
       if (clock) stopVigil();
@@ -243,8 +252,16 @@ export function mount(root: HTMLElement): void {
       vigilSparseness = Math.min(9, SCHEDULE.rungs.findIndex((r) => r.id === scheduled.id) + 2);
       blot.set(moodFor(graph, state), vigilSparseness);
     });
+    // A second, visibility-locked clock volunteers the relational retractions
+    // if the player keeps waiting past hope/loss (P0-6). No buttons, no state.
+    if (LADDER.softRetractions && LADDER.softRetractions.length > 0) {
+      retractClock = new VigilClock({ rungs: LADDER.softRetractions }, (entry) => {
+        appendVigilBeat(root, (entry as unknown as { beat: string }).beat);
+      });
+    }
     if (typeof document !== 'undefined' && document.hidden) return; // starts on first visibility
     clock.start();
+    retractClock?.start();
   };
 
   const rerender = (options: RenderOptions = {}): void => {
@@ -272,12 +289,14 @@ export function mount(root: HTMLElement): void {
       if (!clock) return;
       if (document.hidden) {
         clock.pause();
+        retractClock?.pause();
       } else {
         if (!hiddenLineShown && clock.visibleElapsedMs > 0) {
           hiddenLineShown = true;
           appendVigilBeat(root, LADDER.hiddenTabLine);
         }
         clock.start();
+        retractClock?.start();
       }
     });
   }

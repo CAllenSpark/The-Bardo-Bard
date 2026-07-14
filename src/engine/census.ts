@@ -79,7 +79,7 @@ export function getCensus(): Census {
 /** Fill census placeholders in authored copy (the conformity acknowledgment). */
 export function fillCensus(template: string, census: Census = getCensus()): string {
   return template
-    .replace(/\{COMPLETIONS\}/g, String(census.completions))
+    .replace(/\{COMPLETIONS\}/g, census.completions.toLocaleString('en-US'))
     .replace(/\{CENSUS_LABEL\}/g, census.label)
     .replace(/  +/g, ' ')
     .replace(/ \./g, '.');

@@ -589,6 +589,27 @@ beat; a soft in-place retraction for the **hope/loss** rungs if left un-clicked
 
 ## 13. Session log (append-only)
 
+- **2026-07-14 — P0 batch applied (post-eval).** The six cheap wins from the
+  design panel (`docs/DESIGN_EVAL.md`), no thesis change, all verified in real
+  Chromium: **P0-1** E1 (WHOM DO I SERVE) now echoes in every soul record via a
+  new E1 clause table (carries its own separator; collapses cleanly for pre-E1
+  exits); **P0-2** four D3 confirmation acks (`content/confirmation/`) so "the
+  record, working" visibly registers above the confession; **P0-3** LOOP given
+  an unguarded sincere beat (the ache of chosen repetition — love, not
+  altitude; §8 parity restored); **P0-4** Vigil cadence retuned to progressive
+  tightening with a 45s first beat (END GAME still 510000ms); **P0-5** an
+  illustrative labeled last-census seeded across all nodes so reveals, the
+  conformity number, and the dashboard's unexplained row carry weight offline/
+  cold-start (the young-ledger "traveler №N" honesty still serves a genuinely
+  fresh *live* Worker); **P0-6** the hope/loss rungs volunteer a soft in-place
+  retraction (`softRetractions`, visibility-gated second clock, validator-
+  enforced digit-free) so a waiting, possibly-bereaved player is not left alone
+  with un-retracted reunion bait until the endgame (§9.3). 113 tests; 47 KB gz.
+  **P1 decisions (A discoverability / B prestige gradient / C — C now partly
+  addressed by P0-5's floor) and P2 polish remain open for the CD.**
+
+## 13.1 Session log (earlier, append-only)
+
 - **2026-07-13 — Session 1.** Repo initialized. Sources ingested (MDD v1 docx,
   MDD v2 md, philosophical report PDF) and preserved under `docs/reference/`.
   Compass v1.0 authored: title → THE BARDO BARD; 10–15 min; buttons-only MVP;

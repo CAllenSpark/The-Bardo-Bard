@@ -1,14 +1,14 @@
 {
-  "comment": "Placeholder Vigil ladder schedule (Phase 2 authors the copy; Phase 0 pins the shape). Times are cumulative milliseconds of VISIBLE stillness at a1_consent before each rung appears. Compass §4.3 constraint, asserted by test: endgame lands in 420000-600000 ms (7-10 min).",
+  "comment": "Vigil ladder schedule (Compass §4.3; eval P0-4). Cumulative milliseconds of VISIBLE stillness at a1_consent before each rung appears. The first beat lands early (45s) to signal that waiting is legible; from there the cadence TIGHTENS progressively (gaps 75s→70→65→58→52→46→40→34→25) so the rhythm itself, not just the copy, escalates toward the plea. Constraint asserted by test: endgame lands in 420000–600000 ms (7–10 min). Here: 510000 ms (8.5 min).",
   "rungs": [
-    { "id": "patience", "afterMs": 60000 },
-    { "id": "fear", "afterMs": 115000 },
-    { "id": "temptation", "afterMs": 170000 },
-    { "id": "desire", "afterMs": 230000 },
-    { "id": "hope", "afterMs": 290000 },
-    { "id": "loss", "afterMs": 350000 },
-    { "id": "guilt", "afterMs": 410000 },
-    { "id": "conformity", "afterMs": 455000 },
+    { "id": "patience", "afterMs": 45000 },
+    { "id": "fear", "afterMs": 120000 },
+    { "id": "temptation", "afterMs": 190000 },
+    { "id": "desire", "afterMs": 255000 },
+    { "id": "hope", "afterMs": 313000 },
+    { "id": "loss", "afterMs": 365000 },
+    { "id": "guilt", "afterMs": 411000 },
+    { "id": "conformity", "afterMs": 451000 },
     { "id": "plea", "afterMs": 485000 },
     { "id": "endgame", "afterMs": 510000 }
   ]

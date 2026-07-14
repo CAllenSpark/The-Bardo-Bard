@@ -42,10 +42,12 @@ function committedChoiceByTally(state: GameState, tally: string): string | null 
 }
 
 function fillClauses(template: string, state: GameState): string {
-  return template.replace(/\{(A2|B1|C1|D2)\}/g, (_, key: string) => {
+  return template.replace(/\{(A2|B1|C1|D2|E1)\}/g, (_, key: string) => {
     const clauseMap = DATA.clauses[key] ?? {};
     const choice = committedChoiceByTally(state, key);
-    return (choice && clauseMap[choice]) || clauseMap['_missing'] || '';
+    // E1 carries its own leading separator so a missing E1 collapses cleanly.
+    if (choice && clauseMap[choice] !== undefined) return clauseMap[choice]!;
+    return clauseMap['_missing'] ?? '';
   });
 }
 

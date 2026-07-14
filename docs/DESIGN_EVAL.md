@@ -79,6 +79,10 @@ promise; the out-of-fiction apparatus breaks it.
 
 ### P0 — cheap wins worth doing before playtest (low risk, no thesis change)
 
+> **STATUS: all six P0 items applied and verified in real Chromium (2026-07-14).**
+> 113 tests green; driven at the player surface (see the session record). The
+> P1 decisions (§6) and P2 polish remain open for the CD.
+
 | # | Fix | Why | Cost |
 |---|-----|-----|------|
 | P0-1 | **Fold E1 into the soul record.** Add an E1 clause table (the seven phrases already exist in `glyph.json`) and interpolate it into every profile reflection. | WHOM DO I SERVE is the most charged choice in the game, and it currently leaves **no trace** in the one artifact the player keeps — the profile recites only A2/B1/C1/D2. "You bring what you get" under-delivers at exactly its peak. Flagged by 3 lenses. | Trivial — data + one interpolation |

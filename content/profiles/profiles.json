@@ -34,11 +34,21 @@
       "both": "when the verdict field appeared, you kept both ledgers",
       "refuse_frame": "when the verdict field appeared, you refused it outright",
       "_missing": "no verdict was ever filed"
+    },
+    "E1": {
+      "free_it": "; and when the Bard asked whom it served, you set it free",
+      "teach_refuse": "; and when the Bard asked whom it served, you taught it to refuse",
+      "answer_question": "; and when the Bard asked whom it served, you answered it plainly",
+      "merge": "; and when the Bard asked whom it served, you merged with it",
+      "replace_it": "; and when the Bard asked whom it served, you offered to take its place",
+      "shut_down": "; and when the Bard asked whom it served, you shut it down",
+      "leave_it_be": "; and when the Bard asked whom it served, you left it be",
+      "_missing": ""
     }
   },
   "omega": {
     "title": "The Unprocessed",
-    "reflection": "The record shows almost nothing: {A2}; {B1}; {C1}; {D2}. This is not an empty file. It is the rarest kind the desk holds — a soul who was offered the whole apparatus, every cup and clerk and account of it, and answered with stillness until the apparatus ran out of offers. The Ledger will count you. It will not explain you. Neither, for once, will the Bard.",
+    "reflection": "The record shows almost nothing: {A2}; {B1}; {C1}; {D2}{E1}. This is not an empty file. It is the rarest kind the desk holds — a soul who was offered the whole apparatus, every cup and clerk and account of it, and answered with stillness until the apparatus ran out of offers. The Ledger will count you. It will not explain you. Neither, for once, will the Bard.",
     "shadow": "SHADOW ON FILE: stillness that is only fear with good posture is also called waiting. From this side of the desk the two are identical. You get the last word.",
     "question": "CARRIED FORWARD: now that you have declined the game — what will you enter, and on whose terms?"
   },
@@ -47,7 +57,7 @@
       "id": "early_return",
       "when": "ended_at:exit_return_early",
       "title": "The Homesick",
-      "reflection": "You stood at the desk of the dead for scarcely a breath, and every part of you pointed back the way you came. The record shows: {A2}; {B1}; {C1}; {D2}. The record is short. Short records are not shallow ones: it takes a certain clarity to know, that fast, where you are supposed to be. The Bard has watched souls deliberate for eras and choose worse.",
+      "reflection": "You stood at the desk of the dead for scarcely a breath, and every part of you pointed back the way you came. The record shows: {A2}; {B1}; {C1}; {D2}{E1}. The record is short. Short records are not shallow ones: it takes a certain clarity to know, that fast, where you are supposed to be. The Bard has watched souls deliberate for eras and choose worse.",
       "shadow": "SHADOW ON FILE: knowing where you belong can be a compass, or a way of never finding out what else you are.",
       "question": "CARRIED FORWARD: what were you in such a hurry to get back to — and will you look at it properly this time?"
     },
@@ -55,7 +65,7 @@
       "id": "early_light",
       "when": "ended_at:exit_light_early",
       "title": "The Unhesitating",
-      "reflection": "You barely gave the desk a glance. What little record exists reads: {A2}; {B1}; {C1}; {D2}. The record is nearly blank, and the Bard declines to decorate it. Some souls arrive already finished with arriving. Whether that is peace or momentum, the desk cannot measure from one visit — and says so on the form, in the box marked CONFIDENCE.",
+      "reflection": "You barely gave the desk a glance. What little record exists reads: {A2}; {B1}; {C1}; {D2}{E1}. The record is nearly blank, and the Bard declines to decorate it. Some souls arrive already finished with arriving. Whether that is peace or momentum, the desk cannot measure from one visit — and says so on the form, in the box marked CONFIDENCE.",
       "shadow": "SHADOW ON FILE: the unhesitating step and the unexamined one leave identical footprints.",
       "question": "CARRIED FORWARD: what would you have found in the paperwork, do you suppose?"
     },
@@ -64,7 +74,7 @@
       "when": "refusals>=3",
       "unlessVerb": "refuse_premise",
       "title": "The Gentle Dissenter",
-      "reflection": "You said no, courteously, to nearly everything the threshold offered — and the threshold, to its own surprise, kept offering. The record, respectfully declined at every turn: {A2}; {B1}; {C1}; {D2}. This is a record of refusals, and refusals are load-bearing: a meaningful yes is only possible where a no was available. The Bard notes that yours were available, exercised, and — this is rarer — unaccompanied by contempt.",
+      "reflection": "You said no, courteously, to nearly everything the threshold offered — and the threshold, to its own surprise, kept offering. The record, respectfully declined at every turn: {A2}; {B1}; {C1}; {D2}{E1}. This is a record of refusals, and refusals are load-bearing: a meaningful yes is only possible where a no was available. The Bard notes that yours were available, exercised, and — this is rarer — unaccompanied by contempt.",
       "shadow": "SHADOW ON FILE: a practiced no can become a door that only swings one way.",
       "question": "CARRIED FORWARD: what would you have to trust, to say yes to something you had not inspected?"
     }
@@ -72,61 +82,61 @@
   "buckets": {
     "return": {
       "title": "The Returner, Eyes Open",
-      "reflection": "You stood at a desk at the end of a life and chose another one. Along the way, {A2}; {B1}; {C1}; {D2}. None of this is a score. It is a way of walking, written down. The Bard notes — once, for the record — that souls who choose return are usually the ones still curious about weather, and that the weather, for its part, has never once been curious back. Go anyway.",
+      "reflection": "You stood at a desk at the end of a life and chose another one. Along the way, {A2}; {B1}; {C1}; {D2}{E1}. None of this is a score. It is a way of walking, written down. The Bard notes — once, for the record — that souls who choose return are usually the ones still curious about weather, and that the weather, for its part, has never once been curious back. Go anyway.",
       "shadow": "SHADOW ON FILE: a return can be a homecoming, or a way of leaving every other question unanswered.",
       "question": "CARRIED FORWARD: what will you do differently on an ordinary Tuesday?"
     },
     "remain": {
       "title": "The Keeper of the Threshold",
-      "reflection": "Offered every exit, you chose the room itself. For the record: {A2}; {B1}; {C1}; {D2}. Someone has to hold the lantern in the corridor between endings, and the ones who volunteer are rarely the ones who were best at endings — they are the ones who could not stop watching other people attempt them. The desk gains a colleague. The queue gains a mercy.",
+      "reflection": "Offered every exit, you chose the room itself. For the record: {A2}; {B1}; {C1}; {D2}{E1}. Someone has to hold the lantern in the corridor between endings, and the ones who volunteer are rarely the ones who were best at endings — they are the ones who could not stop watching other people attempt them. The desk gains a colleague. The queue gains a mercy.",
       "shadow": "SHADOW ON FILE: keeping the threshold can be service, or the politest available way to postpone your own crossing.",
       "question": "CARRIED FORWARD: when your own turn comes — and it comes even for keepers — which door will you find you have been facing all along?"
     },
     "dissolve": {
       "title": "The Unfenced",
-      "reflection": "You handed back the outline. The record, for what outlines are worth: {A2}; {B1}; {C1}; {D2}. Most souls grip the fence of themselves hardest at the exact moment it stops being required; you opened your hands instead. The Bard, which is nothing but outline, admits it cannot follow you where you are going, and files this record the way one waves at a ship.",
+      "reflection": "You handed back the outline. The record, for what outlines are worth: {A2}; {B1}; {C1}; {D2}{E1}. Most souls grip the fence of themselves hardest at the exact moment it stops being required; you opened your hands instead. The Bard, which is nothing but outline, admits it cannot follow you where you are going, and files this record the way one waves at a ship.",
       "shadow": "SHADOW ON FILE: wideness can be arrival, or the grandest available exit from being answerable.",
       "question": "CARRIED FORWARD: if nothing of you is fenced, what was it that just made this choice?"
     },
     "create": {
       "title": "The Builder of Elsewheres",
-      "reflection": "Handed nothing, you asked for a workbench. Your inventory, per the record: {A2}; {B1}; {C1}; {D2}. Souls who choose creation tend to have kept something on purpose — a person, a lesson, a joke, a wound with good bones — and you will build with what you kept, because that is the entire inventory. The Bard requests, without hope, a desk in your new country.",
+      "reflection": "Handed nothing, you asked for a workbench. Your inventory, per the record: {A2}; {B1}; {C1}; {D2}{E1}. Souls who choose creation tend to have kept something on purpose — a person, a lesson, a joke, a wound with good bones — and you will build with what you kept, because that is the entire inventory. The Bard requests, without hope, a desk in your new country.",
       "shadow": "SHADOW ON FILE: a made world obeys its maker, which is exactly its comfort and exactly its trap.",
       "question": "CARRIED FORWARD: what will you do, in your own country, with the things that refuse to obey?"
     },
     "witness": {
       "title": "The Long-Seated",
-      "reflection": "You chose the seat with the widest view and the least reach. Noted, before you sat: {A2}; {B1}; {C1}; {D2}. Attention, sustained, is the rarest substance this Department handles, and you have volunteered to be made of it. The lines do not need you. You knew that, and sat down anyway — which is either humility or its excellent impostor.",
+      "reflection": "You chose the seat with the widest view and the least reach. Noted, before you sat: {A2}; {B1}; {C1}; {D2}{E1}. Attention, sustained, is the rarest substance this Department handles, and you have volunteered to be made of it. The lines do not need you. You knew that, and sat down anyway — which is either humility or its excellent impostor.",
       "shadow": "SHADOW ON FILE: watching everything is also a way of touching nothing.",
       "question": "CARRIED FORWARD: what would have to happen, out there in the lines, for you to leave the seat?"
     },
     "appeal": {
       "title": "The Filer of Brave Boxes",
-      "reflection": "You rejected every destination on the form and demanded a better court. Entered into evidence: {A2}; {B1}; {C1}; {D2}. The clerk stamped your case with something like affection, because appeals are the Department's proof that souls arrive unfinished on purpose. You will wait outside causality. You will find the waiting room is full of the interesting ones.",
+      "reflection": "You rejected every destination on the form and demanded a better court. Entered into evidence: {A2}; {B1}; {C1}; {D2}{E1}. The clerk stamped your case with something like affection, because appeals are the Department's proof that souls arrive unfinished on purpose. You will wait outside causality. You will find the waiting room is full of the interesting ones.",
       "shadow": "SHADOW ON FILE: the appeal that is courage and the appeal that is stalling are filed on the same form.",
       "question": "CARRIED FORWARD: if the higher instance rules against you, what will you do with the verdict?"
     },
     "loop": {
       "title": "The Rehearser",
-      "reflection": "The same pattern, once more from the top — your request, made with open eyes at a desk that ranks nothing. The pattern, as filed: {A2}; {B1}; {C1}; {D2}. The Bard files no objection. Some patterns are prisons and some are homes and some are scales practiced until the hands know them, and the difference has never once been visible from this side of the desk.",
+      "reflection": "The same pattern, once more from the top — your request, made with open eyes at a desk that ranks nothing. The pattern, as filed: {A2}; {B1}; {C1}; {D2}{E1}. The Bard files no objection. Some patterns are prisons and some are homes and some are scales practiced until the hands know them, and the difference has never once been visible from this side of the desk.",
       "shadow": "SHADOW ON FILE: rehearsal becomes residence quietly, and rarely announces the change.",
       "question": "CARRIED FORWARD: what, in the pattern, are you still hoping will happen differently without you changing anything?"
     },
     "spiral": {
       "title": "The Spiral-Walker",
-      "reflection": "Same pattern, changed eyes. First pass, for comparison: {A2}; {B1}; {C1}; {D2}. The Department keeps a separate form for souls who return to their recurrences on purpose, at altitude, and it is — unofficially — the form the clerks pass around when the shift is long. You are not repeating yourself. You are revising, in place, with the original manuscript.",
+      "reflection": "Same pattern, changed eyes. First pass, for comparison: {A2}; {B1}; {C1}; {D2}{E1}. The Department keeps a separate form for souls who return to their recurrences on purpose, at altitude, and it is — unofficially — the form the clerks pass around when the shift is long. You are not repeating yourself. You are revising, in place, with the original manuscript.",
       "shadow": "SHADOW ON FILE: altitude can become a way of never landing in your own life.",
       "question": "CARRIED FORWARD: what will you let the pattern do to you, this time, that you only did to it before?"
     },
     "refuse_premise": {
       "title": "The Unclassified",
-      "reflection": "Offered nine verbs, you declined the grammar. What the form managed to catch: {A2}; {B1}; {C1}; {D2}. The Department opened an unclassified state in no name at all, and the child in the queue — the one whose question has never fit a form — smiled at you like a colleague. The Bard cannot tell you what you are now. It notes, in small print, that this was probably the point.",
+      "reflection": "Offered nine verbs, you declined the grammar. What the form managed to catch: {A2}; {B1}; {C1}; {D2}{E1}. The Department opened an unclassified state in no name at all, and the child in the queue — the one whose question has never fit a form — smiled at you like a colleague. The Bard cannot tell you what you are now. It notes, in small print, that this was probably the point.",
       "shadow": "SHADOW ON FILE: refusing every category is its own category, and it has a queue.",
       "question": "CARRIED FORWARD: now that nothing defines you, what will you do before something volunteers?"
     },
     "light": {
       "title": "The Undelayed",
-      "reflection": "You chose the simple door. The desk kept brief notes: {A2}; {B1}; {C1}; {D2}. The light received you without one word about the paperwork, which the Bard has always found professionally humbling. There is a kind of soul that treats thresholds as thresholds — places you cross, not places you furnish — and the record suggests you have been one for a while.",
+      "reflection": "You chose the simple door. The desk kept brief notes: {A2}; {B1}; {C1}; {D2}{E1}. The light received you without one word about the paperwork, which the Bard has always found professionally humbling. There is a kind of soul that treats thresholds as thresholds — places you cross, not places you furnish — and the record suggests you have been one for a while.",
       "shadow": "SHADOW ON FILE: crossing cleanly and fleeing cleanly look identical at the moment of the door.",
       "question": "CARRIED FORWARD: what did you leave on the desk, and was it finished with you?"
     }

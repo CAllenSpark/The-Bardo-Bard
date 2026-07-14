@@ -155,6 +155,13 @@ export function validateContent() {
   }
   if (!ladder.hiddenTabLine) errors.push('vigil ladder: hiddenTabLine is required');
 
+  // Soft relational retractions (P0-6): digit-free — they render into the same
+  // pre-lock log the conformity beat is checked against (Compass §4.4).
+  for (const r of ladder.softRetractions ?? []) {
+    if (!r.beat) errors.push(`vigil softRetraction ${r.id}: beat required`);
+    if (/\d/.test(r.beat ?? '')) errors.push(`vigil softRetraction ${r.id}: must be digit-free (Compass §4.4)`);
+  }
+
   // Omega passage exists and ends the game.
   const omegaLight = nodes.get('omega_light');
   const omegaDisclosure = nodes.get('omega_disclosure');

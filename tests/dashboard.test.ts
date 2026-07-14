@@ -39,13 +39,15 @@ describe('the Ledger dashboard (Gate 3, OD-11 scope)', () => {
     expect(root.textContent).toContain('A1 · YES 48%');
   });
 
-  it('unreachable Ledger degrades to the labeled seed', async () => {
+  it('unreachable Ledger degrades to the labeled seed floor (P0-5)', async () => {
     await renderDashboard(root, {
       url: 'https://ledger.test',
       fetcher: async () => { throw new Error('down'); },
       storage: noStorage,
     });
-    expect(root.textContent).toContain('SOULS SERVED: 0');
+    // The seeded last-census carries weight instead of 0/0, always labeled.
+    expect(root.textContent).toContain('SOULS SERVED: 41,377');
+    expect(root.textContent).toContain('DEPARTED WITHOUT FILING: 289');
     expect(root.textContent).toContain('(last census — the Ledger is unreachable)');
   });
 });

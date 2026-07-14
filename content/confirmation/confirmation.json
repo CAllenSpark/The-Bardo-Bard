@@ -1,0 +1,9 @@
+{
+  "comment": "D3 confirmation-pattern acknowledgments (Compass Phase 5 eval P0-2). One line shown above the confession when the player responds to the Bard's reading — so 'the record, working' visibly registers. Keyed by the D3 choice id.",
+  "acks": {
+    "correct": "Struck. Your reading replaces mine in the file, in your hand. — The record, working.",
+    "complicate": "Filed as: more tangled than that. The tangle is kept, uncondensed. — The record, working.",
+    "accept": "Entered as read. The Bard takes no pleasure in being right; it only, at last, stops asking. — The record holds.",
+    "refuse_classification": "The field is left open. The Bard has learned, slowly, to prefer it that way. — The record, unfinished, and working."
+  }
+}

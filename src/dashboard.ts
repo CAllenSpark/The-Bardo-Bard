@@ -9,7 +9,19 @@ import seedFile from '../content/census/seed.json';
  */
 
 const MANIFEST = manifestFile as Record<string, string[]>;
-const SEED = seedFile as unknown as { label: string; counts: { completions: number } };
+const SEED = seedFile as unknown as {
+  label: string;
+  counts: Record<string, number | Record<string, number>>;
+};
+
+/** The seed census as a per-node counts map (completions collapses to {done}). */
+function seedAsCounts(): Record<string, Record<string, number>> {
+  const out: Record<string, Record<string, number>> = {};
+  for (const [node, value] of Object.entries(SEED.counts)) {
+    out[node] = typeof value === 'number' ? { done: value } : value;
+  }
+  return out;
+}
 
 type Fetcher = (url: string) => Promise<{ status: number; json(): Promise<unknown> }>;
 
@@ -33,7 +45,9 @@ async function loadCounts(deps: DashboardDeps, nodes: string[]): Promise<{ count
       /* fall through to the seed */
     }
   }
-  return { counts: { completions: { done: SEED.counts.completions } }, live: false };
+  // Offline / unreachable: the labeled seed census (headlines carry weight,
+  // never presented as live).
+  return { counts: seedAsCounts(), live: false };
 }
 
 function line(className: string, text: string): HTMLElement {

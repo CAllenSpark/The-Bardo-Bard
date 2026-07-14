@@ -20,6 +20,7 @@ export function deriveManifest() {
     for (const name of readdirSync(join(CONTENT, dir))) {
       if (!name.endsWith('.json')) continue;
       const data = JSON.parse(readFileSync(join(CONTENT, dir, name), 'utf8'));
+      if (!Array.isArray(data.nodes)) continue; // skip non-encounter files
       for (const node of data.nodes) {
         if (!node.tally) continue;
         for (const choice of node.choices ?? []) add(node.tally, choice.id);

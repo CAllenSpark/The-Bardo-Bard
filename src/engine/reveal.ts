@@ -69,7 +69,7 @@ export function buildFullLedger(graph: ContentGraph, state: GameState): string {
   }
   const completions = getNodeCensus('completions');
   if (completions.label) anySeed = true;
-  lines.push(`You are soul №${(completions.counts['done'] ?? 0) + 1}.`);
+  lines.push(`You are soul №${((completions.counts['done'] ?? 0) + 1).toLocaleString('en-US')}.`);
   if (anySeed) lines.push('(last census — the Ledger is unreachable)');
   return lines.join('\n');
 }

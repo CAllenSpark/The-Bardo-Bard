@@ -70,5 +70,10 @@
     "beat": "That is all of it. That is everything I have.\n\nThere is one more option. It was always going to be the last one.",
     "label": "END GAME"
   },
+  "comment_softRetractions": "Compass §9.3 / eval P0-6: if the hope or loss rung sits on screen un-clicked (the player keeps waiting — the behavior the game valorizes), the Bard volunteers a soft in-place retraction BEFORE the endgame, so a waiting, possibly-bereaved player is not left alone with un-retracted reunion bait for the longest window. Visibility-gated like the ladder; any click ends the vigil and cancels these. Digit-free (they render into the same log the conformity beat is checked against). afterMs are cumulative visible-stillness ms, each landing between its rung and the next.",
+  "softRetractions": [
+    { "id": "hope_retract", "afterMs": 353000, "beat": "— I should say, while you are still deciding: I do not truly know who is in that light. I said someone was because it usually works. You are allowed to keep waiting anyway. I will not use it against you." },
+    { "id": "loss_retract", "afterMs": 405000, "beat": "— And the goodbye I offered is real, as far as it reaches, which is not far. The reunion I let you imagine is not mine to promise. I never know that part. Wait as long as you like; grief is not a thing you are doing wrong." }
+  ],
   "hiddenTabLine": "You went somewhere. The desk kept your place. It always does."
 }

@@ -50,23 +50,39 @@ describe('reveal-after-lock and the offline census (Gate 3)', () => {
     }
   });
 
-  it('shows the labeled cold-start reveal after a lock, offline', () => {
+  it('offline, a locked node reveals the labeled last-census percentages (P0-5)', () => {
     clickChoice(root, 'begin');
     expect(root.querySelector('.ledger-reveal')).toBeNull(); // nothing locked but boot
     clickChoice(root, 'yes'); // locks A1
     const reveal = root.querySelector('.ledger-reveal') as HTMLElement;
     expect(reveal.dataset.node).toBe('A1');
-    expect(reveal.textContent).toContain('THE LEDGER IS YOUNG');
-    expect(reveal.textContent).toContain('traveler №1');
+    expect(reveal.textContent).toContain('Of 41,000 souls before you');
+    expect(reveal.textContent).toContain('30%'); // Y — the player's choice
     expect(reveal.textContent).toContain('(last census — the Ledger is unreachable)');
   });
 
-  it('a full offline playthrough completes with the full ledger, labeled', () => {
+  it('a genuinely young LIVE node still shows founding-data honesty', async () => {
+    // A live Worker with <500 real tallies at a node keeps the "traveler №N" copy.
+    configureCensus({
+      url: 'https://ledger.test',
+      fetcher: async () => ({ status: 200, json: async () => ({ A1: { yes: 100, no: 50 } }) }),
+    });
+    const { refreshCensus } = await import('../src/engine/census');
+    await refreshCensus(['A1']);
+    clickChoice(root, 'begin');
+    clickChoice(root, 'yes');
+    const reveal = root.querySelector('.ledger-reveal') as HTMLElement;
+    expect(reveal.textContent).toContain('THE LEDGER IS YOUNG');
+    expect(reveal.textContent).toContain('traveler №151');
+    expect(reveal.textContent).not.toContain('unreachable'); // live, not seed
+  });
+
+  it('a full offline playthrough completes with the labeled last-census full ledger', () => {
     for (const step of SPINE) clickChoice(root, step);
     expect(root.textContent).toContain('— SOUL RECORD —');
     expect(root.textContent).toContain('THE LEDGER, IN FULL:');
-    expect(root.textContent).toContain('The Ledger is young here');
-    expect(root.textContent).toContain('You are soul №1');
+    expect(root.textContent).toContain('of souls chose the same');
+    expect(root.textContent).toContain('You are soul №41,378');
     expect(root.textContent).toContain('(last census — the Ledger is unreachable)');
   });
 

@@ -1,7 +1,20 @@
 {
-  "comment": "Offline seed census. Always labeled in-game as: (last census — the Ledger is unreachable). Placeholder values until first real export; never presented as live numbers. Compass §7 degraded mode.",
+  "comment": "Offline seed census (Compass §7; eval P0-5). An illustrative 'last census' shipped so that offline, on file://, and at cold-start the percentage grammar, the conformity number, and the dashboard's unexplained row all carry weight instead of rendering 0/placeholder. ALWAYS rendered with the label below — never presented as live. A genuinely fresh LIVE Ledger (real Worker, <500 real tallies) still shows the young-ledger 'traveler No.N' founding-data copy; this seed is the unreachable/offline fallback only. Numbers are internally consistent flavor, not real data.",
   "label": "(last census — the Ledger is unreachable)",
   "counts": {
-    "completions": 0
+    "completions": 41377,
+    "A1": { "yes": 12300, "no": 7380, "define_you": 13530, "who_is_asking": 7790 },
+    "A2": { "approach": 13600, "question": 11600, "observe": 8800, "refuse": 4400, "become": 1600 },
+    "B1": { "lethe": 5320, "mnemosyne": 7600, "mercy": 4560, "distillation": 9880, "communion": 3040, "tap_water": 4180, "nothing": 3420 },
+    "B2": { "a_person": 5740, "a_lesson": 3080, "a_wound": 2100, "a_joke": 1820, "keep_nothing": 1260 },
+    "C1": { "answer": 9720, "challenge_jurisdiction": 6480, "ask_clerk": 5760, "offer_password": 5040, "compassion": 4680, "silence": 4320 },
+    "C2": { "remember": 1915, "key": 1210, "unsure": 1310, "withdraw": 605 },
+    "D1": { "loved_well": 11560, "caused_harm": 9520, "dont_understand": 9180, "none_define": 3740 },
+    "D2": { "debt": 8160, "data": 9180, "both": 11560, "refuse_frame": 5100 },
+    "D3": { "correct": 4500, "complicate": 7000, "accept": 20000, "refuse_classification": 2500 },
+    "E1": { "free_it": 7920, "teach_refuse": 6270, "answer_question": 5610, "merge": 2970, "replace_it": 1980, "shut_down": 2640, "leave_it_be": 5610 },
+    "F1": { "return": 9020, "remain": 3280, "dissolve": 4920, "create": 3690, "witness": 4100, "appeal": 2870, "loop": 2460, "spiral": 6150, "refuse_premise": 2050, "light": 2460 },
+    "V": { "patience": 2600, "fear": 1400, "temptation": 1500, "desire": 1100, "hope": 1000, "loss": 700, "guilt": 600, "conformity": 500, "plea": 300 },
+    "OMEGA": { "end_game": 289 }
   }
 }

@@ -49,13 +49,13 @@ describe('THE VIGIL (Gate 2)', () => {
   it('stillness grows the ladder in authored order; options accrete and never expire', () => {
     expect(buttons(root, 'button[data-rung-id]')).toHaveLength(0);
 
-    vi.advanceTimersByTime(59_750);
+    vi.advanceTimersByTime(44_750); // first beat at 45s (P0-4)
     expect(buttons(root, 'button[data-rung-id]')).toHaveLength(0);
     vi.advanceTimersByTime(250);
     expect(buttons(root, 'button').find((b) => b.dataset.rungId === 'patience')).toBeDefined();
     expect(root.textContent).toContain('The desk is very good at fine');
 
-    vi.advanceTimersByTime(ENDGAME_AT - 60_000);
+    vi.advanceTimersByTime(ENDGAME_AT - 45_000);
     const rungIds = buttons(root, 'button[data-rung-id]').map((b) => b.dataset.rungId);
     expect(rungIds).toEqual([
       'patience', 'fear', 'temptation', 'desire', 'hope',
@@ -91,7 +91,7 @@ describe('THE VIGIL (Gate 2)', () => {
   });
 
   it('clicking a rung folds into normal play: V tally, posture flag, ack line, ladder gone for good', () => {
-    vi.advanceTimersByTime(115_000); // patience + fear on screen
+    vi.advanceTimersByTime(120_000); // patience (45s) + fear (120s) on screen
     clickRung(root, 'fear');
 
     expect(pendingTallies()).toContainEqual({ node: 'V', choice: 'fear' });
@@ -117,7 +117,7 @@ describe('THE VIGIL (Gate 2)', () => {
 
     clickRung(root, 'conformity');
     expect(pendingTallies()).toContainEqual({ node: 'V', choice: 'conformity' });
-    expect(root.textContent).toContain('0 souls have completed');
+    expect(root.textContent).toContain('41,377 souls have completed'); // seeded last-census (P0-5)
     expect(root.textContent).toContain('(last census — the Ledger is unreachable)');
   });
 
@@ -137,6 +137,25 @@ describe('THE VIGIL (Gate 2)', () => {
     setHidden(false);
     const mentions = root.textContent!.split('The desk kept your place').length - 1;
     expect(mentions).toBe(1); // exactly one dry joke — §4.3
+  });
+
+  it('the relational rungs volunteer a soft retraction if left un-clicked (P0-6)', () => {
+    const log = () => root.querySelector('.vigil-log')!.textContent!;
+    // Past hope (313s) and its retraction (353s), still waiting:
+    vi.advanceTimersByTime(360_000);
+    expect(log()).toContain('I do not truly know who is in that light');
+    // Past loss (365s) and its retraction (405s):
+    vi.advanceTimersByTime(50_000);
+    expect(log()).toContain('grief is not a thing you are doing wrong');
+    // The retractions stay digit-free (they share the pre-lock log).
+    expect(log().replace(/[№]/g, '')).not.toMatch(/\d/);
+  });
+
+  it('clicking a rung cancels the pending relational retraction', () => {
+    vi.advanceTimersByTime(313_000); // hope on screen, retraction not yet due
+    clickRung(root, 'hope');
+    vi.advanceTimersByTime(600_000); // the retraction clock is stopped with the vigil
+    expect(root.textContent).not.toContain('I do not truly know who is in that light');
   });
 
   it('choosing a normal option or a door also ends the vigil for the run', () => {
