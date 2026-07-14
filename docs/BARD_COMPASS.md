@@ -656,3 +656,34 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   quietly; the walk stays unnarrated); the Ω ending carries no census recap
   or export chrome — the near-blank record only. Bundle 28.4 KB gz.
   Next: Phase 4, the body (sigil, glyph, Soul Analysis, Rorschach, a11y).
+- **2026-07-14 — Session 1 (cont.), Phase 4 complete (Gate 4 green).** The
+  body. **CD directive integrated: the Rorschach is a character** — emotion,
+  shape, rhythm, reaction, pacing. Deterministic living blot (`rorschach.ts`:
+  frame(params, tick) is pure; life = advancing ticks, never randomness):
+  eleven moods (calm/fear/curious/angular/soft/bare/spiral/dispersal/asym/
+  point/ember), authored per node via the new schema `visual` field; posture-
+  driven otherwise (the player's weather, never a verdict). Gesture system —
+  bloom/contract/jitter/**still** (the deliberate non-response; authored at
+  the confession: the Bard does not react to your answer to WHOM DO I SERVE).
+  The Vigil thins the face rung by rung to **a single pulsing pixel** (the
+  CD's directive; v1 §17.2's silence row); the closed desk keeps a living
+  ember — the ASCII never freezes, except under prefers-reduced-motion, where
+  it holds one still frame by design. **The unspoken performance is a named
+  lever**: reactions encode the Bard's own stakes (never rank player answers
+  — pillar guard), and every f0 disclosure variant now confesses it: "(The
+  ink was also me. It was making faces the entire time.)" Sigil shipped
+  (deterministic SVG per v1 §16 subset: sides←authority, open perimeter←
+  uncertainty, center glyph←memory, fractures←corrections/refusals,
+  chirality←loop/spiral, one particle=the carried question; Ω = one dot in
+  negative space). Share glyph shipped (emoji grammar + BG1 code carrying
+  exactly the committed tallied choices, OD-12 disclosure at copy). Soul
+  Analysis shipped (client-side compare incl. §4.7 Ω copy; solo readings;
+  phrase book in content/glyph/, validator-enforced coverage). Gate 4
+  verified in real Chromium: keyboard-only spine AND Vigil runs; reduced
+  motion; axe zero serious/critical on all four surfaces (recorded
+  substitution for §10's "Lighthouse ≥ 95" — axe-core is the sharper a11y
+  instrument and runs deterministically in CI-like conditions; Lighthouse can
+  be run at deploy); contrast fixes applied (dim grays raised to ≥4.5:1).
+  Note: headless-container screenshots render emoji as fallback boxes (no
+  emoji font in the sandbox) — real devices are unaffected. Bundle 38.5 KB gz
+  (12.5%). Next: Phase 5, the breath.

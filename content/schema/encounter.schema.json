@@ -65,6 +65,21 @@
             "pattern": "^(TRADITION|INTERPRETATION|HYPOTHESIS|FICTION): "
           }
         },
+        "visual": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "The Bard's face at this node: an authored mood for the Rorschach, and optionally a reaction to any choice made here ('still' = the deliberate non-response).",
+          "properties": {
+            "mood": {
+              "type": "string",
+              "enum": ["calm", "fear", "curious", "angular", "soft", "bare", "spiral", "dispersal", "asym", "point", "ember"]
+            },
+            "react": {
+              "type": "string",
+              "enum": ["bloom", "contract", "jitter", "still", "none"]
+            }
+          }
+        },
         "a11y": { "type": "string", "minLength": 1 },
         "fallback": { "type": "string", "minLength": 1 }
       }

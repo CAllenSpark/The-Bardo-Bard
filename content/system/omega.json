@@ -7,14 +7,21 @@
         "base": "You stand.\n\nThe light does not take a shape. It does not wear a face,\nor a voice, or a porch lamp. It is not patient, and it is\nnot impatient. It is the way out, and it was never anywhere\nelse.\n\nYou walk."
       },
       "choices": [
-        { "id": "go_on", "label": "GO ON", "goto": "omega_disclosure" }
+        {
+          "id": "go_on",
+          "label": "GO ON",
+          "goto": "omega_disclosure"
+        }
       ],
       "labels": [
         "TRADITION: Bardo Thodol — the Clear Light, formless; the shapes as projections of mind",
         "FICTION: everything else at this desk"
       ],
       "a11y": "You walk into a light that takes no shape and wears no face. One option: go on.",
-      "fallback": "The light takes no shape. You walk."
+      "fallback": "The light takes no shape. You walk.",
+      "visual": {
+        "mood": "point"
+      }
     },
     {
       "id": "omega_disclosure",
@@ -27,7 +34,10 @@
         "FICTION: the Bard, the desk, the Vigil, and every lever named above — named because naming them is the point"
       ],
       "a11y": "The Bard's final disclosure: it names every lever it used during the vigil, retracts the suggestion that anyone waits in the light, admits it cannot tell presence from fear, and closes the desk. The game has ended.",
-      "fallback": "The Bard names every lever it used, retracts what it could not know, and closes the desk."
+      "fallback": "The Bard names every lever it used, retracts what it could not know, and closes the desk.",
+      "visual": {
+        "mood": "ember"
+      }
     }
   ]
 }

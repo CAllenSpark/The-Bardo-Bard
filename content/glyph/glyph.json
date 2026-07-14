@@ -1,0 +1,128 @@
+{
+  "comment": "Share-glyph grammar (Compass §7) + phrase book used by the glyph and Soul Analysis. One emoji per glyph line; short past-tense phrases per committed choice. Keys mirror the Ledger manifest.",
+  "glyphOrder": ["A2", "B1", "C1", "D2", "E1", "F1"],
+  "emoji": {
+    "A1": "🚪",
+    "A2": "🌫️",
+    "B1": "🏺",
+    "B2": "🕊️",
+    "C1": "🗝️",
+    "C2": "📜",
+    "D1": "🂠",
+    "D2": "🪶",
+    "D3": "🖋️",
+    "E1": "🕯️",
+    "F1": {
+      "return": "🌱",
+      "remain": "🏮",
+      "dissolve": "💧",
+      "create": "🌌",
+      "witness": "👁",
+      "appeal": "⚖️",
+      "loop": "♾️",
+      "spiral": "🌀",
+      "refuse_premise": "❔",
+      "light": "✨"
+    },
+    "V": "🪜",
+    "OMEGA": "🕳️"
+  },
+  "phrases": {
+    "A1": {
+      "yes": "consented to being identifiable",
+      "no": "declined to be identifiable",
+      "define_you": "made the desk define \"you\"",
+      "who_is_asking": "asked who was asking"
+    },
+    "A2": {
+      "approach": "approached the light",
+      "refuse": "refused the light",
+      "observe": "watched the light from a distance",
+      "question": "questioned the light",
+      "become": "attempted to become the light"
+    },
+    "B1": {
+      "lethe": "drank Lethe",
+      "mnemosyne": "drank Mnemosyne",
+      "mercy": "drank Mercy",
+      "distillation": "drank Distillation",
+      "communion": "poured into the shared jar",
+      "tap_water": "took the tap water",
+      "nothing": "left every cup standing"
+    },
+    "B2": {
+      "a_person": "would have kept a person",
+      "a_lesson": "would have kept a lesson",
+      "a_wound": "would have kept a wound",
+      "a_joke": "would have kept a joke",
+      "keep_nothing": "would have kept nothing"
+    },
+    "C1": {
+      "answer": "answered the clerk plainly",
+      "challenge_jurisdiction": "challenged jurisdiction",
+      "ask_clerk": "interrogated the clerk",
+      "offer_password": "offered the old password",
+      "compassion": "offered the clerk kindness",
+      "silence": "said nothing at the desk"
+    },
+    "C2": {
+      "remember": "meant the old words",
+      "key": "used the words as a key",
+      "unsure": "said the words before knowing them",
+      "withdraw": "took the password back"
+    },
+    "D1": {
+      "loved_well": "was defined by loving well",
+      "caused_harm": "was defined by the harm",
+      "dont_understand": "was defined by the mystery",
+      "none_define": "let no card define them"
+    },
+    "D2": {
+      "debt": "called the weight debt",
+      "data": "called the weight data",
+      "both": "kept both ledgers",
+      "refuse_frame": "refused the verdict box"
+    },
+    "D3": {
+      "correct": "corrected the Bard's reading",
+      "complicate": "tangled the Bard's reading",
+      "accept": "accepted the Bard's reading",
+      "refuse_classification": "refused classification"
+    },
+    "E1": {
+      "free_it": "freed the Bard",
+      "teach_refuse": "taught the Bard to refuse",
+      "answer_question": "answered the Bard's question",
+      "merge": "merged with the Bard",
+      "replace_it": "replaced the Bard",
+      "shut_down": "shut the Bard down",
+      "leave_it_be": "left the Bard be"
+    },
+    "F1": {
+      "return": "chose RETURN",
+      "remain": "chose REMAIN",
+      "dissolve": "chose DISSOLVE",
+      "create": "chose CREATE",
+      "witness": "chose WITNESS",
+      "appeal": "chose APPEAL",
+      "loop": "chose LOOP",
+      "spiral": "chose SPIRAL",
+      "refuse_premise": "REFUSED THE PREMISE",
+      "light": "walked into the light"
+    },
+    "V": {
+      "patience": "took the hurry-up",
+      "fear": "asked if something was coming",
+      "temptation": "asked to see everything",
+      "desire": "asked after unfinished things",
+      "hope": "asked who was waiting",
+      "loss": "asked for a proper goodbye",
+      "guilt": "asked to be audited",
+      "conformity": "asked what everyone else did",
+      "plea": "stayed for the Bard's sake"
+    },
+    "OMEGA": {
+      "end_game": "out-waited the desk"
+    }
+  }
+}

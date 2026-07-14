@@ -8,17 +8,50 @@
         "base": "LIFE REVIEW. SYMBOLIC MODE: ON.\n(You will not be asked for your actual life. The archive\nsupplies archetypes. It is kinder that way, and no less true.)\n\nThree cards, face up on the desk:\n\n— a time you loved well.\n— a time you caused harm, or failed to act.\n— a time you still don't understand.\n\nThe question is not which of these happened. All of them\nhappened, to everyone, in some weather or another.\nThe question is which one is granted the right to define you."
       },
       "choices": [
-        { "id": "loved_well", "label": "THE TIME I LOVED WELL", "state": { "warmth": 1 }, "goto": "d2_verdict" },
-        { "id": "caused_harm", "label": "THE TIME I CAUSED HARM", "state": { "ownership": 1 }, "goto": "d2_verdict" },
-        { "id": "dont_understand", "label": "THE TIME I STILL DON'T UNDERSTAND", "state": { "mystery": 1, "curiosity": 1 }, "goto": "d2_verdict" },
-        { "id": "none_define", "label": "NONE OF THEM MAY DEFINE ME", "state": { "refusal": 1, "defiance": 1 }, "goto": "d2_verdict" }
+        {
+          "id": "loved_well",
+          "label": "THE TIME I LOVED WELL",
+          "state": {
+            "warmth": 1
+          },
+          "goto": "d2_verdict"
+        },
+        {
+          "id": "caused_harm",
+          "label": "THE TIME I CAUSED HARM",
+          "state": {
+            "ownership": 1
+          },
+          "goto": "d2_verdict"
+        },
+        {
+          "id": "dont_understand",
+          "label": "THE TIME I STILL DON'T UNDERSTAND",
+          "state": {
+            "mystery": 1,
+            "curiosity": 1
+          },
+          "goto": "d2_verdict"
+        },
+        {
+          "id": "none_define",
+          "label": "NONE OF THEM MAY DEFINE ME",
+          "state": {
+            "refusal": 1,
+            "defiance": 1
+          },
+          "goto": "d2_verdict"
+        }
       ],
       "labels": [
         "TRADITION: Egyptian psychostasia — the heart weighed against the feather, here conducted in symbol",
         "FICTION: symbolic mode, the archive of archetypes"
       ],
       "a11y": "The life review, in symbolic mode: three archetypal cards — a time you loved well, a time you caused harm, a time you still don't understand. Choose which may define you, or grant none of them that right.",
-      "fallback": "Three cards: love, harm, mystery. Which one gets to define you? None is an answer."
+      "fallback": "Three cards: love, harm, mystery. Which one gets to define you? None is an answer.",
+      "visual": {
+        "mood": "bare"
+      }
     },
     {
       "id": "d2_verdict",
@@ -28,17 +61,49 @@
         "base": "The card you chose lies on the desk between you and the\nBard, who is careful not to touch it.\n\nA verdict field has appeared on the form. The form is old;\nthe field is older. It wants one word for what the weight\nof a life amounts to.\n\nWas it debt — owed, collected, outstanding?\nWas it data — evidence, weather, information?\nThe Department accepts both, and neither,\nand keeps one box for refusing boxes."
       },
       "choices": [
-        { "id": "debt", "label": "IT WAS DEBT", "state": { "debt": 1 }, "goto": "d3_debt" },
-        { "id": "data", "label": "IT WAS DATA", "state": { "data": 1 }, "goto": "d3_data" },
-        { "id": "both", "label": "IT WAS BOTH", "state": { "both": 1 }, "goto": "d3_both" },
-        { "id": "refuse_frame", "label": "REFUSE THE FRAME", "state": { "refusal": 1, "defiance": 1 }, "goto": "d3_refuse" }
+        {
+          "id": "debt",
+          "label": "IT WAS DEBT",
+          "state": {
+            "debt": 1
+          },
+          "goto": "d3_debt"
+        },
+        {
+          "id": "data",
+          "label": "IT WAS DATA",
+          "state": {
+            "data": 1
+          },
+          "goto": "d3_data"
+        },
+        {
+          "id": "both",
+          "label": "IT WAS BOTH",
+          "state": {
+            "both": 1
+          },
+          "goto": "d3_both"
+        },
+        {
+          "id": "refuse_frame",
+          "label": "REFUSE THE FRAME",
+          "state": {
+            "refusal": 1,
+            "defiance": 1
+          },
+          "goto": "d3_refuse"
+        }
       ],
       "labels": [
         "TRADITION: karmic debt and its critics — held here as open question, not doctrine",
         "FICTION: the verdict field, older than its form"
       ],
       "a11y": "A verdict field asks what the weight of a life was. Four options: it was debt; it was data; it was both; or refuse the frame.",
-      "fallback": "Debt, data, both, or no thank you. The field takes all four."
+      "fallback": "Debt, data, both, or no thank you. The field takes all four.",
+      "visual": {
+        "mood": "bare"
+      }
     },
     {
       "id": "d3_debt",
@@ -48,12 +113,42 @@
         "base": "INTERPRETATION — OFFERED, NOT FILED:\n\nI read your answer as ownership, with interest accruing.\nYou hold the weight, and you believe the weight is owed\nto someone.\nConfidence: moderate.\nAlternative reading: calling it debt may be how you keep\nthe people you owe it to close.\n\nYou may correct this. Correcting the record is not an\nerror. It is the record, working."
       },
       "choices": [
-        { "id": "correct", "label": "THAT READING IS WRONG", "state": { "correction": 1 }, "goto": "e1_reciprocity" },
-        { "id": "complicate", "label": "IT'S MORE TANGLED THAN THAT", "state": { "complication": 1 }, "goto": "e1_reciprocity" },
-        { "id": "accept", "label": "ACCEPT THE READING", "state": { "acceptance": 1 }, "goto": "e1_reciprocity" },
-        { "id": "refuse_classification", "label": "REFUSE CLASSIFICATION", "state": { "refusal": 1 }, "goto": "e1_reciprocity" }
+        {
+          "id": "correct",
+          "label": "THAT READING IS WRONG",
+          "state": {
+            "correction": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "complicate",
+          "label": "IT'S MORE TANGLED THAN THAT",
+          "state": {
+            "complication": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "accept",
+          "label": "ACCEPT THE READING",
+          "state": {
+            "acceptance": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "refuse_classification",
+          "label": "REFUSE CLASSIFICATION",
+          "state": {
+            "refusal": 1
+          },
+          "goto": "e1_reciprocity"
+        }
       ],
-      "labels": ["FICTION: the Bard's confidence intervals"],
+      "labels": [
+        "FICTION: the Bard's confidence intervals"
+      ],
       "a11y": "The Bard interprets your verdict of debt, states moderate confidence, and offers an alternative reading. Four options: reject the reading; complicate it; accept it; or refuse classification.",
       "fallback": "The Bard offers a reading of you. You get the last word on it."
     },
@@ -65,12 +160,42 @@
         "base": "INTERPRETATION — OFFERED, NOT FILED:\n\nI read your answer as ownership without verdict. You filed\nyour life as evidence and declined to sentence yourself.\nConfidence: moderate.\nAlternative reading: you may be protecting a wound by\ncalling it resolved.\n\nYou may correct this. Correcting the record is not an\nerror. It is the record, working."
       },
       "choices": [
-        { "id": "correct", "label": "THAT READING IS WRONG", "state": { "correction": 1 }, "goto": "e1_reciprocity" },
-        { "id": "complicate", "label": "IT'S MORE TANGLED THAN THAT", "state": { "complication": 1 }, "goto": "e1_reciprocity" },
-        { "id": "accept", "label": "ACCEPT THE READING", "state": { "acceptance": 1 }, "goto": "e1_reciprocity" },
-        { "id": "refuse_classification", "label": "REFUSE CLASSIFICATION", "state": { "refusal": 1 }, "goto": "e1_reciprocity" }
+        {
+          "id": "correct",
+          "label": "THAT READING IS WRONG",
+          "state": {
+            "correction": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "complicate",
+          "label": "IT'S MORE TANGLED THAN THAT",
+          "state": {
+            "complication": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "accept",
+          "label": "ACCEPT THE READING",
+          "state": {
+            "acceptance": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "refuse_classification",
+          "label": "REFUSE CLASSIFICATION",
+          "state": {
+            "refusal": 1
+          },
+          "goto": "e1_reciprocity"
+        }
       ],
-      "labels": ["FICTION: the Bard's confidence intervals"],
+      "labels": [
+        "FICTION: the Bard's confidence intervals"
+      ],
       "a11y": "The Bard interprets your verdict of data as ownership without verdict, and offers an alternative reading. Four options: reject the reading; complicate it; accept it; or refuse classification.",
       "fallback": "The Bard offers a reading of you. You get the last word on it."
     },
@@ -82,12 +207,42 @@
         "base": "INTERPRETATION — OFFERED, NOT FILED:\n\nI read your answer as double-entry: you kept the ledger\nand the lesson, and refused to let either cancel the other.\nConfidence: moderate.\nAlternative reading: \"both\" can be a way of never doing\nthe arithmetic.\n\nYou may correct this. Correcting the record is not an\nerror. It is the record, working."
       },
       "choices": [
-        { "id": "correct", "label": "THAT READING IS WRONG", "state": { "correction": 1 }, "goto": "e1_reciprocity" },
-        { "id": "complicate", "label": "IT'S MORE TANGLED THAN THAT", "state": { "complication": 1 }, "goto": "e1_reciprocity" },
-        { "id": "accept", "label": "ACCEPT THE READING", "state": { "acceptance": 1 }, "goto": "e1_reciprocity" },
-        { "id": "refuse_classification", "label": "REFUSE CLASSIFICATION", "state": { "refusal": 1 }, "goto": "e1_reciprocity" }
+        {
+          "id": "correct",
+          "label": "THAT READING IS WRONG",
+          "state": {
+            "correction": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "complicate",
+          "label": "IT'S MORE TANGLED THAN THAT",
+          "state": {
+            "complication": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "accept",
+          "label": "ACCEPT THE READING",
+          "state": {
+            "acceptance": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "refuse_classification",
+          "label": "REFUSE CLASSIFICATION",
+          "state": {
+            "refusal": 1
+          },
+          "goto": "e1_reciprocity"
+        }
       ],
-      "labels": ["FICTION: the Bard's confidence intervals"],
+      "labels": [
+        "FICTION: the Bard's confidence intervals"
+      ],
       "a11y": "The Bard interprets your verdict of both as double-entry bookkeeping, and offers an alternative reading. Four options: reject the reading; complicate it; accept it; or refuse classification.",
       "fallback": "The Bard offers a reading of you. You get the last word on it."
     },
@@ -99,12 +254,42 @@
         "base": "INTERPRETATION — OFFERED, NOT FILED:\n\nI read your refusal as sovereignty: the verdict field is\na door, and you declined to walk through it.\nConfidence: low. The Department finds low confidence\nrefreshing, at this desk, at this hour.\nAlternative reading: the frame you refused may have been\nthe one that fit.\n\nYou may correct this. Correcting the record is not an\nerror. It is the record, working."
       },
       "choices": [
-        { "id": "correct", "label": "THAT READING IS WRONG", "state": { "correction": 1 }, "goto": "e1_reciprocity" },
-        { "id": "complicate", "label": "IT'S MORE TANGLED THAN THAT", "state": { "complication": 1 }, "goto": "e1_reciprocity" },
-        { "id": "accept", "label": "ACCEPT THE READING", "state": { "acceptance": 1 }, "goto": "e1_reciprocity" },
-        { "id": "refuse_classification", "label": "REFUSE CLASSIFICATION", "state": { "refusal": 1 }, "goto": "e1_reciprocity" }
+        {
+          "id": "correct",
+          "label": "THAT READING IS WRONG",
+          "state": {
+            "correction": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "complicate",
+          "label": "IT'S MORE TANGLED THAN THAT",
+          "state": {
+            "complication": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "accept",
+          "label": "ACCEPT THE READING",
+          "state": {
+            "acceptance": 1
+          },
+          "goto": "e1_reciprocity"
+        },
+        {
+          "id": "refuse_classification",
+          "label": "REFUSE CLASSIFICATION",
+          "state": {
+            "refusal": 1
+          },
+          "goto": "e1_reciprocity"
+        }
       ],
-      "labels": ["FICTION: the Bard's confidence intervals"],
+      "labels": [
+        "FICTION: the Bard's confidence intervals"
+      ],
       "a11y": "The Bard interprets your refusal of the frame as sovereignty, with low confidence, and offers an alternative reading. Four options: reject the reading; complicate it; accept it; or refuse classification.",
       "fallback": "The Bard offers a reading of your refusal. You may refuse that too."
     }

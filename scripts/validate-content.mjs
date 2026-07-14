@@ -182,6 +182,29 @@ export function validateContent() {
     errors.push(`endgame at ${endgame.afterMs}ms violates the 7-10 minute window (Compass §4.3)`);
   }
 
+  // Glyph phrase book covers every manifest key and choice (glyph + Soul
+  // Analysis both draw from it — a missing phrase is a blank line in someone's
+  // soul reading).
+  const manifest = JSON.parse(readFileSync(join(ROOT, 'worker', 'manifest.json'), 'utf8'));
+  const glyphData = loadJson(join(CONTENT, 'glyph', 'glyph.json'));
+  const soulData = loadJson(join(CONTENT, 'glyph', 'soul_analysis.json'));
+  for (const [key, choices] of Object.entries(manifest)) {
+    if (key === 'completions') continue;
+    for (const choice of choices) {
+      if (!glyphData.phrases[key]?.[choice]) {
+        errors.push(`glyph.json: missing phrase for ${key}/${choice}`);
+      }
+    }
+    if (!soulData.names[key]) errors.push(`soul_analysis.json: missing display name for ${key}`);
+    if (typeof glyphData.emoji[key] === 'object') {
+      for (const choice of choices) {
+        if (!glyphData.emoji[key][choice]) errors.push(`glyph.json: missing emoji for ${key}/${choice}`);
+      }
+    } else if (!glyphData.emoji[key]) {
+      errors.push(`glyph.json: missing emoji for ${key}`);
+    }
+  }
+
   // Seed census carries its degraded-mode label (Compass §7).
   const census = loadJson(join(CONTENT, 'census', 'seed.json'));
   if (census.label !== '(last census — the Ledger is unreachable)') {

@@ -19,6 +19,10 @@ export interface RenderOptions {
   fullLedger?: string;
   /** Export token offered on played endings. */
   totenpass?: string;
+  /** The deterministic sigil, on every true ending. */
+  sigil?: { svg: string; description: string };
+  /** The share glyph block + its OD-12 disclosure line. */
+  glyph?: { text: string; disclosure: string };
 }
 
 const EXIT_LABELS: Record<StandingExitId, string> = {
@@ -113,6 +117,39 @@ export function render(
       question.textContent = profile.question;
       record.append(heading, title, reflection, shadow, question);
       screen.appendChild(record);
+    }
+
+    if (options.sigil) {
+      const sigilWrap = document.createElement('figure');
+      sigilWrap.className = 'sigil-wrap';
+      sigilWrap.setAttribute('role', 'img');
+      sigilWrap.setAttribute('aria-label', options.sigil.description);
+      sigilWrap.innerHTML = options.sigil.svg;
+      sigilWrap.querySelector('svg')?.setAttribute('aria-hidden', 'true');
+      screen.appendChild(sigilWrap);
+    }
+
+    if (options.glyph) {
+      const row = document.createElement('div');
+      row.className = 'system-row';
+      const copyButton = document.createElement('button');
+      copyButton.type = 'button';
+      copyButton.className = 'system';
+      copyButton.dataset.systemId = 'copy_glyph';
+      copyButton.textContent = 'COPY GLYPH';
+      const note = document.createElement('span');
+      note.className = 'system-note';
+      note.textContent = options.glyph.disclosure;
+      copyButton.addEventListener('click', () => {
+        const block = document.createElement('pre');
+        block.className = 'glyph-block';
+        block.setAttribute('aria-label', 'Your share glyph. Copy it anywhere.');
+        block.textContent = options.glyph!.text;
+        row.replaceChildren(block, note);
+        void navigator.clipboard?.writeText(options.glyph!.text).catch(() => undefined);
+      });
+      row.append(copyButton, note);
+      screen.appendChild(row);
     }
 
     if (options.fullLedger) {

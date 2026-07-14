@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SOUL ANALYSIS — Comparative Eschatology, Ltd.</title>
+<style>
+  :root { --ink: #d8d8ce; --dim: #8a8a80; --field: #0a0a0c; --accent: #b8c4a8; }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    min-height: 100%;
+    margin: 0;
+    background: var(--field);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", "Menlo", "Consolas", monospace;
+    font-size: clamp(14px, 2.4vw, 17px);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #soul-room { width: 100%; max-width: 44rem; padding: 2rem 1.25rem; flex-shrink: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+  .room-title { color: var(--dim); letter-spacing: 0.12em; margin: 0; }
+  .hint { color: var(--dim); font-size: 0.85em; margin: 0; }
+  .code-input {
+    font: inherit; font-size: 0.85em;
+    background: none; border: 1px solid var(--dim); color: var(--ink);
+    padding: 0.6rem 0.8rem; min-height: 44px; width: 100%;
+  }
+  .system {
+    font: inherit; font-size: 0.85em; background: none;
+    border: 1px solid var(--dim); color: var(--ink);
+    padding: 0.6rem 0.9rem; cursor: pointer; min-height: 44px; align-self: flex-start;
+  }
+  .system:hover, .system:focus-visible { border-color: var(--accent); color: var(--accent); }
+  .system:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .analysis { white-space: pre-wrap; font: inherit; margin: 1rem 0 0; overflow-wrap: break-word; }
+  .back { color: var(--dim); margin-top: 1.5rem; }
+  .back:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div id="soul-room"></div>
+<script src="./soul.js"></script>
+</body>
+</html>

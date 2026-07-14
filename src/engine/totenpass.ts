@@ -7,20 +7,9 @@ import { getNode } from './fsm';
  * it exactly — cross-device continuity with zero accounts, zero servers.
  */
 
+import { fromBase64Url, toBase64Url } from './b64';
+
 const PREFIX = 'BB1.';
-
-function toBase64Url(text: string): string {
-  const bytes = new TextEncoder().encode(text);
-  let binary = '';
-  for (const byte of bytes) binary += String.fromCharCode(byte);
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-function fromBase64Url(token: string): string {
-  const binary = atob(token.replace(/-/g, '+').replace(/_/g, '/'));
-  const bytes = Uint8Array.from(binary, (c: string) => c.charCodeAt(0));
-  return new TextDecoder().decode(bytes);
-}
 
 export function exportTotenpass(state: GameState): string {
   const payload = {

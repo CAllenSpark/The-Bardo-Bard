@@ -1,0 +1,29 @@
+{
+  "comment": "Soul Analysis authored copy (Compass §3 Layer C, §4.7). Client-side only. {A}/{B} are phrase-book phrases; {KEY} is the question's display name. Ω comparisons acknowledge absence without explaining the method (OD-6).",
+  "names": {
+    "A1": "the first question",
+    "A2": "the light",
+    "B1": "the cart",
+    "B2": "the keeping field",
+    "C1": "the Department",
+    "C2": "the password",
+    "D1": "the cards",
+    "D2": "the verdict field",
+    "D3": "the Bard's reading",
+    "E1": "the Bard's question",
+    "F1": "the doors",
+    "V": "the long silence",
+    "OMEGA": "the last door"
+  },
+  "intro": "COMPARATIVE ESCHATOLOGY — two souls, one desk.\nThe Ledger counts deeds, not people. So shall we.",
+  "solo_intro": "SOUL ANALYSIS — one soul, read closely.",
+  "same": "At {KEY}, both souls {A}.",
+  "differ": "At {KEY}, one soul {A}; the other {B}.",
+  "missing_one": "Only one soul met {KEY} — they {A}. The other was already elsewhere.",
+  "solo_line": "At {KEY}: {A}.",
+  "omega_compare": "One of these souls left almost no footprints. The Ledger records that they left. It does not record a path, because there wasn't one. The comparison, accordingly, is brief: everything the first soul did, the second soul declined — including this analysis, probably.",
+  "omega_solo": "This soul left almost no footprints. The Ledger records that they left. It does not record a path, because there wasn't one.",
+  "joke": "The Department notes that both souls used the same door to get in. It always impresses the Department, how many ways there are to leave.",
+  "question": "CARRIED FORWARD, JOINTLY: which of these two paths would you defend to the other — and would you still, after hearing them defend theirs?",
+  "error": "This code is from another underworld, or from no underworld at all. The desk returns it, apologetically."
+}

@@ -83,6 +83,32 @@
   .vigil-beat { margin-top: 0; }
   .ack { color: var(--dim); }
   .ledger-reveal, .full-ledger { color: var(--dim); font-size: 0.85em; }
+  .blot-wrap { display: flex; justify-content: center; margin: 0.25rem 0 1.5rem; color: #80807a; }
+  .blot {
+    font: inherit;
+    font-size: clamp(7px, 2.8vw, 12px);
+    line-height: 1.08;
+    letter-spacing: 0.08em;
+    margin: 0;
+    user-select: none;
+  }
+  .sigil-wrap { margin: 2.25rem auto 0; width: min(9.5rem, 55%); color: var(--accent); }
+  .sigil-wrap svg { width: 100%; height: auto; display: block; }
+  .system-note { font-size: 0.7em; color: var(--dim); max-width: 22rem; }
+  .glyph-block {
+    font: inherit;
+    font-size: 0.85em;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    border: 1px dashed #232326;
+    padding: 0.75rem;
+    margin: 0;
+    max-width: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .sigil-particle { animation: sigil-pulse 2.6s ease-in-out infinite; }
+    @keyframes sigil-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+  }
   .system-row { margin-top: 1.5rem; display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
   .system { font-size: 0.8em; color: var(--dim); border-color: #232326; }
   .system:hover { color: var(--ink); }
@@ -112,7 +138,7 @@
     width: 100%;
     text-align: center;
     font-size: 0.72em;
-    color: #55554e;
+    color: var(--dim);
     padding: 1.25rem 1rem 1.5rem;
   }
   .crisis a { color: inherit; }

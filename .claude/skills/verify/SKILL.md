@@ -74,7 +74,19 @@ trapped the bar mid-page — body uses `min-height`, `#bardo` uses `100dvh` +
    Hidden-tab pausing stays a vitest concern (visibilitychange + fake timers).
 8. Crisis signpost: `.crisis` footer with the findahelpline.com link exists
    from boot and survives to the disclosure.
-9. The Ledger (Phase 3+): start the real handler locally —
+9. The body (Phase 4+): the blot (`.blot-wrap` role=img, living `aria-label`)
+   must be ALIVE (two samples ≥300ms apart differ) except under
+   `emulateMedia({reducedMotion:'reduce'})`, where it must hold one frame.
+   Vigil thinning: ink chars in `.blot` decrease as rungs appear and reach ≤1
+   by the full ladder. Endings: `.sigil-wrap` role=img with description +
+   `copy_glyph` reveals the `.glyph-block` (last line = BG1 code, parseable by
+   soul.html). a11y: inject `axe-core` (scratchpad npm), run after a ~500ms
+   settle (the fade-in animation reads as a contrast violation mid-flight),
+   assert zero serious/critical on boot, an ending, dashboard, soul-analysis.
+   Keyboard-only runs must cover the spine AND the Vigil (focus + Enter).
+   Note: the sandbox lacks emoji fonts — glyph emoji render as boxes in
+   screenshots; not a defect.
+10. The Ledger (Phase 3+): start the real handler locally —
    `PORT=8787 ALLOW_ORIGINS=null node worker/node-server.mjs` (the exact
    module the Cloudflare Worker wraps; only storage differs). Set the game's
    endpoint per page via `page.addInitScript('window.BARDO_LEDGER_URL = …')`.

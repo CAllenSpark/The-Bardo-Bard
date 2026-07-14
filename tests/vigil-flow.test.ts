@@ -80,7 +80,13 @@ describe('THE VIGIL (Gate 2)', () => {
     expect(root.textContent).toContain('THE DESK IS CLOSED');
     expect(root.textContent).toContain('The Unprocessed');
     expect(root.textContent).toContain('the cart never reached you');
-    expect(buttons(root, 'button')).toHaveLength(0);
+    // The closed desk keeps exactly one affordance: the blank glyph (Compass
+    // §4.2 — the rarest glyph is shareable). No choices, no doors, no ledger.
+    expect(buttons(root, 'button.choice')).toHaveLength(0);
+    expect(buttons(root, 'button.door')).toHaveLength(0);
+    const systems = buttons(root, 'button.system').map((b) => b.dataset.systemId);
+    expect(systems).toEqual(['copy_glyph']);
+    expect(root.textContent).not.toContain('THE LEDGER, IN FULL');
     expect(document.querySelector('.crisis a')?.getAttribute('href')).toContain('findahelpline');
   });
 

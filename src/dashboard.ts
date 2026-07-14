@@ -91,7 +91,11 @@ export async function renderDashboard(root: HTMLElement, deps: DashboardDeps): P
   back.href = './index.html';
   back.className = 'back';
   back.textContent = '→ THE DESK';
-  root.appendChild(back);
+  const souls = document.createElement('a');
+  souls.href = './soul.html';
+  souls.className = 'back';
+  souls.textContent = '→ SOUL ANALYSIS';
+  root.append(back, document.createTextNode('  '), souls);
 }
 
 // Browser entry; tests call renderDashboard directly.
