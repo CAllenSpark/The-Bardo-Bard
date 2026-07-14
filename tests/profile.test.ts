@@ -22,6 +22,19 @@ describe('soul records (Gate 1: 12-18 authored titles, deterministic, choice-tra
     expect(new Set(titles).size).toBe(titles.length);
   });
 
+  it('every virtue has a shadow: every bucket carries SHADOW ON FILE and a carried question (ship checklist)', async () => {
+    const profiles = (await import('../content/profiles/profiles.json')) as unknown as {
+      omega: { shadow: string; question: string };
+      overrides: Array<{ shadow: string; question: string }>;
+      buckets: Record<string, { shadow: string; question: string }>;
+    };
+    const all = [profiles.omega, ...profiles.overrides, ...Object.values(profiles.buckets)];
+    for (const def of all) {
+      expect(def.shadow).toContain('SHADOW ON FILE');
+      expect(def.question).toContain('CARRIED FORWARD');
+    }
+  });
+
   it('is deterministic: identical runs produce identical records', () => {
     const a = computeProfile(play(SILENT_PATH));
     const b = computeProfile(play(SILENT_PATH));

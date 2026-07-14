@@ -8,6 +8,7 @@ export interface RenderHandlers {
   onExit: (exitId: StandingExitId) => void;
   onVigil: (rungId: string) => void;
   onImport: (token: string) => void;
+  onForget: () => void;
 }
 
 export interface RenderOptions {
@@ -23,6 +24,10 @@ export interface RenderOptions {
   sigil?: { svg: string; description: string };
   /** The share glyph block + its OD-12 disclosure line. */
   glyph?: { text: string; disclosure: string };
+  /** A remembered line from a prior incarnation (never at a1, never in the Vigil). */
+  memoryLine?: string;
+  /** Offer the Lethe control on the boot screen (lives exist to forget). */
+  canForget?: boolean;
 }
 
 const EXIT_LABELS: Record<StandingExitId, string> = {
@@ -50,6 +55,13 @@ export function render(
   const screen = document.createElement('main');
   screen.className = 'screen';
   screen.setAttribute('aria-label', node.a11y);
+
+  if (options.memoryLine) {
+    const memory = document.createElement('pre');
+    memory.className = 'bard-text memory';
+    memory.textContent = options.memoryLine;
+    screen.appendChild(memory);
+  }
 
   if (options.ackLine) {
     const ack = document.createElement('pre');
@@ -116,6 +128,11 @@ export function render(
       question.className = 'profile-dim';
       question.textContent = profile.question;
       record.append(heading, title, reflection, shadow, question);
+      const codexLink = document.createElement('a');
+      codexLink.href = './codex.html';
+      codexLink.className = 'codex-link';
+      codexLink.textContent = '→ THE CODEX (sources, labels, and one honest paragraph about data)';
+      record.appendChild(codexLink);
       screen.appendChild(record);
     }
 
@@ -180,7 +197,7 @@ export function render(
     }
   }
 
-  // The passport desk: importing a totenpass, boot screen only.
+  // The passport desk: totenpass import, Lethe, and the codex — boot only.
   if (node.id === 'boot_notice') {
     const row = document.createElement('div');
     row.className = 'system-row';
@@ -204,6 +221,41 @@ export function render(
       field.focus();
     });
     row.appendChild(importButton);
+
+    if (options.canForget) {
+      const forgetButton = document.createElement('button');
+      forgetButton.type = 'button';
+      forgetButton.className = 'system';
+      forgetButton.dataset.systemId = 'forget_lives';
+      forgetButton.textContent = 'FORGET THESE LIVES';
+      forgetButton.addEventListener('click', () => {
+        // Lethe deserves a second sip of certainty.
+        const confirm = document.createElement('button');
+        confirm.type = 'button';
+        confirm.className = 'system';
+        confirm.dataset.systemId = 'confirm_forget';
+        confirm.textContent = 'CONFIRM: DRINK LETHE';
+        confirm.addEventListener('click', () => handlers.onForget());
+        const keep = document.createElement('button');
+        keep.type = 'button';
+        keep.className = 'system';
+        keep.dataset.systemId = 'keep_lives';
+        keep.textContent = 'KEEP THEM';
+        keep.addEventListener('click', () => confirmRow.replaceWith(forgetButton));
+        const confirmRow = document.createElement('span');
+        confirmRow.className = 'system-row';
+        confirmRow.append(confirm, keep);
+        forgetButton.replaceWith(confirmRow);
+      });
+      row.appendChild(forgetButton);
+    }
+
+    const codexLink = document.createElement('a');
+    codexLink.href = './codex.html';
+    codexLink.className = 'system';
+    codexLink.dataset.systemId = 'codex_link';
+    codexLink.textContent = 'CODEX';
+    row.appendChild(codexLink);
     screen.appendChild(row);
   }
 

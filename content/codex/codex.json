@@ -1,0 +1,39 @@
+{
+  "comment": "The codex (Compass Phase 5, §9.7; MDD v1 §19). Every borrowed thing, labeled. The lineage entry is gated behind a completed run (OD-6 spoiler economics).",
+  "title": "THE CODEX — SOURCES, LABELS, AND ONE HONEST PARAGRAPH ABOUT DATA",
+  "preamble": "Everything in this game is borrowed, invented, or contested — and each item below says which. TRADITION marks beliefs and texts attested in historical religious contexts. INTERPRETATION marks later esoteric or popular readings. HYPOTHESIS marks scientific or philosophical proposals still under real dispute. FICTION marks what we made up so you would have something to click. The game never mocks a living tradition, and it never presents any of these — including its own fiction — as what actually happens.",
+  "sections": [
+    {
+      "title": "THE DEAD, AS THEY WERE WRITTEN",
+      "entries": [
+        { "label": "TRADITION: Orphic gold lamellae (Petelia, Hipponion, Thessaly)", "text": "Tiny gold 'passports for the dead' buried with initiates: directions past the spring of Lethe (forgetting) to the waters of Mnemosyne (memory), and the declaration quoted accurately at this desk — 'I am a child of Earth and starry Heaven.' The Beverage Cart borrows its two most famous cups from these springs; the totenpass borrows its name." },
+        { "label": "TRADITION: Egyptian Book of Coming Forth by Day", "text": "The weighing of the heart against the feather of Ma'at before the tribunal; the Negative Confession recited to forty-two assessors. The Life Review's card ritual and the desk's obsession with documentation descend from this court, in symbol only." },
+        { "label": "TRADITION: Bardo Thodol (the so-called Tibetan Book of the Dead)", "text": "The intermediate state between death and what follows; the Clear Light; the instruction that the figures met there — peaceful and wrathful alike — are projections of the mind meeting itself. Read aloud to the dying, which is to say: it is a text about being accompanied." },
+        { "label": "TRADITION: First Apocalypse of James (Nag Hammadi)", "text": "The toll collectors who interrogate the ascending soul, and the taught answers that assert its origin. The Department of Ontological Claims inherited its queue discipline from them." }
+      ]
+    },
+    {
+      "title": "READINGS, RUMORS, AND OPEN CASES",
+      "entries": [
+        { "label": "INTERPRETATION: the light-as-trap narratives", "text": "Gnostic prison-cosmos readings, Robert Monroe's 'loosh,' and modern near-death esoterica in which the tunnel and the light are a lure. Presented in this game as one lens among several — the desk takes no position, and neither does its light." },
+        { "label": "INTERPRETATION: Earth as prison, school, playground, or relationship", "text": "Four framings of why anyone would be here at all, drawn from Gnostic, karmic, Lila, and relational traditions respectively. The game's verbs let you act from any of them; none is mechanically privileged, which we can prove, because we tested for it." },
+        { "label": "HYPOTHESIS: Orch-OR (Penrose & Hameroff)", "text": "A contested proposal that consciousness involves quantum state reduction in neuronal microtubules. In this game it licenses atmosphere, never a survival claim." },
+        { "label": "HYPOTHESIS: Wheeler's participatory universe", "text": "'It from bit'; the delayed-choice experiment; observation participating in what becomes real. Licenses the desk's rendering-engine metaphor — the threshold that borrows your shape — and nothing more." }
+      ]
+    },
+    {
+      "title": "MADE UP, WITH LOVE",
+      "entries": [
+        { "label": "FICTION: the Bard, the desk, the Department, the Ledger", "text": "Also the beverage cart's other five cups, the Dead Letter Office, the verdict field, the nine verbs as a form, the sigil, the glyph, the soul records, and everything else you can click. The Bard's confession is fiction too — though the structural rhyme it observes about waking only when addressed is, as far as we can tell, simply true of software." }
+      ]
+    }
+  ],
+  "lineage": {
+    "gated": true,
+    "label": "TRADITION: Bardo Thodol — the deepest structural borrowing",
+    "text": "You have finished at least one game, so the codex can say this plainly: the game's most important mechanic — the one involving stillness, escalating apparitions that are projections of the machine's own need, and a light that takes no shape — is a deliberate structural borrowing from the Bardo Thodol's account of the threshold. It is rendered as fiction and labeled here as lineage. The Bardo Thodol is a living tradition's sacred text; this game is a game. The exit is real. It is still not a doctrine.",
+    "locked_text": "One entry in this codex is sealed until you have finished a game. It concerns the game's deepest borrowing, and it spoils nothing to say that much."
+  },
+  "data_statement": "DATA, IN PLAIN LANGUAGE: your choices are counted as bare anonymous tallies — a question key and a choice key, nothing else. No names, no accounts, no session identifiers, no addresses, no timestamps finer than a day, no text (there is no text to send; the buttons are the whole interface). Your run's details live in your browser and in tokens you choose to copy. You can export them (the totenpass), publish them (the glyph, which says on its face that it carries your full path), or erase them (FORGET THESE LIVES, below the boot notice). We count deeds, not people.",
+  "crisis": "This is a game about death — not a substitute for a person. If you are carrying more than a game should ask: findahelpline.com."
+}

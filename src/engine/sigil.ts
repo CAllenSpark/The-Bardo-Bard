@@ -44,7 +44,7 @@ const CENTER_GLYPHS: Record<string, (c: string) => string> = {
   nothing: () => `<circle cx="100" cy="100" r="2" fill="currentColor"/>`,
 };
 
-export function buildSigil(state: GameState): Sigil {
+export function buildSigil(state: GameState, incarnation = 1): Sigil {
   const seed = hashString(stateVector(state));
 
   // Ω: the rarest sigil is nearly blank.
@@ -107,12 +107,20 @@ export function buildSigil(state: GameState): Sigil {
   const memory = committed(state, 'B1');
   const center = memory && CENTER_GLYPHS[memory] ? CENTER_GLYPHS[memory](memory) : '';
 
+  // Rings count completed incarnations (v1 §16: number of rings = repeat runs).
+  const ringCount = Math.min(3, Math.max(0, incarnation - 1));
+  let rings = '';
+  for (let i = 0; i < ringCount; i += 1) {
+    rings += `<circle cx="${cx}" cy="${cy}" r="${70 + i * 6}" fill="none" stroke-width="0.6" opacity="0.5"/>`;
+  }
+
   const svg =
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" stroke="currentColor" class="sigil">` +
-    perimeter + motion + fractures.join('') + center + particle + `</svg>`;
+    rings + perimeter + motion + fractures.join('') + center + particle + `</svg>`;
 
   const description =
     `A hand-drawn sigil: a ${sides}-sided ${open ? 'open' : 'closed'} figure` +
+    `${ringCount > 0 ? ` inside ${ringCount + 1 === 2 ? 'a second ring' : `${ringCount} faint rings`} — one per incarnation` : ''}` +
     `${fractureCount > 0 ? ` with ${fractureCount} fracture${fractureCount === 1 ? '' : 's'}` : ''}` +
     `${memory ? `, a ${memory.replace(/_/g, ' ')} mark at its heart` : ''}` +
     `${verb === 'spiral' ? ', a spiral arm turning through it' : verb === 'loop' ? ', a closed ring inside it' : ''}` +

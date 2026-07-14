@@ -687,3 +687,23 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
   Note: headless-container screenshots render emoji as fallback boxes (no
   emoji font in the sandbox) — real devices are unaffected. Bundle 38.5 KB gz
   (12.5%). Next: Phase 5, the breath.
+- **2026-07-14 — Session 1 (cont.), Phase 5 complete (Gate 5 green) — ALL
+  PHASES COMPLETE.** The breath. Reincarnation via localStorage (optional by
+  design — blocked storage is an unrecorded incarnation, tested): finished
+  lives record verb/choices/title/day-bucket; second incarnations are
+  remembered on five surfaces (boot greeting, the light, the cart, the
+  confession, the verb desk) via `content/reincarnation/reincarnation.json`
+  templates over the phrase book. **§9.2 guard is structural AND
+  validator-enforced**: no template may target a1_consent, so the Vigil stays
+  archetypal every run (asserted in-browser: 5 minutes of second-run ladder,
+  zero memory leakage). Post-Ω returns play the CD's caught-exception
+  greetings, escalating over three variants (OD-7 shipped as written). FORGET
+  THESE LIVES = two-step Lethe clearing lives + completion flag. Codex
+  shipped (`codex.html`): labeled sources, the data statement, crisis line,
+  and the Vigil's Bardo Thodol lineage entry gated behind a completed run
+  (OD-6). Optional audio: two-sine drone, muted by default, constructed only
+  inside the toggle click — autoplay is structurally impossible. Sigils gain
+  incarnation rings (v1 §16). Ship checklist mapped item-by-item in
+  PROGRESS.md — remaining human items: CD §9.3 sign-off, CD copy read,
+  external sensitivity review, and the Cloudflare deploy. 110 tests; 44.5 KB
+  gz (14.5% of budget). **The desk is feature-complete.**

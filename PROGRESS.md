@@ -12,16 +12,46 @@ gate; do not advance past a failing gate. Full gate definitions:
 | 2 — The Vigil | Temptation ladder, visibility-gated timing, END GAME, Node Ω | ✅ 2026-07-13 — **Gate 2 green** (52 tests: full-ladder walk in 7–10 min window, folds tally `V:<rung>`, hidden-tab time never counts, options never expire, aria-live rungs, digit-free conformity beat, in-Vigil crisis signposting; driven in real Chromium via `page.clock` at 900/375/320px — caught + fixed a body-height bug that trapped the doors bar; 23.3 KB gz). **§9.3 human review: Vigil copy awaits CD sign-off** |
 | 3 — The Ledger | Worker + Durable Object, reveal-after-lock, offline census, totenpass, dashboard | ✅ 2026-07-13 — **Gate 3 green** (76 tests + real-browser integration: cross-origin tallies from file:// increment through CORS — the censusless-launch guard; reveal-after-lock across the spine; network-kill run labeled; totenpass round-trips through the UI; dashboard OD-11 scope live + degraded; 28.4 KB gz). Note: integration runs the exact portable handler via a Node adapter; workerd smoke happens at first deploy |
 | 4 — The Body | Sigil, share glyph, Soul Analysis, Rorschach, a11y pass | ✅ 2026-07-14 — **Gate 4 green** (100 tests: deterministic living Rorschach with 11 moods + gesture system + Vigil thinning to the pulse; sigil determinism incl. near-blank Ω; glyph-code round-trip; Soul Analysis incl. §4.7 Ω case; keyboard-only spine AND Vigil runs; reduced-motion holds a still frame; axe: zero serious/critical across all four surfaces — recorded substitution for the Lighthouse≥95 wording; 38.5 KB gz). CD's unspoken-performance directive shipped: reactions reflect the Bard's stakes, disclosure confesses the ink |
-| 5 — The Breath | Reincarnation variants, codex, optional audio, ship checklist | ⬜ |
+| 5 — The Breath | Reincarnation variants, codex, optional audio, ship checklist | ✅ 2026-07-14 — **Gate 5 green** (110 tests: second-run remembered on 5 surfaces with the §9.2 archetypal-Vigil guard validator-enforced; Ω returns get the CD's escalating caught-exception greetings; FORGET THESE LIVES two-step Lethe; codex reachable from boot + profile with gated lineage entry; audio never autoplays; sigil gains incarnation rings; 44.5 KB gz). Ship checklist mapped below |
+
+## Ship checklist (MDD v1 Appendix B + Compass additions)
+
+Per Compass §10 Gate 5: every item maps to a named passing script/test or a
+named human sign-off. No unmapped items.
+
+| Item | Mapped to | Status |
+|---|---|---|
+| No encounter has one "correct" response | `validate-content.mjs` dominance floor + `archetypes.test.ts` (6 paths, 6 verbs) | ✅ script · CD copy review pending |
+| Every major virtue includes a shadow | `profile.test.ts` "every virtue has a shadow" (all 14 records) + §4.6 shadow-of-presence | ✅ script |
+| High-impact interpretations include evidence, confidence, alternative | `validate-content.mjs` D3 check (Confidence: + Alternative reading); "evidence" = committed choices per Compass §6 redefinition, asserted in `profile.test.ts` clause tracing | ✅ script |
+| Player correction meaningfully changes stored state | D3 choices have distinct effects (validator) + correction feeds the Gentle Dissenter override (`profile.test.ts`) | ✅ script |
+| Life Review does not reward positivity | D1 choices all non-valenced, same destination (validator dominance floor) | ✅ script · CD copy review pending |
+| Tradition elements labeled + review status | schema label pattern (validator) + codex labels check; **sensitivity review = human, pending** (Compass §9.7) | ✅ script · human pending |
+| Critical paths work without a generative model | No runtime LLM exists anywhere (Compass invariant; whole test suite) | ✅ by construction |
+| Local data exported and deleted | `totenpass.test.ts` round-trip + `breath.test.ts` FORGET THESE LIVES | ✅ script |
+| Repeat runs change through remembered meaning | `breath.test.ts` second-incarnation (5 surfaces) + `drive-breath` in-browser | ✅ script |
+| Terminal's agency question structurally integrated | E1 node tallied + reached by all six archetypes (`archetypes.test.ts`) | ✅ script |
+| Profiles avoid diagnosis/doctrine/ranking | Authored rule (no religious labels in `profiles.json`); **human sign-off: CD** | human pending |
+| Leave/silence/refusal never punitive | standing exits from every node (`fsm.test.ts`, validator) + silence option + refuse endings + gentle boot decline (`playthrough.test.ts`) | ✅ script |
+| Boot disclosure present | `playthrough.test.ts` (NOTICE, FILED IN PLAIN LANGUAGE + deeds-not-people) | ✅ script |
+| Crisis signposting present | `vigil-flow.test.ts` + footer in every drive; in-Vigil + disclosure | ✅ script |
+| Content notice before Act I | boot notice IS the gate (`playthrough.test.ts` asserts it precedes A1) | ✅ script |
+| Audio never autoplays | `breath.test.ts` + `drive-breath` step 7 | ✅ script |
+| Codex reachable from boot and profile | `breath.test.ts` | ✅ script |
 
 ## Awaiting creative director
 
 - **§9.3 sign-off on the Vigil copy** (`content/vigil/ladder.json`,
-  `content/system/omega.json`): the hope/loss/guilt rungs, the END GAME
-  passage, and the disclosure's retraction were authored under the
-  bereavement/suicidality rules and need the CD's human review before Phase 2
-  is considered shipped.
-- Still open: OD-3, OD-4, OD-6, OD-8, OD-12 (Compass §12) — none block Phase 3.
+  `content/system/omega.json`) — the bereavement/suicidality review.
+- **Full copy read** (ship checklist rows marked "CD copy review pending"):
+  no-correct-answer feel, Life Review tone, profile non-diagnosis.
+- **Sensitivity review scope** (Compass §9.7): tradition-specific reader(s)
+  before any paid/promoted release — external humans, CD to arrange.
+- **Deploy**: Cloudflare account needed to ship Pages + Worker
+  (`worker/wrangler.toml` ready; set ALLOW_ORIGINS to the Pages origin).
+- Still open: OD-3, OD-4, OD-8 (dormant), OD-6 + OD-12 (resolved-by-default
+  as built: cryptic glyph + one deniable sentence; full-path code with
+  copy-time disclosure — veto anytime).
 
 ## Log
 

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>THE CODEX — The Bardo Bard</title>
+<style>
+  :root { --ink: #d8d8ce; --dim: #8a8a80; --field: #0a0a0c; --accent: #b8c4a8; }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    min-height: 100%;
+    margin: 0;
+    background: var(--field);
+    color: var(--ink);
+    font-family: "IBM Plex Mono", "Menlo", "Consolas", monospace;
+    font-size: clamp(14px, 2.4vw, 17px);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #codex-room { width: 100%; max-width: 44rem; padding: 2rem 1.25rem; flex-shrink: 0; }
+  .room-title { color: var(--dim); letter-spacing: 0.1em; font-size: 1em; font-weight: 600; margin: 0 0 1.5rem; }
+  .section-title { color: var(--accent); font-size: 0.95em; letter-spacing: 0.1em; margin: 2.25rem 0 1rem; }
+  .entry-label { color: var(--ink); font-weight: 600; margin: 1.25rem 0 0.25rem; }
+  .body { margin: 0 0 1rem; }
+  .locked { color: var(--dim); }
+  .back { display: inline-block; margin-top: 2rem; color: var(--dim); }
+  .back:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<div id="codex-room"></div>
+<script src="./codex.js"></script>
+</body>
+</html>

@@ -86,7 +86,16 @@ trapped the bar mid-page — body uses `min-height`, `#bardo` uses `100dvh` +
    Keyboard-only runs must cover the spine AND the Vigil (focus + Enter).
    Note: the sandbox lacks emoji fonts — glyph emoji render as boxes in
    screenshots; not a defect.
-10. The Ledger (Phase 3+): start the real handler locally —
+10. The breath (Phase 5+): reincarnation drives need ONE browser context per
+    "soul" (localStorage persists across `page.goto` within a context). Second
+    boot must greet (`.memory` block); the second-run Vigil must stay
+    archetypal (run the ladder, grep `.vigil-log` for any prior-life phrase —
+    §9.2). Ω returns escalate across `greeting_omega` variants per mount.
+    FORGET THESE LIVES is two-step (`forget_lives` → `confirm_forget`), after
+    which `.memory` and the forget button are gone. Codex lineage entry is
+    sealed until `bardo_completed`. Audio: `window.__bardoAudioStarted` must
+    be undefined until `.audio-toggle` is clicked.
+11. The Ledger (Phase 3+): start the real handler locally —
    `PORT=8787 ALLOW_ORIGINS=null node worker/node-server.mjs` (the exact
    module the Cloudflare Worker wraps; only storage differs). Set the game's
    endpoint per page via `page.addInitScript('window.BARDO_LEDGER_URL = …')`.

@@ -11,7 +11,7 @@ const DIST = join(ROOT, 'dist');
 
 mkdirSync(DIST, { recursive: true });
 
-for (const [entry, outfile] of [['main.ts', 'bardo.js'], ['dashboard.ts', 'dashboard.js'], ['soul.ts', 'soul.js']]) {
+for (const [entry, outfile] of [['main.ts', 'bardo.js'], ['dashboard.ts', 'dashboard.js'], ['soul.ts', 'soul.js'], ['codex.ts', 'codex.js']]) {
   await build({
     entryPoints: [join(ROOT, 'src', entry)],
     bundle: true,
@@ -26,10 +26,11 @@ for (const [entry, outfile] of [['main.ts', 'bardo.js'], ['dashboard.ts', 'dashb
 copyFileSync(join(ROOT, 'src', 'index.html'), join(DIST, 'index.html'));
 copyFileSync(join(ROOT, 'src', 'dashboard.html'), join(DIST, 'dashboard.html'));
 copyFileSync(join(ROOT, 'src', 'soul.html'), join(DIST, 'soul.html'));
+copyFileSync(join(ROOT, 'src', 'codex.html'), join(DIST, 'codex.html'));
 
 const BUDGET_GZ = 300 * 1024; // Compass §7: < 300 KB gz for the complete run
 let total = 0;
-for (const file of ['bardo.js', 'index.html', 'dashboard.js', 'dashboard.html', 'soul.js', 'soul.html']) {
+for (const file of ['bardo.js', 'index.html', 'dashboard.js', 'dashboard.html', 'soul.js', 'soul.html', 'codex.js', 'codex.html']) {
   const raw = readFileSync(join(DIST, file));
   const gz = gzipSync(raw).length;
   total += gz;

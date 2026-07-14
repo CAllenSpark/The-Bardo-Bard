@@ -205,6 +205,33 @@ export function validateContent() {
     }
   }
 
+  // Ship checklist (Appendix B): every high-impact interpretation carries
+  // confidence and an alternative reading (buttons-only redefinition, §6).
+  for (const node of nodes.values()) {
+    if (node.tally === 'D3') {
+      if (!node.text.base.includes('Confidence:')) errors.push(`${node.id}: missing confidence statement`);
+      if (!node.text.base.includes('Alternative reading')) errors.push(`${node.id}: missing alternative reading`);
+    }
+  }
+
+  // Codex: every entry labeled; lineage gated; data statement present.
+  const codex = loadJson(join(CONTENT, 'codex', 'codex.json'));
+  for (const section of codex.sections) {
+    for (const entry of section.entries) {
+      if (!/^(TRADITION|INTERPRETATION|HYPOTHESIS|FICTION): /.test(entry.label)) {
+        errors.push(`codex entry without a valid label: ${entry.label}`);
+      }
+    }
+  }
+  if (!codex.lineage?.gated) errors.push('codex lineage entry must be gated (OD-6)');
+  if (!codex.data_statement?.includes('deeds, not people')) errors.push('codex data statement missing its one-line core');
+
+  // Reincarnation copy: the §9.2 guard — no template may target the Vigil's node.
+  const reincarnation = loadJson(join(CONTENT, 'reincarnation', 'reincarnation.json'));
+  if (reincarnation.node_lines['a1_consent']) {
+    errors.push('reincarnation.json: a1_consent template forbidden (§9.2 — the Vigil stays archetypal)');
+  }
+
   // Seed census carries its degraded-mode label (Compass §7).
   const census = loadJson(join(CONTENT, 'census', 'seed.json'));
   if (census.label !== '(last census — the Ledger is unreachable)') {
