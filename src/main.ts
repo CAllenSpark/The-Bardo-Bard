@@ -12,6 +12,7 @@ import { computeProfile } from './engine/profile';
 import { forgetLives, lastLife, lifeCount, longAbsence, noteOmegaReturn, recordLife } from './engine/memory';
 import type { Life } from './engine/memory';
 import type { Gesture, Mood } from './engine/rorschach';
+import { hoverGesture } from './engine/rorschach';
 import { Blot } from './ui/blot';
 import { appendVigilBeat, appendVigilOption, ensureCrisisFooter, render } from './ui/render';
 import type { RenderOptions } from './ui/render';
@@ -134,6 +135,31 @@ export function mount(root: HTMLElement): void {
   const stage = document.createElement('div');
   stage.id = 'stage';
   root.appendChild(stage);
+
+  // Hover attention (CD directive 2026-07-14): when a pointer rests on any
+  // button the face draws down with anticipation — or dances, if the hash of
+  // the two ids says so. Deterministic, arbitrary, and never a verdict: the
+  // reaction consults the ids alone, never the choice's content or effects.
+  // Hover-capable pointers only; touch never triggers it.
+  if (typeof matchMedia !== 'undefined' && matchMedia('(hover: hover)').matches) {
+    const buttonOf = (target: EventTarget | null): HTMLButtonElement | null =>
+      target instanceof Element ? target.closest('button') : null;
+    root.addEventListener('pointerover', (e) => {
+      const button = buttonOf(e.target);
+      if (!button) return;
+      const id =
+        button.dataset.choiceId ?? button.dataset.rungId ?? button.dataset.exitId ??
+        button.dataset.systemId ?? button.textContent ?? '';
+      blot.hold(hoverGesture(state.node, id));
+    });
+    root.addEventListener('pointerout', (e) => {
+      const button = buttonOf(e.target);
+      if (!button) return;
+      const to = e.relatedTarget;
+      if (to instanceof Node && button.contains(to)) return;
+      blot.release();
+    });
+  }
 
   // ── The Vigil (Compass §4): grows only in visible stillness at the first
   //    question, once per run; any click ends it for good.
@@ -265,6 +291,9 @@ export function mount(root: HTMLElement): void {
   };
 
   const rerender = (options: RenderOptions = {}): void => {
+    // A re-render replaces the buttons under the pointer; any held hover
+    // attention would otherwise linger with nothing to point at.
+    blot.release();
     const trueEnding = state.ended && getNode(graph, state.node).act >= 1;
     const playedEnding = trueEnding && !state.node.startsWith('omega_');
     const soulN = (getNodeCensus('completions').counts['done'] ?? 0) + 1;

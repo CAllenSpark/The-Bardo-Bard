@@ -75,10 +75,18 @@ trapped the bar mid-page — body uses `min-height`, `#bardo` uses `100dvh` +
 8. Crisis signpost: `.crisis` footer with the findahelpline.com link exists
    from boot and survives to the disclosure.
 9. The body (Phase 4+): the blot (`.blot-wrap` role=img, living `aria-label`)
-   must be ALIVE (two samples ≥300ms apart differ) except under
+   is the DOMINANT zone — `.blot-wrap` boundingBox ≥150px tall on desktop,
+   ≥120px on mobile (CD directive 2026-07-14). In a real browser the face is a
+   `<canvas class="blot-canvas">` (the `.blot` <pre> text body only appears when
+   there is no 2D context, e.g. jsdom); sample liveness by ink-pixel count off
+   the canvas (`getImageData`, alpha>8), NOT `.blot` textContent. It must be
+   ALIVE (two samples ≥300ms apart differ) except under
    `emulateMedia({reducedMotion:'reduce'})`, where it must hold one frame.
-   Vigil thinning: ink chars in `.blot` decrease as rungs appear and reach ≤1
-   by the full ladder. Endings: `.sigil-wrap` role=img with description +
+   Vigil thinning: canvas ink pixels decrease as rungs appear and collapse to a
+   single pulse by the full ladder. Hover reactions (hover:hover pointers only):
+   `pointerover` a button draws the face (attend/sway per `hoverGesture`,
+   arbitrary by id-hash, never the choice's meaning) with no console error and
+   never consuming the click. Endings: `.sigil-wrap` role=img with description +
    `copy_glyph` reveals the `.glyph-block` (last line = BG1 code, parseable by
    soul.html). a11y: inject `axe-core` (scratchpad npm), run after a ~500ms
    settle (the fade-in animation reads as a contrast violation mid-flight),

@@ -73,3 +73,16 @@ named human sign-off. No unmapped items.
   (4.9 KB gz), CI workflow, project verify skill. Standing exits and the
   boot-notice invariant are live from the first playable build. Next: Phase 1,
   the spine.
+- **2026-07-14** — Phases 1–5 complete (Gates 1–5 green; see the table above and
+  Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
+  issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
+  hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-14** — **The Bard's presence enlarged** (CD directive; Compass §13).
+  The Rorschach is now the dominant zone: a `<canvas>` face (61×21 grid, was
+  33×7) painted at display rate with blended-tick liquid motion, a breathing
+  halo, pointer-attention drift, and hover reactions (`attend`/`sway`, chosen by
+  an id-hash that never reads the choice's meaning — the no-verdict invariant
+  holds). Text `<pre>` body still renders the identical deterministic face where
+  there's no 2D context (jsdom), so all tests are unchanged. Verified in real
+  Chromium at 900/375/320px (9/9 green, axe clean, zero console errors). 117
+  tests; 49 KB gz. Next: awaiting CD (§9.3 sign-off, copy read, deploy).

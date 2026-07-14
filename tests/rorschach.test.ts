@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { COLS, ROWS, describe as describeMood, frame } from '../src/engine/rorschach';
-import type { BlotParams, Mood } from '../src/engine/rorschach';
+import { COLS, ROWS, describe as describeMood, frame, frameCells, hoverGesture, rampChar } from '../src/engine/rorschach';
+import type { BlotParams, Cell, Mood } from '../src/engine/rorschach';
 
 const MOODS: Mood[] = ['calm', 'fear', 'curious', 'angular', 'soft', 'bare', 'spiral', 'dispersal', 'asym', 'point', 'ember'];
 
@@ -71,6 +71,55 @@ describe('the Rorschach — the Bard\'s face (Gate 4)', () => {
   it('the still gesture overrides the field with the pulse — the loudest non-response', () => {
     const still = frame(params('calm', { gesture: 'still', gestureT: 0.5 }), 9);
     expect(inkCount(still)).toBeLessThanOrEqual(1);
+  });
+
+  it('the canvas body and the text body are the same face', () => {
+    for (const mood of MOODS) {
+      const cells = frameCells(params(mood), 9);
+      expect(cells).toHaveLength(ROWS);
+      const text = cells.map((row) => row.map((c) => c.ch).join('')).join('\n');
+      expect(text).toBe(frame(params(mood), 9));
+      // every glyph's intensity stays in range for the painter
+      for (const row of cells) for (const c of row) {
+        expect(c.v).toBeGreaterThanOrEqual(0);
+        expect(rampChar(c.v)).toBe(c.ch);
+      }
+    }
+  });
+
+  it('attend draws the ink downward — anticipation, not judgment', () => {
+    const centerOfMassY = (cells: Cell[][]): number => {
+      let weighted = 0;
+      let total = 0;
+      cells.forEach((row, y) =>
+        row.forEach((c) => {
+          weighted += y * c.v;
+          total += c.v;
+        }),
+      );
+      return weighted / total;
+    };
+    const atRest = centerOfMassY(frameCells(params('calm'), 9));
+    const attending = centerOfMassY(frameCells(params('calm', { gesture: 'attend', gestureT: 1 }), 9));
+    expect(attending).toBeGreaterThan(atRest + 1);
+  });
+
+  it('sway keeps the face whole while it dances', () => {
+    const still = frame(params('calm'), 9);
+    const dancing = frame(params('calm', { gesture: 'sway', gestureT: 1 }), 9);
+    expect(dancing).not.toBe(still);
+    expect(inkCount(dancing)).toBeGreaterThan(inkCount(still) * 0.5);
+    // and it is deterministic like everything else
+    expect(dancing).toBe(frame(params('calm', { gesture: 'sway', gestureT: 1 }), 9));
+  });
+
+  it('hover preference is deterministic, two-flavored, and consults only the ids', () => {
+    expect(hoverGesture('a2_arrival', 'accept')).toBe(hoverGesture('a2_arrival', 'accept'));
+    const flavors = new Set<string>();
+    for (const node of ['a1_consent', 'a2_arrival', 'b1_frame', 'c1_regret', 'd1_verdict', 'e1_keeper'])
+      for (const choice of ['yes', 'no', 'wait', 'refuse', 'ask'])
+        flavors.add(hoverGesture(node, choice));
+    expect(flavors).toEqual(new Set(['attend', 'sway']));
   });
 
   it('every mood carries a text alternative', () => {

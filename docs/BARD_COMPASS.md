@@ -589,6 +589,40 @@ beat; a soft in-place retraction for the **hope/loss** rungs if left un-clicked
 
 ## 13. Session log (append-only)
 
+- **2026-07-14 — The Bard's presence enlarged (CD directive).** Post-playtest,
+  the CD marked up a three-zone mockup (THE BARD large on top, the text box
+  middle, the choices below) and asked for the entity to be *stronger* —
+  "hypnotic.. responsive.. like a moving art piece" — in the energy of his
+  Self-Portrait (`callenspark/self-portrait`, a canvas eye in decoded binary
+  with pointer-attention, breathing halo, blended motion). Delivered without
+  breaking any invariant:
+  - **The face is now the dominant zone.** `.blot-wrap` is a fixed band
+    (`clamp(11rem, 38vh, 20rem)`); the grid grew 33×7 → **61×21**. In a real
+    browser the face renders on a `<canvas class="blot-canvas">` painted at
+    display rate: ink **intensity blended between adjacent deterministic ticks**
+    (liquid motion, not 7-fps stepping), per-glyph shimmer, a faint breathing
+    **halo** that fades as the Vigil thins, and a few-pixel **drift toward the
+    pointer** (attention, the Bard's only sense). No 2D context (jsdom) → the
+    original `<pre>` text body still renders the identical face, so determinism
+    tests and the DOM playthroughs are unchanged.
+  - **Determinism preserved.** The character grid stays a pure function; new
+    `frameCells()` returns cells with raw intensity and `frame()` is defined in
+    terms of it — canvas and text are provably the same face (unit-tested).
+  - **Hover reactions (never a verdict).** Two *held* gestures joined the one-
+    shots: `attend` (the ink draws downward, gathering — anticipation) and
+    `sway` (the mirrored body rocks — a small dance). On `hover:hover` pointers,
+    `pointerover` a button calls `hoverGesture(nodeId, choiceId)` — a hash of
+    the two ids **and nothing else** (never content, tally, or effects), 30%
+    sway / 70% attend — so the Bard seems to have preferences that mean nothing.
+    Honors the no-secretly-correct-cosmology invariant and §17.2 (the face is
+    never a ranking of answers). Reduced-motion skips all gestures and holds one
+    frame; touch never triggers it.
+  - Verified in real Chromium at 900/375/320px (9/9 green, zero console errors,
+    axe clean): 664×289 face on desktop, alive, thins to a single pulse over the
+    full ladder, embers on the closed desk, playable end-to-end and keyboard-
+    only. 117 tests; 49 KB gz. Invariants intact (Ledger, Vigil, no dominant
+    path, buttons-only, $0, determinism, a11y).
+
 - **2026-07-14 — P0 batch applied (post-eval).** The six cheap wins from the
   design panel (`docs/DESIGN_EVAL.md`), no thesis change, all verified in real
   Chromium: **P0-1** E1 (WHOM DO I SERVE) now echoes in every soul record via a

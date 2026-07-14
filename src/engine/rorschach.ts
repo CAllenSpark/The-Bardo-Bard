@@ -1,10 +1,13 @@
 /**
- * The Rorschach — the Bard's face (Compass Phase 4; MDD v1 §17.2; CD directive
+ * The Rorschach — the Bard's face (Compass Phase 4; MDD v1 §17.2; CD directives
  * 2026-07-14: the blot is a character — emotion, shape, rhythm, reaction; a
- * deliberate non-response can say more than a paragraph; it must stay living).
+ * deliberate non-response can say more than a paragraph; it must stay living —
+ * and it is the dominant presence on the desk: hypnotic, responsive, a moving
+ * art piece. When a hand hovers near a choice it may draw down with
+ * anticipation, or dance — but the reaction never maps to the choice.)
  *
  * Deterministic everywhere testable: frame(params, tick) is a pure function —
- * identical params and tick produce the identical string, forever. Life comes
+ * identical params and tick produce the identical grid, forever. Life comes
  * from advancing the tick, not from randomness.
  *
  * v1 §17.2 cautions hold: fear is not moral failure (the fear field is the
@@ -25,7 +28,14 @@ export type Mood =
   | 'point'     // a single pulsing pixel
   | 'ember';    // the closed desk: two or three faint, patient flickers
 
-export type Gesture = 'bloom' | 'contract' | 'jitter' | 'still' | 'none';
+/**
+ * bloom/contract/jitter/still are one-shot reactions (a sine envelope, then
+ * gone). attend/sway are *held* attention — the level itself is passed as
+ * gestureT and eased by the body that hosts the face:
+ *   attend — the ink draws downward, gathering slightly: anticipation.
+ *   sway   — the whole blot rocks side to side, still mirrored: a small dance.
+ */
+export type Gesture = 'bloom' | 'contract' | 'jitter' | 'still' | 'attend' | 'sway' | 'none';
 
 export interface BlotParams {
   mood: Mood;
@@ -33,14 +43,27 @@ export interface BlotParams {
   /** 0..9 — the Vigil's thinning; each rung raises it, the plea leaves a pulse. */
   sparseness?: number;
   gesture?: Gesture;
-  /** 0..1 progress through the gesture envelope. */
+  /** 0..1 — one-shot progress, or the held level for attend/sway. */
   gestureT?: number;
 }
 
-export const COLS = 33;
-export const ROWS = 7;
+/** One cell of the face: the glyph, and the raw ink intensity that chose it. */
+export interface Cell {
+  ch: string;
+  v: number;
+}
+
+export const COLS = 61;
+export const ROWS = 21;
 
 const RAMP = ' ····::∘∘++**#';
+
+/** The glyph a given ink intensity earns. Exposed so a renderer that blends
+ *  intensities between ticks can stay in the same alphabet as the face. */
+export function rampChar(v: number): string {
+  const idx = Math.max(0, Math.min(RAMP.length - 1, Math.floor(v * RAMP.length)));
+  return RAMP[idx]!;
+}
 
 function hash(x: number, y: number, t: number, seed: number): number {
   let h = (seed ^ (x * 374761393) ^ (y * 668265263) ^ (t * 2246822519)) | 0;
@@ -66,55 +89,71 @@ function noise(x: number, y: number, t: number, seed: number, scale: number): nu
 }
 
 const PULSE_CHARS = [' ', '·', '∘', '*', '∘', '·'];
+const PULSE_V = [0, 0.3, 0.55, 0.85, 0.55, 0.3];
 
-function pulseFrame(tick: number, cols: number, rows: number): string {
-  const grid = Array.from({ length: rows }, () => Array(cols).fill(' '));
-  const cy = Math.floor(rows / 2);
-  const cx = Math.floor(cols / 2);
-  grid[cy]![cx] = PULSE_CHARS[Math.floor(tick / 2) % PULSE_CHARS.length]!;
-  return grid.map((row) => row.join('')).join('\n');
+function emptyGrid(cols: number, rows: number): Cell[][] {
+  return Array.from({ length: rows }, () =>
+    Array.from({ length: cols }, () => ({ ch: ' ', v: 0 })),
+  );
 }
 
-function emberFrame(tick: number, seed: number, cols: number, rows: number): string {
-  const grid = Array.from({ length: rows }, () => Array(cols).fill(' '));
+function pulseCells(tick: number, cols: number, rows: number): Cell[][] {
+  const grid = emptyGrid(cols, rows);
   const cy = Math.floor(rows / 2);
   const cx = Math.floor(cols / 2);
-  const spots: Array<[number, number]> = [[cx, cy], [cx - 3, cy + 1], [cx + 4, cy - 1]];
+  const phase = Math.floor(tick / 2) % PULSE_CHARS.length;
+  grid[cy]![cx] = { ch: PULSE_CHARS[phase]!, v: PULSE_V[phase]! };
+  return grid;
+}
+
+function emberCells(tick: number, seed: number, cols: number, rows: number): Cell[][] {
+  const grid = emptyGrid(cols, rows);
+  const cy = Math.floor(rows / 2);
+  const cx = Math.floor(cols / 2);
+  const spots: Array<[number, number]> = [[cx, cy], [cx - 6, cy + 2], [cx + 8, cy - 2]];
   spots.forEach(([x, y], i) => {
     const v = hash(i, 0, Math.floor(tick / 3), seed);
-    grid[y]![x] = v > 0.66 ? '∘' : v > 0.33 ? '·' : ' ';
+    grid[y]![x] = v > 0.66 ? { ch: '∘', v: 0.55 } : v > 0.33 ? { ch: '·', v: 0.3 } : { ch: ' ', v: 0 };
   });
-  return grid.map((row) => row.join('')).join('\n');
+  return grid;
 }
 
-/** One deterministic frame of the Bard's face. */
-export function frame(params: BlotParams, tick: number): string {
+/** One deterministic frame of the Bard's face, as cells with raw intensity. */
+export function frameCells(params: BlotParams, tick: number): Cell[][] {
   const { mood, seed } = params;
   const sparse = params.sparseness ?? 0;
-  const g = params.gesture && params.gesture !== 'none' ? Math.min(Math.max(params.gestureT ?? 0, 0), 1) : 0;
-  const envelope = g > 0 ? Math.sin(g * Math.PI) : 0; // rises and settles
+  const gesture = params.gesture ?? 'none';
+  const g = gesture !== 'none' ? Math.min(Math.max(params.gestureT ?? 0, 0), 1) : 0;
+  // One-shot gestures rise and settle; held attention is the level itself.
+  const held = gesture === 'attend' || gesture === 'sway';
+  const envelope = g > 0 ? (held ? g : Math.sin(g * Math.PI)) : 0;
 
-  if (mood === 'point' || sparse >= 9) return pulseFrame(tick, COLS, ROWS);
-  if (mood === 'ember') return emberFrame(tick, seed, COLS, ROWS);
-  if (params.gesture === 'still' && envelope > 0.3) return pulseFrame(tick, COLS, ROWS);
+  if (mood === 'point' || sparse >= 9) return pulseCells(tick, COLS, ROWS);
+  if (mood === 'ember') return emberCells(tick, seed, COLS, ROWS);
+  if (gesture === 'still' && envelope > 0.3) return pulseCells(tick, COLS, ROWS);
 
   const t = tick * (mood === 'soft' ? 0.05 : mood === 'fear' ? 0.35 : 0.12);
-  const cy = (ROWS - 1) / 2;
   const cx = (COLS - 1) / 2;
+  // attend: the ink draws downward — leaning over the desk toward the hand.
+  const cy = (ROWS - 1) / 2 + (gesture === 'attend' ? envelope * ROWS * 0.14 : 0);
 
   let radius = 0.82 + 0.09 * Math.sin(tick * 0.09);
-  if (params.gesture === 'bloom') radius *= 1 + 0.3 * envelope;
-  if (params.gesture === 'contract') radius *= 1 - 0.35 * envelope;
+  if (gesture === 'bloom') radius *= 1 + 0.3 * envelope;
+  if (gesture === 'contract') radius *= 1 - 0.35 * envelope;
+  if (gesture === 'attend') radius *= 1 - 0.1 * envelope; // gathering, focused
   if (mood === 'fear') radius *= 0.7;
 
-  const rows: string[] = [];
+  const grid: Cell[][] = [];
   for (let y = 0; y < ROWS; y += 1) {
-    let line = '';
+    const row: Cell[] = [];
+    // sway: each row shifts as a unit, so the mirrored body rocks whole.
+    const shift = gesture === 'sway' ? envelope * COLS * 0.07 * Math.sin(tick * 0.28 + y * 0.5) : 0;
     for (let x = 0; x < COLS; x += 1) {
+      const xs = x - shift;
       // Rorschach symmetry: mirror across the vertical axis — unless the
       // premise itself is being refused.
-      const mx = mood === 'asym' ? x : x <= cx ? x : COLS - 1 - x;
-      let dx = (x - cx) / (COLS * 0.42);
+      const mx = mood === 'asym' ? xs : xs <= cx ? xs : 2 * cx - xs;
+      let dx = (xs - cx) / (COLS * 0.42);
       const dy = (y - cy) / (ROWS * 0.62);
       if (mood === 'fear') dx *= 1.7; // narrowing corridors
       let d = Math.sqrt(dx * dx + dy * dy);
@@ -124,26 +163,49 @@ export function frame(params: BlotParams, tick: number): string {
         d += 0.16 * Math.sin(angle * 3 + d * 5);
       }
       if (mood === 'angular') {
-        const angle = Math.atan2(dy, (x - cx) / (COLS * 0.42));
+        const angle = Math.atan2(dy, (xs - cx) / (COLS * 0.42));
         d *= 1 + 0.28 * Math.abs(Math.sin(angle * 2.5));
       }
 
       let n = noise(mx, y * 2, t, seed, 3.1);
       if (mood === 'curious') n = 1 - Math.abs(2 * n - 1); // ridged: branches and apertures
       if (mood === 'fear') n = n * 0.6 + hash(x, y, tick, seed) * 0.4; // jitter
-      if (params.gesture === 'jitter') n = n * (1 - 0.5 * envelope) + hash(x, y, tick, seed + 7) * 0.5 * envelope;
+      if (gesture === 'jitter') n = n * (1 - 0.5 * envelope) + hash(x, y, tick, seed + 7) * 0.5 * envelope;
 
       let v = Math.max(0, 1 - d / radius) * (0.45 + 0.55 * n);
       if (mood === 'bare') v *= 0.5;
       if (mood === 'soft') v = Math.min(v, 0.62);
       v -= sparse * 0.085;
+      v = Math.max(0, v);
 
-      const idx = Math.max(0, Math.min(RAMP.length - 1, Math.floor(v * RAMP.length)));
-      line += RAMP[idx];
+      row.push({ ch: rampChar(v), v });
     }
-    rows.push(line);
+    grid.push(row);
   }
-  return rows.join('\n');
+  return grid;
+}
+
+/** One deterministic frame of the Bard's face, as text (the same face). */
+export function frame(params: BlotParams, tick: number): string {
+  return frameCells(params, tick)
+    .map((row) => row.map((cell) => cell.ch).join(''))
+    .join('\n');
+}
+
+/**
+ * The face's reaction when a hand hovers near a button. Deterministic and
+ * deliberately arbitrary: a hash of the two ids and nothing else — never the
+ * choice's content, tally, or effects — so the Bard seems to have preferences
+ * without the preferences meaning anything (CD directive 2026-07-14: never
+ * overtly mapping to the choice).
+ */
+export function hoverGesture(nodeId: string, choiceId: string): 'attend' | 'sway' {
+  let h = 2166136261 >>> 0;
+  const key = `${nodeId}§${choiceId}`;
+  for (let i = 0; i < key.length; i += 1) {
+    h = Math.imul(h ^ key.charCodeAt(i), 16777619);
+  }
+  return (h >>> 0) / 4294967296 < 0.3 ? 'sway' : 'attend';
 }
 
 /** A concise text alternative per mood (v1 §20: ASCII carries descriptions). */
