@@ -6,6 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
+    "start": "npm run build && node scripts/serve.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "serve": "node scripts/serve.mjs",
     "test": "vitest run",
     "validate": "node scripts/validate-content.mjs",
     "gate0": "npm run validate && vitest run && npm run build && node scripts/check-file-boot.mjs"

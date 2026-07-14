@@ -31,10 +31,27 @@ function freshMount(): HTMLElement {
   return root;
 }
 
+// Reset the game's persistent keys between tests. Some jsdom builds expose a
+// Storage without Storage.prototype.clear (getItem/setItem/removeItem only),
+// so we never rely on clear() — the game itself only ever removeItem()s.
+function resetStorage(): void {
+  try {
+    if (typeof localStorage === 'undefined') return;
+    if (typeof localStorage.clear === 'function') {
+      localStorage.clear();
+      return;
+    }
+    localStorage.removeItem('bardo_lives');
+    localStorage.removeItem('bardo_completed');
+  } catch {
+    /* storage unavailable in this environment — nothing to reset */
+  }
+}
+
 describe('THE BREATH (Gate 5): reincarnation, Lethe, the codex', () => {
   beforeEach(() => {
     clearTallies();
-    localStorage.clear();
+    resetStorage();
   });
 
   it('a first boot carries no memory, no forget control', () => {
@@ -157,7 +174,7 @@ describe('THE BREATH (Gate 5): reincarnation, Lethe, the codex', () => {
   });
 
   it('storage-blocked environments still play: an unrecorded incarnation', () => {
-    const original = Object.getOwnPropertyDescriptor(window, 'localStorage')!;
+    const original = Object.getOwnPropertyDescriptor(window, 'localStorage');
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
       get() {
@@ -169,7 +186,10 @@ describe('THE BREATH (Gate 5): reincarnation, Lethe, the codex', () => {
       clickChoice(root, 'begin');
       expect(root.textContent).toContain('A process identifying itself as YOU');
     } finally {
-      Object.defineProperty(window, 'localStorage', original);
+      // Restore whatever was there before (own descriptor), or drop our
+      // override so an inherited localStorage shows through again.
+      if (original) Object.defineProperty(window, 'localStorage', original);
+      else delete (window as unknown as { localStorage?: unknown }).localStorage;
     }
   });
 });
