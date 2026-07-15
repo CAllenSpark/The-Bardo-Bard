@@ -77,6 +77,19 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-15** — **Agency over insight** (CD directive; Compass §13). Prompted
+  by a "beat the matrix" essay whose thesis (legibility, borrowed desire, the
+  ungovernable margin, and — the one challenge — insight-is-inert / agency-is-
+  felt) mostly names what the Bardo already is. Targeted revision, not a
+  restructure: first Vigil beat pulled to 25s (discoverability seed, endgame
+  unchanged at 510s); the played-ending breadcrumb reworked so it no longer
+  misdirects to the light door ("not a door and not a button … the soul who
+  never reaches for it"); the END GAME disclosure trimmed of its lever-catalogue
+  to hand agency back ("you were there … you are the one who did the setting
+  down"); and the blank ending reframed from prestige ("rarest kind", "out-
+  waited the desk") to illegibility ("not a prize … the one shape the Ledger
+  cannot hold"). Resolves design-eval Decision A + the prestige-gradient
+  finding. 117 tests; 49 KB gz; verified in real Chromium.
 - **2026-07-14** — **The Bard's presence enlarged** (CD directive; Compass §13).
   The Rorschach is now the dominant zone: a `<canvas>` face (61×21 grid, was
   33×7) painted at display rate with blended-tick liquid motion, a breathing

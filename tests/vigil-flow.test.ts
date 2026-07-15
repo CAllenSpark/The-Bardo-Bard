@@ -49,13 +49,13 @@ describe('THE VIGIL (Gate 2)', () => {
   it('stillness grows the ladder in authored order; options accrete and never expire', () => {
     expect(buttons(root, 'button[data-rung-id]')).toHaveLength(0);
 
-    vi.advanceTimersByTime(44_750); // first beat at 45s (P0-4)
+    vi.advanceTimersByTime(24_750); // first beat at 25s (early notice — agency-over-insight)
     expect(buttons(root, 'button[data-rung-id]')).toHaveLength(0);
     vi.advanceTimersByTime(250);
     expect(buttons(root, 'button').find((b) => b.dataset.rungId === 'patience')).toBeDefined();
     expect(root.textContent).toContain('The desk is very good at fine');
 
-    vi.advanceTimersByTime(ENDGAME_AT - 45_000);
+    vi.advanceTimersByTime(ENDGAME_AT - 25_000);
     const rungIds = buttons(root, 'button[data-rung-id]').map((b) => b.dataset.rungId);
     expect(rungIds).toEqual([
       'patience', 'fear', 'temptation', 'desire', 'hope',
@@ -91,7 +91,7 @@ describe('THE VIGIL (Gate 2)', () => {
   });
 
   it('clicking a rung folds into normal play: V tally, posture flag, ack line, ladder gone for good', () => {
-    vi.advanceTimersByTime(120_000); // patience (45s) + fear (120s) on screen
+    vi.advanceTimersByTime(120_000); // patience (25s) + fear (120s) on screen
     clickRung(root, 'fear');
 
     expect(pendingTallies()).toContainEqual({ node: 'V', choice: 'fear' });
@@ -122,7 +122,7 @@ describe('THE VIGIL (Gate 2)', () => {
   });
 
   it('hidden-tab time does not advance the ladder, and the Bard notes it exactly once', () => {
-    vi.advanceTimersByTime(30_000);
+    vi.advanceTimersByTime(20_000); // under the 25s first beat
     setHidden(true);
     vi.advanceTimersByTime(600_000); // ten hidden minutes
     expect(buttons(root, 'button[data-rung-id]')).toHaveLength(0);
@@ -130,7 +130,7 @@ describe('THE VIGIL (Gate 2)', () => {
     setHidden(false);
     expect(root.textContent).toContain('The desk kept your place');
 
-    vi.advanceTimersByTime(30_000); // 60s of *visible* stillness total
+    vi.advanceTimersByTime(30_000); // 50s of *visible* stillness total — past the first beat
     expect(buttons(root, 'button').find((b) => b.dataset.rungId === 'patience')).toBeDefined();
 
     setHidden(true);

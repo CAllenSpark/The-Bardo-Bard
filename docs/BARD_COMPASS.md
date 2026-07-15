@@ -589,6 +589,52 @@ beat; a soft in-place retraction for the **hope/loss** rungs if left un-clicked
 
 ## 13. Session log (append-only)
 
+- **2026-07-15 — Agency over insight (CD directive, prompted by a "beat the
+  matrix" essay).** The CD surfaced an essay (Darshak Rana) whose spine —
+  Moloch/no-architect, legibility as the lever, mimetic/borrowed desire, the
+  mind rendering its own prison, requisite variety, an "ungovernable margin" —
+  maps almost 1:1 onto what the Bardo already is (the Ledger IS legibility; the
+  Vigil ladder IS borrowed wants incl. the conformity rung; the Rorschach IS the
+  Umwelt/projective screen; the standing exits ARE requisite variety; the
+  disclosure IS the Baudrillard "even this sentence could be a move"). The one
+  place it *challenged* us was the reversed learned-helplessness finding:
+  **insight is inert; the freeze lifts only when the player detects their own
+  action changed the world.** Our denouement was insight-heavy — it *explained
+  the trap* as its climax. CD chose the targeted revision (not a restructure).
+  Three moves, all verified in real Chromium (agency driver, zero console
+  errors) + 117 tests green:
+  - **Discoverability (design-eval Decision A).** The felt "I did that" of
+    waiting-changes-the-world must be *reachable*. Two levers: the enlarged
+    hypnotic face (2026-07-14) invites lingering; and the first Vigil beat now
+    lands at **25s (was 45s)** — a dry early notice ("Still here. That's fine.")
+    that a mesmerized, lingering soul actually meets, converting an idle pause
+    into the Vigil (the behavioral-activation seed). Endgame unchanged (510s).
+    The misdirecting breadcrumb at played endings ("a door that opens for those
+    who don't ask it to" — the eval flagged it aims at the decoy light door) is
+    reworked to "a way through this desk that is not a door and not a button …
+    the soul who never reaches for it. You reached. Most souls do." — findable,
+    flatly framed, never crowned. **Still no secretly-correct path:** the END
+    GAME disclosure keeps undercutting it ("if you waited because something told
+    you waiting wins, you were still playing someone else's game").
+  - **Trim the insight-lecture.** The END GAME disclosure dropped its
+    lever-catalogue recap ("I tried your patience. Then your fear. Then the
+    shortcut…") for an agency-forward beat: "Every line I spoke was a lever. You
+    felt each one and set it down. I will not read them back to you — you were
+    there, and you are the one who did the setting down." Retraction, the
+    free/afraid ambiguity, the Baudrillard self-move, and "The last move was
+    never mine to make. You made it." all kept.
+  - **Reframe the blank ending from prestige to illegibility (prestige-gradient
+    fix).** The eval flagged "The Unprocessed" + "out-waited the desk" as a
+    meta-prestige that contradicts no-hierarchy. The record now reads "not a
+    prize … the one shape the Ledger cannot hold — a stillness the desk kept no
+    column for," and the (previously dead) OMEGA glyph phrase is "a record the
+    Ledger could not fill." The blank glyph and the dashboard's "DEPARTED
+    WITHOUT FILING" row already read as illegibility, not a trophy.
+  Net: the game still refuses to name any path correct; it just makes the felt
+  win of agency reachable and stops over-explaining it. Open: this is the
+  single-run revision only — the reincarnation "each drag needs less force"
+  immunization arc (the essay's repeated-exposure idea) was deferred, not taken.
+
 - **2026-07-14 — The Bard's presence enlarged (CD directive).** Post-playtest,
   the CD marked up a three-zone mockup (THE BARD large on top, the text box
   middle, the choices below) and asked for the entity to be *stronger* —

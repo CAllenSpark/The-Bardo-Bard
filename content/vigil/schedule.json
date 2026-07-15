@@ -1,7 +1,7 @@
 {
-  "comment": "Vigil ladder schedule (Compass §4.3; eval P0-4). Cumulative milliseconds of VISIBLE stillness at a1_consent before each rung appears. The first beat lands early (45s) to signal that waiting is legible; from there the cadence TIGHTENS progressively (gaps 75s→70→65→58→52→46→40→34→25) so the rhythm itself, not just the copy, escalates toward the plea. Constraint asserted by test: endgame lands in 420000–600000 ms (7–10 min). Here: 510000 ms (8.5 min).",
+  "comment": "Vigil ladder schedule (Compass §4.3; eval P0-4; agency-over-insight revision 2026-07-15). Cumulative milliseconds of VISIBLE stillness at a1_consent before each rung appears. The first beat now lands EARLY (25s) — a lingering soul (drawn in by the enlarged, hypnotic face) gets the felt 'the desk noticed I did not click' as their first small win of agency, which is what converts an idle pause into the Vigil (the behavioral-activation seed: the world responds to my stillness). It is a dry notice, not encouragement — the desk, being the trap, still wants you to move. From there the ladder proper begins and the cadence tightens toward the plea. Constraint asserted by test: endgame lands in 420000–600000 ms (7–10 min). Here: 510000 ms (8.5 min), unchanged.",
   "rungs": [
-    { "id": "patience", "afterMs": 45000 },
+    { "id": "patience", "afterMs": 25000 },
     { "id": "fear", "afterMs": 120000 },
     { "id": "temptation", "afterMs": 190000 },
     { "id": "desire", "afterMs": 255000 },
