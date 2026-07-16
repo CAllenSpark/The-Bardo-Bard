@@ -77,6 +77,14 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-15** — **The Returning-Customer Intake / Mad-Libs** (CD bonus; Compass
+  §15, OD-14 resolved). Optional second-visit intake: ~8 light-preference
+  questions (button / SKIP / OTHER free-text), stored local-only and injected as
+  the Bard's personalized asides through the run, with a re-survey diff that gently
+  favors variety as curiosity ("Pepsi became lemonade"). The free-text OTHER is a
+  bounded, ratified exception to buttons-only: never transmitted, never in the
+  Ledger, no runtime LLM, sanitized/capped, textContent-only, preferences only.
+  134 tests; 61 KB gz; verified in real Chromium.
 - **2026-07-15** — **The back office + bite** (CD directive; Compass §15). A
   structurally-forking route only a recognized soul finds: ask to see behind the
   desk (gated at the cart) and go sideways through the works — the waiting line,

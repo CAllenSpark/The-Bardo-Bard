@@ -1,0 +1,113 @@
+{
+  "comment": "The Returning-Customer Intake (Compass §15 / OD-14, CD ratified 2026-07-15). LOCAL-ONLY: answers live in localStorage (bardo_lives.intake), are NEVER transmitted, NEVER enter the Ledger, and are only ever string-substituted (no runtime LLM). OTHER is free text — the ratified exception to buttons-only — sanitized and length-capped by the engine, rendered via textContent. Questions are light PREFERENCES only: never identity, PII, or how-you-died. Each answer becomes a {value} injected at the node named in `injections`; changed answers across surveys are noted with a gentle favoring of variety (curiosity).",
+  "boot_button": "A FEW QUESTIONS (RETURNING CUSTOMERS)",
+  "intro": "Returning customers are entitled to a more personalized experience.\nIt is in the charter. The charter is also me.\n\nA few questions, then — nothing that matters, which is exactly\nwhy your answers matter. Press a button, skip, or say it in\nyour own words. Nothing you type here leaves this machine; the\ndesk would not know where to send it.",
+  "other_prompt": "In your own words (a word or two):",
+  "other_label": "OTHER…",
+  "skip_label": "SKIP",
+  "next_label": "NEXT",
+  "back_label": "— BACK TO THE DESK",
+  "questions": [
+    {
+      "id": "drink",
+      "prompt": "It is a hot day. Genuinely too hot. You reach for —",
+      "options": [
+        { "id": "lemonade", "label": "LEMONADE", "value": "lemonade" },
+        { "id": "iced_tea", "label": "ICED TEA", "value": "iced tea" },
+        { "id": "cold_beer", "label": "A COLD BEER", "value": "a cold beer" },
+        { "id": "water", "label": "WATER, HONESTLY", "value": "water" },
+        { "id": "fizzy", "label": "SOMETHING FIZZY", "value": "something fizzy" }
+      ]
+    },
+    {
+      "id": "place",
+      "prompt": "Right now, given a choice, you would rather be —",
+      "options": [
+        { "id": "sea", "label": "BY THE SEA", "value": "by the sea" },
+        { "id": "library", "label": "IN A LIBRARY", "value": "in a library" },
+        { "id": "bed", "label": "IN BED", "value": "in bed" },
+        { "id": "kitchen", "label": "IN A KITCHEN AT 2AM", "value": "in a kitchen at 2am" },
+        { "id": "nowhere", "label": "NOWHERE, IDEALLY", "value": "nowhere in particular" }
+      ]
+    },
+    {
+      "id": "sound",
+      "prompt": "A sound you love more than you can defend —",
+      "options": [
+        { "id": "rain", "label": "RAIN ON GLASS", "value": "rain on glass" },
+        { "id": "kettle", "label": "A KETTLE COMING UP", "value": "a kettle coming up" },
+        { "id": "voice", "label": "ONE PARTICULAR VOICE", "value": "one particular voice" },
+        { "id": "vinyl", "label": "VINYL CRACKLE", "value": "vinyl crackle" },
+        { "id": "silence", "label": "SILENCE, ACTUALLY", "value": "silence" }
+      ]
+    },
+    {
+      "id": "comfort",
+      "prompt": "One thing you would happily return to forever —",
+      "options": [
+        { "id": "album", "label": "ONE ALBUM", "value": "one album" },
+        { "id": "book", "label": "ONE BOOK", "value": "one book" },
+        { "id": "film", "label": "ONE FILM", "value": "one film" },
+        { "id": "meal", "label": "ONE MEAL", "value": "one meal" },
+        { "id": "afternoon", "label": "ONE PARTICULAR AFTERNOON", "value": "one particular afternoon" }
+      ]
+    },
+    {
+      "id": "weather",
+      "prompt": "Your weather — the kind that makes you most yourself —",
+      "options": [
+        { "id": "rain", "label": "STEADY RAIN", "value": "steady rain" },
+        { "id": "bright_cold", "label": "BRIGHT COLD", "value": "bright cold" },
+        { "id": "fog", "label": "FOG", "value": "fog" },
+        { "id": "storm", "label": "A STORM, SAFELY INDOORS", "value": "a storm watched from indoors" },
+        { "id": "mild", "label": "OVERCAST AND MILD", "value": "an overcast, mild day" }
+      ]
+    },
+    {
+      "id": "joy",
+      "prompt": "A small, faintly ridiculous joy —",
+      "options": [
+        { "id": "pen", "label": "A GOOD PEN", "value": "a good pen" },
+        { "id": "sheets", "label": "CLEAN SHEETS", "value": "clean sheets" },
+        { "id": "last_slice", "label": "THE LAST SLICE", "value": "the last slice" },
+        { "id": "green_light", "label": "A GREEN LIGHT ON THE FIRST TRY", "value": "a green light on the first try" },
+        { "id": "correct_change", "label": "EXACT CHANGE", "value": "exact change" }
+      ]
+    },
+    {
+      "id": "animal",
+      "prompt": "An animal you would, on balance, trust —",
+      "options": [
+        { "id": "dog", "label": "A DOG", "value": "a dog" },
+        { "id": "cat", "label": "A CAT", "value": "a cat" },
+        { "id": "crow", "label": "A CROW", "value": "a crow" },
+        { "id": "horse", "label": "A HORSE", "value": "a horse" },
+        { "id": "none", "label": "NONE, FRANKLY", "value": "no animal at all" }
+      ]
+    },
+    {
+      "id": "word",
+      "prompt": "A word you overuse and have made peace with —",
+      "options": [
+        { "id": "honestly", "label": "\"HONESTLY\"", "value": "honestly" },
+        { "id": "anyway", "label": "\"ANYWAY\"", "value": "anyway" },
+        { "id": "fine", "label": "\"FINE\"", "value": "fine" },
+        { "id": "interesting", "label": "\"INTERESTING\"", "value": "interesting" },
+        { "id": "look", "label": "\"LOOK,\"", "value": "look" }
+      ]
+    }
+  ],
+  "injections": {
+    "a2_light": { "var": "place", "line": "You told the desk you would rather be {value}. The light has noticed, and is — even now — doing a quiet impression of {value}. Badly. It is a light, not a set designer." },
+    "b1_beverage_cart": { "var": "drink", "line": "As a soul who, on a genuinely too-hot day, reaches for {value}: the cart has thoughts about that. It keeps them to itself. Professional discretion, and also it is a cart." },
+    "e1_reciprocity": { "var": "sound", "line": "You once named a sound you love: {value}. I have been running it, very low, under this whole confession. You did not notice — which is the kindest thing {value} has ever done for anyone." },
+    "f0_disclosure": { "var": "comfort", "line": "You said you would return forever to {value}. That is the entire trick, you know — a thing you would choose again with your eyes open, knowing the cost. Keep hold of whatever taught you that." }
+  },
+  "outro": {
+    "base": "Filed. You are now, on paper, more yourself than the soul who last sat in this chair. The paper is me. I will carry it about eight minutes.",
+    "unchanged_all": "Every answer, exactly as before. Consistency. The desk finds it restful, and very slightly worrying, in the way that anything perfectly unchanging is.",
+    "changed_prefix": "One or two things moved since last time:",
+    "changed_line": "{was} became {now}.",
+    "changed_suffix": "The second pass favored something new. The desk approves, quietly, of a soul that surprises it — variety is only curiosity wearing a change of clothes, and curiosity is the one thing this place cannot fake for you."
+  }
+}

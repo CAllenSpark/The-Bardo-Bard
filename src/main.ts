@@ -9,8 +9,12 @@ import { exportTotenpass, importTotenpass } from './engine/totenpass';
 import { buildSigil } from './engine/sigil';
 import { GLYPH_DISCLOSURE, buildGlyphText, phrase } from './engine/glyph';
 import { computeProfile } from './engine/profile';
-import { choiceHistory, forgetLives, isRecognized, lastLife, lifeCount, longAbsence, noteOmegaReturn, raiseRecognition, recordLife } from './engine/memory';
+import { choiceHistory, forgetLives, getIntake, isRecognized, lastLife, lifeCount, longAbsence, noteOmegaReturn, raiseRecognition, recordLife } from './engine/memory';
 import type { Life } from './engine/memory';
+import { personalize } from './engine/intake';
+import type { Survey } from './engine/intake';
+import { mountSurvey } from './ui/survey';
+import surveyFile from '../content/survey/survey.json';
 import type { Gesture, Mood } from './engine/rorschach';
 import { hoverGesture } from './engine/rorschach';
 import { Blot } from './ui/blot';
@@ -70,6 +74,7 @@ function fillMemory(template: string, prior: Life): string | null {
   });
   return missing ? null : filled;
 }
+const SURVEY = surveyFile as unknown as Survey;
 const SCHEDULE = scheduleFile as unknown as { rungs: { id: string; afterMs: number }[] };
 const CONFIRMATION_ACKS = (confirmationFile as unknown as { acks: Record<string, string> }).acks;
 const MANIFEST_KEYS = Object.keys(manifestFile as Record<string, string[]>);
@@ -325,6 +330,12 @@ export function mount(root: HTMLElement): void {
         rerender({ ackLine: IMPORT_ERROR_LINE });
       }
     },
+    onIntake: () => {
+      // The intake takes over the stage; when the soul returns to the desk, the
+      // boot re-renders (now carrying whatever it filed). Local-only throughout.
+      if (clock) stopVigil();
+      mountSurvey(stage, SURVEY, () => rerender());
+    },
   };
 
   const startVigilIfEligible = (): void => {
@@ -364,9 +375,14 @@ export function mount(root: HTMLElement): void {
       glyph: trueEnding ? { text: buildGlyphText(state, soulN), disclosure: GLYPH_DISCLOSURE } : undefined,
       fullLedger: playedEnding ? buildFullLedger(graph, state) : undefined,
       totenpass: playedEnding ? exportTotenpass(state) : undefined,
-      // The rut nudge supersedes the generic remembered line where it fires.
-      memoryLine: nudgeFor(state.node) ?? memoryFor(state.node),
+      // The rut nudge supersedes the generic remembered line where it fires; a
+      // personalized aside (§15 / OD-14, local-only) appends beneath either.
+      memoryLine:
+        [nudgeFor(state.node) ?? memoryFor(state.node), personalize(state.node, SURVEY, getIntake())]
+          .filter(Boolean)
+          .join('\n\n') || undefined,
       canForget: state.node === 'boot_notice' && (prior !== null || lifeCount() > 0),
+      canIntake: state.node === 'boot_notice' && lifeCount() >= 1,
       unlockedChoices: unlockedGated(),
     });
     blot.set(moodFor(graph, state), vigilSparseness);

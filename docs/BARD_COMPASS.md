@@ -574,7 +574,7 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
 | OD-11 | Dashboard vs. reveal-after-lock: how much census may a prospective player see pre-play? | **Resolved by CD 2026-07-13:** headlines only ("souls served" + the unexplained Ω row); per-node splits after a completed run; time-series trends deferred |
 | OD-12 | Share-glyph compact code carries the full committed-choice vector (more than the visible emoji), with a copy-time disclosure line | Open — proposed as specced in §7; CD may prefer code = visible emoji only (weakens Soul Analysis to act-level comparison) |
 | OD-13 | Standing-exit tally mapping | **Resolved 2026-07-13 (Phase 1):** shared choices — exits tally F1 as `return` / `light` (`light` is the tenth F1 choice); no early/late distinction server-side. Passages scale early/mid/late client-side by act |
-| OD-14 | **Returning-customer survey / Mad-Libs** free-text `OTHER` (CD bonus, 2026-07-15) — the buttons-only/no-free-text pillar forbids free text *at MVP*; the survey is a post-MVP returning-player layer | **Open — needs CD ratification of the exception.** Proposed guardrails, binding if accepted: strictly **local-only** (localStorage, like reincarnation memory); **never transmitted, never in the Ledger** (the Ledger stays bare tallies — no PII, no free text server-side); **no runtime LLM** (Mad-Libs is pure string substitution); length-capped + newline-stripped; survey asks only light *preferences* (a drink, a small joy, a place), never identity/PII/how-you-died. Alternative if declined: buttons-only with a rich option set + a "SURPRISE ME" that picks for you (keeps the pillar intact, loses the player's own words) |
+| OD-14 | **Returning-customer survey / Mad-Libs** free-text `OTHER` (CD bonus, 2026-07-15) — the buttons-only/no-free-text pillar forbids free text *at MVP*; the survey is a post-MVP returning-player layer | **Resolved 2026-07-15 — CD ratified "free text, with guardrails."** Built (§15). The exception is bounded and **binding**: strictly **local-only** (`bardo_lives.intake`); **never transmitted, never in the Ledger** (bare tallies stay sacred — no PII, no free text server-side); **no runtime LLM** (pure string substitution); `sanitizeOther` strips control chars + angle brackets, collapses whitespace, caps at 40, echoes only via `textContent`; questions are light *preferences* only (a drink, a place, a sound), never identity/PII/how-you-died. This exception applies to the intake layer ALONE; the game proper stays buttons-only |
 
 ## 14. Pre-playtest design evaluation
 
@@ -698,17 +698,39 @@ seeker who can change the game master itself:
   flattered, if the desk were provisioned for flattery"). Neither favors any
   option; the Vigil beat tempts *action*, not a door.
 
-**Still deferred (offered):** the **returning-customer survey / Mad-Libs
-personalization** (CD bonus idea 2026-07-15) — a ~10-question, buttons-or-skip-or-
-OTHER survey whose answers inject as `{variables}` through the run and are diffed
-across lives (variety gently favored as curiosity). **Carries a formal invariant
-exception to weigh** (OD-14 below): OTHER is free text, which the buttons-only/no-
-free-text pillar forbids at MVP — proposed as a strictly local, never-transmitted,
-never-in-the-Ledger, no-runtime-LLM returning-player layer. Also still open:
-extending the curiosity nudge beyond `a2`; the cross-life agency-immunization arc.
-See `docs/TESTER_SWOT.md`.
+**Fourth pass — the Returning-Customer Intake / Mad-Libs (CD bonus, ratified
+OD-14).** From the second visit, a boot option (`RETURNING CUSTOMER? A FEW
+QUESTIONS`) opens an optional intake: ~8 light-preference questions, each a
+**button**, **SKIP**, or **OTHER** (the ratified free-text exception). Answers are
+stored **local-only** (`bardo_lives.intake`) and injected as the Bard's
+personalized asides at four nodes — the light (`place`), the cart (`drink`), the
+keeper (`sound`), the disclosure (`comfort`) — via pure `{value}` substitution
+(`intake.personalize`). A re-survey diffs against the prior answers and notes what
+moved, **gently favoring variety as curiosity** ("Pepsi became lemonade… the
+second pass favored something new"); sameness is noted without judgment. No answer
+is right or wrong. Guardrails (binding, OD-14): never transmitted, never in the
+Ledger, no runtime LLM, `sanitizeOther` caps/strips, textContent-only, preferences
+only. Engine `src/engine/intake.ts` + UI `src/ui/survey.ts` + `content/survey/`;
+validated for injection/question integrity; Lethe wipes it with everything else.
+
+**Still deferred (offered):** extending the curiosity nudge beyond `a2`; the
+cross-life agency-immunization arc; more Mad-Libs injection points (four wired,
+the rest collected and diffable). See `docs/TESTER_SWOT.md`.
 
 ## 13. Session log (append-only)
+
+- **2026-07-15 — The Returning-Customer Intake / Mad-Libs (CD bonus; §15, OD-14
+  resolved).** CD ratified "free text, with guardrails." Built an optional
+  second-visit intake: ~8 light-preference questions (button / SKIP / OTHER),
+  stored **local-only**, injected as the Bard's personalized asides through the
+  run ("As a soul who reaches for {drink}…"), with a re-survey diff that favors
+  variety as curiosity ("Pepsi became lemonade"). The free-text OTHER is the sole,
+  bounded exception to buttons-only: never transmitted, never in the Ledger, no
+  runtime LLM, sanitized/capped, textContent-only, preferences only —
+  the game proper and the Ledger stay untouched. New: `content/survey/survey.json`,
+  `src/engine/intake.ts`, `src/ui/survey.ts`; validator gained a survey-integrity
+  check. 134 tests (+5); 61 KB gz; verified in real Chromium at 900/375/320px,
+  zero console errors.
 
 - **2026-07-15 — The back office + bite (CD directive; §15, third Cycle-Ladder
   pass).** Acting on the CD's "everyone is trapped, including the Bard" and the

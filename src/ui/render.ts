@@ -9,6 +9,8 @@ export interface RenderHandlers {
   onVigil: (rungId: string) => void;
   onImport: (token: string) => void;
   onForget: () => void;
+  /** Launch the returning-customer intake survey (§15 / OD-14). */
+  onIntake: () => void;
 }
 
 export interface RenderOptions {
@@ -32,6 +34,8 @@ export interface RenderOptions {
    *  Ladder). A gated choice not listed here is present in the graph but not
    *  drawn — the door exists before the soul is deep enough to see it. */
   unlockedChoices?: Set<string>;
+  /** Offer the returning-customer intake on the boot screen (§15 / OD-14). */
+  canIntake?: boolean;
 }
 
 const EXIT_LABELS: Record<StandingExitId, string> = {
@@ -228,6 +232,17 @@ export function render(
       field.focus();
     });
     row.appendChild(importButton);
+
+    // The returning-customer intake (§15 / OD-14) — offered from the second visit.
+    if (options.canIntake) {
+      const intakeButton = document.createElement('button');
+      intakeButton.type = 'button';
+      intakeButton.className = 'system';
+      intakeButton.dataset.systemId = 'intake';
+      intakeButton.textContent = 'RETURNING CUSTOMER? A FEW QUESTIONS';
+      intakeButton.addEventListener('click', () => handlers.onIntake());
+      row.appendChild(intakeButton);
+    }
 
     if (options.canForget) {
       const forgetButton = document.createElement('button');

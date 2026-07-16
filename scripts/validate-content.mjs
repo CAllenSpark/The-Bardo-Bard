@@ -250,6 +250,29 @@ export function validateContent() {
     errors.push('reincarnation.json: a1_consent template forbidden (§9.2 — the Vigil stays archetypal)');
   }
 
+  // Returning-customer intake (§15 / OD-14): well-formed questions, and every
+  // injection must reference a real question — a stray {value} would put a blank
+  // in the Bard's mouth. (The survey is local-only; never validated as census.)
+  const survey = loadJson(join(CONTENT, 'survey', 'survey.json'));
+  const questionIds = new Set();
+  for (const q of survey.questions ?? []) {
+    if (!q.id || !q.prompt || !Array.isArray(q.options) || q.options.length === 0) {
+      errors.push(`survey question ${q.id ?? '?'}: id, prompt, and options are required`);
+    }
+    if (questionIds.has(q.id)) errors.push(`survey: duplicate question id ${q.id}`);
+    questionIds.add(q.id);
+    for (const opt of q.options ?? []) {
+      if (!opt.id || !opt.label || !opt.value) errors.push(`survey ${q.id}: option needs id, label, value`);
+    }
+  }
+  for (const [node, inj] of Object.entries(survey.injections ?? {})) {
+    if (!questionIds.has(inj.var)) errors.push(`survey injection for ${node}: unknown question "${inj.var}"`);
+    if (!inj.line?.includes('{value}')) errors.push(`survey injection for ${node}: line must contain {value}`);
+  }
+  for (const key of ['base', 'unchanged_all', 'changed_prefix', 'changed_line', 'changed_suffix']) {
+    if (!survey.outro?.[key]) errors.push(`survey outro: ${key} required`);
+  }
+
   // Seed census carries its degraded-mode label (Compass §7).
   const census = loadJson(join(CONTENT, 'census', 'seed.json'));
   if (census.label !== '(last census — the Ledger is unreachable)') {

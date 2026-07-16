@@ -19,6 +19,14 @@ export interface Life {
   day: string;
 }
 
+/** One returning-customer intake answer (§15 / OD-14). LOCAL-ONLY, never
+ *  transmitted, never in the Ledger. `source` distinguishes a picked preset
+ *  from the player's own (sanitized, capped) words. */
+export interface IntakeAnswer {
+  value: string;
+  source: 'preset' | 'other';
+}
+
 export interface Memory {
   v: 1;
   lives: Life[];
@@ -26,6 +34,11 @@ export interface Memory {
   /** How many times this soul has seen the Bard as a fellow prisoner (§15). The
    *  game master changes once this is nonzero — the mask stays off between you. */
   recognition?: number;
+  /** Returning-customer intake (§15 / OD-14): light preferences, local-only,
+   *  string-substituted into the run. Wiped by Lethe with everything else. */
+  intake?: Record<string, IntakeAnswer>;
+  /** The prior intake, kept so a re-survey can note what changed. */
+  intakePrev?: Record<string, IntakeAnswer>;
 }
 
 function store(): Storage | null {
@@ -133,6 +146,25 @@ export function longAbsence(): boolean {
   if (!last) return false;
   const elapsed = Date.now() - new Date(`${last.day}T00:00:00Z`).getTime();
   return elapsed > 60 * 24 * 60 * 60 * 1000;
+}
+
+/** The returning-customer intake answers, if any (§15 / OD-14). Local-only. */
+export function getIntake(): Record<string, IntakeAnswer> | null {
+  return loadMemory()?.intake ?? null;
+}
+
+/** The intake before the most recent one, for change-noting. */
+export function getIntakePrev(): Record<string, IntakeAnswer> | null {
+  return loadMemory()?.intakePrev ?? null;
+}
+
+/** Persist a fresh intake, keeping the previous set so the desk can note what
+ *  moved. Local-only; this data never leaves the machine. */
+export function setIntake(answers: Record<string, IntakeAnswer>): void {
+  const memory = loadMemory() ?? { v: 1 as const, lives: [], omegaReturns: 0 };
+  memory.intakePrev = memory.intake;
+  memory.intake = answers;
+  save(memory);
 }
 
 /** Forget this life — the deliberate drink from Lethe (v1 §14.2, §20.3). */
