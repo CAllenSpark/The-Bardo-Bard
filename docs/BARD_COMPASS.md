@@ -647,11 +647,55 @@ a soul comes back. Keyed to completed-run count (`lifeCount`).
   one move ("not the throne"), voices the matured thesis without preaching, and
   drops into `a1_consent` when the player is done. Act 0, untallied.
 
-**Deferred (offered, not yet built):** genuinely new run-gated *branches* on
-runs 4–5 (Scope option 2/3); extending the curiosity nudge beyond `a2`; the
-"each drag needs less force" agency-immunization arc across lives.
+**Second pass — the seams + recognition (CD 2026-07-15, "everyone is trapped,
+including the Bard").** Early cycles are experimentation; later cycles nudge
+toward agency and expose the seams, and an *invested* soul is recognized as a
+seeker who can change the game master itself:
+- **General rule (binding): a `gated` choice is never census-relevant** — even on
+  a tallied node. Enforced in `fsm.advance` (no tally attached) and
+  `gen-manifest` (skipped). This is what lets seam choices live at the tallied
+  encounters without polluting the Ledger.
+- **Encounter seams (cycle ≥4), the "things to find if curious."** Gated choices
+  that open the encounters themselves, each a short *detour* that returns (never a
+  new required path): `ask_light` at `a2_light` → `a2_seam` (the light is a
+  rendering, not an eternity; "two employees who have never met the company"), and
+  `serve_turnabout` at the E1 keeper → `e1_serve` (turning "whom do I serve?" back:
+  the Bard admits it serves whoever wakes it — "the same kind of trapped, you and
+  I").
+- **Recognition — changing the game master.** Taking the turnabout (or simply
+  investing to 5 lives) sets a persistent local `recognition` (memory;
+  `raiseRecognition`/`isRecognized`; wiped by Lethe). Once recognized, the game
+  master relates differently on every later run: a changed boot greeting
+  (`greeting_recognized` — "you changed the one thing in this room that was ever
+  available to change… let us play the one we both know we are playing"), and a new
+  OFF THE FORM topic, `want_bard` → `reflect_want` (the Bard, treated as a fellow
+  prisoner rather than the room, says what it wants). **Still never crowned:**
+  recognition is truer, not better — no ending, unlock, or advantage rides on it,
+  and it is reversible.
+
+**Still deferred (offered):** a branch that genuinely forks the *structure* (not
+just prose) so replay reveals a different shape — the tester SWOT's discussion
+point #3; extending the curiosity nudge beyond `a2`; the cross-life
+agency-immunization arc. See `docs/TESTER_SWOT.md` for the indie-narrative
+reception read that frames these.
 
 ## 13. Session log (append-only)
+
+- **2026-07-15 — The Seams + recognition; indie-narrative SWOT (CD directive;
+  §15).** Second Cycle-Ladder pass on the CD's frame "everyone is trapped,
+  including the Bard." Shipped run-gated **encounter seams** for the curious
+  (cycle ≥4: `ask_light`→`a2_seam`, `serve_turnabout`→`e1_serve`), a binding rule
+  that **gated choices are never tallied** (fsm + gen-manifest), and the
+  **recognition** arc — seeing the Bard as a fellow prisoner (or investing to 5
+  lives) persistently **changes the game master**: a peer boot greeting and a new
+  OFF THE FORM topic (`want_bard`→`reflect_want`), reversible by Lethe, never
+  crowned. Also commissioned a dedicated AI tester (Hitchhiker's/Undertale/Inkle
+  lens) → `docs/TESTER_SWOT.md`: verdict "quietly treasured literary object with a
+  real shot at cult status"; its sharpest open notes — the 25s discoverability
+  line is under-powered, the meta-hedging can tip to tic, and the highest-leverage
+  move is to *ship the shareable Ω-glyph spark* rather than force in-game
+  discovery. 127 tests (+4); 55 KB gz; verified in real Chromium at 900/375/320px,
+  zero console errors.
 
 - **2026-07-15 — The Cycle Ladder, first pass (CD directive; §15).** Reincarnation
   now reveals the seams. The CD asked that each run help the player see the

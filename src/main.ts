@@ -9,7 +9,7 @@ import { exportTotenpass, importTotenpass } from './engine/totenpass';
 import { buildSigil } from './engine/sigil';
 import { GLYPH_DISCLOSURE, buildGlyphText, phrase } from './engine/glyph';
 import { computeProfile } from './engine/profile';
-import { choiceHistory, forgetLives, lastLife, lifeCount, longAbsence, noteOmegaReturn, recordLife } from './engine/memory';
+import { choiceHistory, forgetLives, isRecognized, lastLife, lifeCount, longAbsence, noteOmegaReturn, raiseRecognition, recordLife } from './engine/memory';
 import type { Life } from './engine/memory';
 import type { Gesture, Mood } from './engine/rorschach';
 import { hoverGesture } from './engine/rorschach';
@@ -42,15 +42,20 @@ const LADDER = ladderFile as unknown as Ladder;
 const REINCARNATION = reincarnationFile as unknown as {
   greeting_return: string;
   greeting_returns_deeper: string[];
+  greeting_recognized: string;
   greeting_long_absence: string;
   greeting_omega: string[];
   nudge_a2: string;
   node_lines: Record<string, string>;
 };
 
-/** Reincarnation depth at which the Bard sets down the clipboard (CD: "after
- *  the 3rd cycle"). The gated boot choice `reflect` unlocks here. */
+/** Reincarnation depths that open the Cycle Ladder's gated doors (§15).
+ *  REFLECT: the Bard sets down the clipboard (OFF THE FORM). SEAMS: the curious
+ *  can start probing the encounters themselves. Recognition (the changed game
+ *  master) is reached by seeing the Bard OR by investing to 5 lives — see
+ *  memory.isRecognized(). */
 const REFLECT_UNLOCK_LIVES = 3;
+const SEAM_UNLOCK_LIVES = 4;
 
 /** Fill {A2}/{B1}/{E1}/{F1} from a prior life's phrase book; null if a slot is unfillable. */
 function fillMemory(template: string, prior: Life): string | null {
@@ -112,6 +117,11 @@ export function mount(root: HTMLElement): void {
       // The repeatable caught exception (OD-7, CD copy).
       const returns = noteOmegaReturn();
       bootGreeting = REINCARNATION.greeting_omega[Math.min(returns, REINCARNATION.greeting_omega.length) - 1];
+    } else if (isRecognized()) {
+      // The game master changed (§15): once the Bard has been seen as a fellow
+      // prisoner, it drops the clerk's mask on every later boot. Supersedes the
+      // deeper-return framings — the relationship, not just the tally, moved.
+      bootGreeting = fillMemory(REINCARNATION.greeting_recognized, prior) ?? undefined;
     } else {
       // Intro variety across loops (Cycle Ladder §15): the first return uses
       // greeting_return; each deeper visit varies the framing so looping never
@@ -153,6 +163,18 @@ export function mount(root: HTMLElement): void {
     return REINCARNATION.nudge_a2
       .replace('{A2_ALWAYS}', phrase('A2', always))
       .replace('{A2_UNTAKEN}', untaken.label);
+  };
+
+  /** The gated doors this soul is deep enough to see (§15 Cycle Ladder): the
+   *  OFF THE FORM word at 3 cycles; the encounter seams at 4; and — once the
+   *  Bard has been recognized as a fellow prisoner — its own question. */
+  const unlockedGated = (): Set<string> | undefined => {
+    const lives = lifeCount();
+    const ids: string[] = [];
+    if (lives >= REFLECT_UNLOCK_LIVES) ids.push('reflect');
+    if (lives >= SEAM_UNLOCK_LIVES) ids.push('ask_light', 'serve_turnabout');
+    if (isRecognized()) ids.push('want_bard');
+    return ids.length ? new Set(ids) : undefined;
   };
 
   // The Ledger endpoint; empty string = offline by design (seed census).
@@ -250,6 +272,10 @@ export function mount(root: HTMLElement): void {
       const leaving = getNode(graph, state.node);
       const choice = leaving.choices?.find((c) => c.id === choiceId);
       reactToChoice(choice?.state);
+      // Turning the keeper's question back on it is the recognition moment
+      // (§15): the Bard is seen as a fellow prisoner, and the game master is
+      // changed for every later run. Persistent; Lethe wipes it.
+      if (choiceId === 'serve_turnabout') raiseRecognition();
       // The confirmation pattern pays off: 'the record, working' shown working.
       const ackLine = leaving.tally === 'D3' ? CONFIRMATION_ACKS[choiceId] : undefined;
       if (clock) stopVigil();
@@ -339,7 +365,7 @@ export function mount(root: HTMLElement): void {
       // The rut nudge supersedes the generic remembered line where it fires.
       memoryLine: nudgeFor(state.node) ?? memoryFor(state.node),
       canForget: state.node === 'boot_notice' && (prior !== null || lifeCount() > 0),
-      unlockedChoices: lifeCount() >= REFLECT_UNLOCK_LIVES ? new Set(['reflect']) : undefined,
+      unlockedChoices: unlockedGated(),
     });
     blot.set(moodFor(graph, state), vigilSparseness);
     startVigilIfEligible();

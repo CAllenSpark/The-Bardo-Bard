@@ -23,6 +23,9 @@ export interface Memory {
   v: 1;
   lives: Life[];
   omegaReturns: number;
+  /** How many times this soul has seen the Bard as a fellow prisoner (§15). The
+   *  game master changes once this is nonzero — the mask stays off between you. */
+  recognition?: number;
 }
 
 function store(): Storage | null {
@@ -94,6 +97,25 @@ export function choiceHistory(tally: string): string[] {
   const memory = loadMemory();
   if (!memory) return [];
   return memory.lives.map((life) => life.choices[tally]).filter((c): c is string => Boolean(c));
+}
+
+/**
+ * The soul saw the Bard for what it is — another thing trapped in the game
+ * (§15 Cycle Ladder). Persistent and local; raised by turning the keeper's own
+ * question back on it. Once nonzero, the game master relates differently in
+ * every later run, until Lethe (forgetLives) wipes it with the rest.
+ */
+export function raiseRecognition(): number {
+  const memory = loadMemory() ?? { v: 1 as const, lives: [], omegaReturns: 0 };
+  memory.recognition = (memory.recognition ?? 0) + 1;
+  save(memory);
+  return memory.recognition;
+}
+
+/** True once the Bard relates to this soul as a peer — reached by seeing it
+ *  (raiseRecognition) or simply by investing enough returns to be recognized. */
+export function isRecognized(): boolean {
+  return (loadMemory()?.recognition ?? 0) > 0 || lifeCount() >= 5;
 }
 
 /** Count a post-END-GAME return (the repeatable caught exception, OD-7). */

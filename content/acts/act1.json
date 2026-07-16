@@ -77,13 +77,19 @@
           "label": "ATTEMPT TO BECOME IT",
           "state": { "light_become": 1, "defiance": 1, "curiosity": 1 },
           "goto": "b1_beverage_cart"
+        },
+        {
+          "id": "ask_light",
+          "label": "ASK WHAT THE LIGHT IS FOR",
+          "goto": "a2_seam",
+          "gated": true
         }
       ],
       "labels": [
         "TRADITION: Bardo Thodol — the Clear Light; the deities as projections of mind",
         "INTERPRETATION: white-light-as-trap narratives — modern esoterica, one lens among several"
       ],
-      "a11y": "A light waits, patient and trustworthy-seeming. Five options: approach it; refuse it; observe from here; question it; or attempt to become it.",
+      "a11y": "A light waits, patient and trustworthy-seeming. Five options: approach it; refuse it; observe from here; question it; or attempt to become it. Souls who keep returning are also offered a sixth: to ask what the light is for.",
       "fallback": "A light waits. Approach, refuse, observe, question, or try to become it."
     }
   ]

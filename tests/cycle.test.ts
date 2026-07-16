@@ -2,7 +2,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { mount } from '../src/main';
 import { clearTallies } from '../src/engine/tally';
-import { choiceHistory, recordLife } from '../src/engine/memory';
+import { choiceHistory, forgetLives, isRecognized, raiseRecognition, recordLife } from '../src/engine/memory';
+import { buildGraph } from '../src/engine/content';
+import { advance, createState } from '../src/engine/fsm';
 import type { GameState } from '../src/engine/types';
 
 /**
@@ -96,7 +98,9 @@ describe('THE CYCLE LADDER (§15): reincarnation reveals the seams', () => {
     expect(greetingAfter(1)).toContain('The desk remembers a soul shaped like you');
     expect(greetingAfter(2)).toContain('Twice now');
     expect(greetingAfter(3)).toContain('Three.');
-    expect(greetingAfter(5)).toContain('past counting'); // 5th+ shares the deepest framing
+    expect(greetingAfter(4)).toContain('past counting'); // the deepest framing, before recognition
+    // at the fifth return the Bard recognizes you — the game master itself changes
+    expect(greetingAfter(5)).toContain('we both know we are playing');
   });
 
   it('OFF THE FORM is a real conversation that drops into the first question', () => {
@@ -150,5 +154,81 @@ describe('THE CYCLE LADDER (§15): reincarnation reveals the seams', () => {
     const memory = root.querySelector('.memory')?.textContent ?? '';
     expect(memory).not.toContain('never once'); // no nudge
     expect(memory).toContain('Last time, you refused the light'); // the ordinary node line
+  });
+
+  it('the encounter seams stay hidden until the fourth cycle, then the curious can find them', () => {
+    const toLight = (root: HTMLElement): void => {
+      clickChoice(root, 'begin');
+      clickChoice(root, 'yes');
+    };
+    for (let i = 0; i < 3; i += 1) seedLife('approach');
+    let root = freshMount();
+    toLight(root);
+    expect(hasChoice(root, 'ask_light')).toBe(false); // three cycles: no seam yet
+    seedLife('approach'); // a fourth
+    root = freshMount();
+    toLight(root);
+    expect(hasChoice(root, 'ask_light')).toBe(true); // the seam opens
+    clickChoice(root, 'ask_light');
+    expect(root.textContent).toContain('never met the company');
+    clickChoice(root, 'back_to_light'); // a detour that returns, not a path
+    expect(root.textContent).toContain('There is a light');
+  });
+
+  it('a gated seam is never census-relevant, even on a tallied node', () => {
+    const graph = buildGraph();
+    let state: GameState = createState(graph);
+    state = advance(graph, state, 'begin'); // → a1_consent
+    state = advance(graph, state, 'yes'); // → a2_light (tally A2)
+    state = advance(graph, state, 'ask_light'); // the gated seam
+    const seam = state.committed.at(-1)!;
+    expect(seam.choice).toBe('ask_light');
+    expect(seam.tally).toBeUndefined(); // no phantom A2 in the Ledger
+    // the real A2 choice, taken after the detour, still tallies normally
+    state = advance(graph, state, 'back_to_light');
+    state = advance(graph, state, 'approach');
+    expect(state.committed.at(-1)).toMatchObject({ choice: 'approach', tally: 'A2' });
+  });
+
+  it('seeing the Bard as a fellow prisoner changes the game master; Lethe changes it back', () => {
+    for (let i = 0; i < 4; i += 1) seedLife('approach');
+    expect(isRecognized()).toBe(false); // four cycles of investment, not yet recognized
+
+    let root = freshMount();
+    const toKeeper = ['begin', 'define_you', 'question', 'lethe', 'a_joke', 'take_number',
+      'silence', 'none_define', 'refuse_frame', 'accept'];
+    for (const id of toKeeper) clickChoice(root, id);
+    expect(root.textContent).toContain('WHOM DO I SERVE'); // the keeper's question
+    clickChoice(root, 'serve_turnabout'); // turn it back — the recognition moment
+    expect(root.textContent).toContain('same kind of trapped');
+    expect(isRecognized()).toBe(true); // the Bard has been seen
+    clickChoice(root, 'back_to_verdict');
+    expect(root.textContent).toContain('WHOM DO I SERVE'); // the real verdict is still yours
+
+    // the next boot: the game master relates as a peer, and OFF THE FORM opens
+    // a topic that did not exist before — the Bard's own question.
+    root = freshMount();
+    expect(root.querySelector('.memory')?.textContent).toContain('we both know we are playing');
+    clickChoice(root, 'reflect');
+    expect(hasChoice(root, 'want_bard')).toBe(true);
+    clickChoice(root, 'want_bard');
+    expect(root.textContent).toContain('What do I want');
+
+    // Lethe wipes recognition with everything else — the mask goes back on.
+    forgetLives();
+    expect(isRecognized()).toBe(false);
+  });
+
+  it('the Bard\'s own question stays closed to a soul who has not recognized it', () => {
+    for (let i = 0; i < 3; i += 1) seedLife('approach'); // OFF THE FORM unlocked, not recognized
+    const root = freshMount();
+    clickChoice(root, 'reflect');
+    expect(hasChoice(root, 'want_bard')).toBe(false);
+    expect(isRecognized()).toBe(false);
+    // raising recognition directly opens it on the next dialogue render
+    raiseRecognition();
+    const root2 = freshMount();
+    clickChoice(root2, 'reflect');
+    expect(hasChoice(root2, 'want_bard')).toBe(true);
   });
 });

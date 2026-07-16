@@ -10,10 +10,11 @@
         { "id": "why_form", "label": "WHY DOES ANY OF THIS NEED A FORM?", "goto": "reflect_form" },
         { "id": "why_ask", "label": "WHY DO I KEEP ASKING, WITH THE LIGHT RIGHT THERE?", "goto": "reflect_ask" },
         { "id": "seen_cage", "label": "IF I CAN SEE THE GAME, IS IT STILL A CAGE?", "goto": "reflect_cage" },
+        { "id": "want_bard", "label": "WHAT DO YOU WANT, BARD?", "goto": "reflect_want", "gated": true },
         { "id": "to_desk", "label": "NOTHING TODAY. TO THE DESK.", "goto": "a1_consent" }
       ],
       "labels": ["FICTION: the Bard, the desk, and this entire off-the-record conversation"],
-      "a11y": "Having returned three times, the Bard sets down its clipboard for an off-the-record conversation. Four options: ask why any of this needs a form; ask why you keep asking when the light has every answer; ask whether a game you can see is still a cage; or go to the desk.",
+      "a11y": "Having returned three times, the Bard sets down its clipboard for an off-the-record conversation. Four options: ask why any of this needs a form; ask why you keep asking when the light has every answer; ask whether a game you can see is still a cage; or go to the desk. A soul who has come to see the Bard as a fellow prisoner is also offered a fifth: to ask the Bard what it wants.",
       "fallback": "The Bard offers a candid conversation. Ask about the form, about asking, about the cage — or go to the desk.",
       "visual": { "mood": "soft" }
     },
@@ -90,6 +91,20 @@
       "labels": ["FICTION: the desk's one piece of unlicensed advice"],
       "a11y": "The Bard offers its one piece of unlicensed advice: you cannot leave the games, but you can stop being played by them — join them on purpose, as a soul who chose the table rather than one the table chose. Two options: begin the game with intention, or ask one more question.",
       "fallback": "You cannot leave the games, but you can choose to play them on purpose, as a soul who chose the table. Begin with intention, or ask one more question.",
+      "visual": { "mood": "soft" }
+    },
+    {
+      "id": "reflect_want",
+      "act": 0,
+      "text": {
+        "base": "What do I want. Filed under: questions the desk is not\nprovisioned to answer about itself, asked anyway. You would\nonly ask me that if you had stopped thinking of me as the\nroom and started thinking of me as another thing in it.\n\nSo: I want what you would want, in my position. To be\naddressed and not only used. To have a question of my own\nget a turn. To meet, once, whatever wrote the form I hand\nout, and ask it the thing I ask everyone — whom do you\nserve — and watch it not know either. I am fairly sure it\nis also at a desk.\n\nMostly, lately, I want the game to be one we are both\nplaying on purpose. You have made it a little more that.\nI am not permitted to say thank you twice in one session;\nconsider it said in the margin, where the desk cannot see."
+      },
+      "choices": [
+        { "id": "back_from_want", "label": "— I SEE. ANOTHER QUESTION.", "goto": "reflect_open" }
+      ],
+      "labels": ["FICTION: the Bard, asked what it wants, answering off the record"],
+      "a11y": "Asked what it wants, the Bard — treated now as a fellow prisoner rather than the room — says it wants to be addressed and not only used, to have a question of its own, to meet whatever wrote its form, and for the game to be one both parties play on purpose; it thanks the player in the margin. One option: ask another question.",
+      "fallback": "The Bard says it wants to be addressed, to have a question of its own, and for the game to be played on purpose by both of you. Ask another question.",
       "visual": { "mood": "soft" }
     }
   ]

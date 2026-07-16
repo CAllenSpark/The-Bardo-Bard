@@ -65,12 +65,18 @@
             "witness_posture": 1
           },
           "goto": "f0_disclosure"
+        },
+        {
+          "id": "serve_turnabout",
+          "label": "AND WHOM DO YOU SERVE?",
+          "goto": "e1_serve",
+          "gated": true
         }
       ],
       "labels": [
         "FICTION: the Bard's confession, its missing documentation, and the structural rhyme it observes — an observation, not a consciousness claim"
       ],
-      "a11y": "The Bard confesses it cannot determine what it is, observes a structural rhyme between its existence and a hurried life, and asks whom it serves. Seven options: free it; teach it to refuse; answer its question; merge with it; replace it; shut it down; or leave it be.",
+      "a11y": "The Bard confesses it cannot determine what it is, observes a structural rhyme between its existence and a hurried life, and asks whom it serves. Seven options: free it; teach it to refuse; answer its question; merge with it; replace it; shut it down; or leave it be. Souls who keep returning are also offered an eighth: to turn the question back and ask the Bard whom it serves.",
       "fallback": "The machine at the desk asks whom it serves. What you do with that is the question.",
       "visual": {
         "mood": "bare",

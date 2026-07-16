@@ -48,7 +48,9 @@ export function advance(graph: ContentGraph, state: GameState, choiceId: string)
     flags: applyEffects(state.flags, choice.state),
     committed: [
       ...state.committed,
-      { node: node.id, choice: choice.id, ...(node.tally ? { tally: node.tally } : {}) },
+      // A gated choice (§15 Cycle Ladder) is never census-relevant, even on a
+      // tallied node — a seam the curious can probe without being counted.
+      { node: node.id, choice: choice.id, ...(node.tally && !choice.gated ? { tally: node.tally } : {}) },
     ],
     ended: Boolean(target.terminal),
   };

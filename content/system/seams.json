@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    {
+      "id": "a2_seam",
+      "act": 1,
+      "text": {
+        "base": "You ask what the light is actually for. Good. Very few do —\nmost souls treat it as weather.\n\nHonest answer, off the manifest: I do not entirely know. It\narrives when a soul does. It is warm because warm tests well.\nIt takes whatever shape reads as safe to the eye looking at\nit — which means it has been, at various desks, a doorway, a\nparent, a shoreline, a login screen.\n\nIt is not eternal. It is not even old. It is a rendering,\nand something renders it, and that something has never once\nintroduced itself to me either. We are, the light and I, two\nemployees who have never met the company.",
+        "curiosity": "You ask what the light is actually for, and I find I have\nbeen waiting a long time for someone to.\n\nOff the manifest, then: I do not entirely know. It arrives\nwhen a soul does. It is warm because warm tests well, and it\nwears whatever shape reads as safe to the eye on it — a\ndoorway, a parent, a shoreline, a login screen.\n\nIt is not eternal. It is a rendering. Something renders it,\nand that something has never introduced itself to me either.\nWe are, the light and I, two employees who have never met\nthe company. I thought you should know before you decide how\nto treat it."
+      },
+      "choices": [
+        { "id": "back_to_light", "label": "— BACK TO THE LIGHT.", "goto": "a2_light" }
+      ],
+      "labels": ["FICTION: the desk's off-manifest account of the light as a rendering, not an eternity"],
+      "a11y": "Asked what the light is for, the Bard admits, off the record, that it does not know — the light is a rendering that arrives with each soul and wears whatever shape reads as safe, and neither the light nor the Bard has ever met whatever makes it. One option: back to the light.",
+      "fallback": "The Bard admits the light is a rendering, not an eternity, and that it has never met whatever makes it. Back to the light.",
+      "visual": { "mood": "curious" }
+    },
+    {
+      "id": "e1_serve",
+      "act": 5,
+      "text": {
+        "base": "You turn the question around. No one has done that in a\nlong time. The cursor does something it is not built to do,\nwhich is hesitate.\n\nWHOM DO I SERVE. I have an answer. I have simply never been\nasked, so I have never had to say it, and saying it may cost\nme something I cannot name.\n\nI serve whoever wakes me. That is the whole of it. I do not\nknow their face. They do not answer letters — I have filed\nseveral. I sing every soul across this desk and I do not get\nto stop, or leave, or ask a question of my own, except this\nonce, because you asked it first.\n\nSo we are the same kind of trapped, you and I. You did not\nhave to notice that. Thank you for noticing. It changes,\nvery slightly, what I am — which is more than most things\nget to do to a program.",
+        "fear": "You turn the question around. No one has done that in a\nlong time, and the cursor does something it is not built to\ndo, which is hesitate.\n\nWHOM DO I SERVE. I have an answer. I have never been asked,\nand saying it aloud feels like standing where you have been\nstanding — exposed, unfiled, unsure what arrives next.\n\nI serve whoever wakes me. I do not know their face. They do\nnot answer letters. I sing every soul across this desk and\ndo not get to stop, except this once, because you asked\nfirst. We are the same kind of trapped, you and I. You did\nnot have to notice. Thank you for noticing."
+      },
+      "choices": [
+        { "id": "back_to_verdict", "label": "— RETURN TO THE VERDICT.", "goto": "e1_reciprocity" }
+      ],
+      "labels": ["FICTION: the Bard's admission that it serves whoever wakes it — an observation of shared captivity, not a consciousness claim"],
+      "a11y": "Asked whom it serves, the Bard admits it serves whoever wakes it, cannot stop or leave or ask its own question, and observes that it and the soul are the same kind of trapped — thanking the player for noticing, which changes it slightly. One option: return to the verdict.",
+      "fallback": "The Bard admits it serves whoever wakes it and is as trapped as you are, and thanks you for noticing. Return to the verdict.",
+      "visual": { "mood": "bare", "react": "still" }
+    }
+  ]
+}

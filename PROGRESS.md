@@ -77,6 +77,15 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-15** — **The Seams + recognition** (CD directive; Compass §15). Second
+  Cycle-Ladder pass on "everyone is trapped, including the Bard": run-gated
+  encounter seams for the curious (cycle ≥4 — ask what the light is for; turn the
+  keeper's "whom do I serve?" back on it), a binding rule that gated choices are
+  never tallied, and a **recognition** arc where seeing the Bard as a fellow
+  prisoner (or investing to 5 lives) persistently changes the game master — a peer
+  boot greeting and a new OFF THE FORM topic — reversible by Lethe, never crowned.
+  Plus a commissioned indie-narrative AI tester SWOT (`docs/TESTER_SWOT.md`). 127
+  tests; 55 KB gz; verified in real Chromium at 900/375/320px.
 - **2026-07-15** — **The Cycle Ladder, first pass** (CD directive; Compass §15).
   Reincarnation now reveals the seams: intro variety across loops so returning
   never goes stale (Hades), a curiosity "thumb on the scale" that names an

@@ -23,7 +23,9 @@ export function deriveManifest() {
       if (!Array.isArray(data.nodes)) continue; // skip non-encounter files
       for (const node of data.nodes) {
         if (!node.tally) continue;
-        for (const choice of node.choices ?? []) add(node.tally, choice.id);
+        // Gated choices (§15 Cycle Ladder) are never census-relevant, even on a
+        // tallied node — they must not enter the manifest or the Ledger.
+        for (const choice of node.choices ?? []) if (!choice.gated) add(node.tally, choice.id);
       }
     }
   }
