@@ -575,6 +575,7 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
 | OD-12 | Share-glyph compact code carries the full committed-choice vector (more than the visible emoji), with a copy-time disclosure line | Open — proposed as specced in §7; CD may prefer code = visible emoji only (weakens Soul Analysis to act-level comparison) |
 | OD-13 | Standing-exit tally mapping | **Resolved 2026-07-13 (Phase 1):** shared choices — exits tally F1 as `return` / `light` (`light` is the tenth F1 choice); no early/late distinction server-side. Passages scale early/mid/late client-side by act |
 | OD-14 | **Returning-customer survey / Mad-Libs** free-text `OTHER` (CD bonus, 2026-07-15) — the buttons-only/no-free-text pillar forbids free text *at MVP*; the survey is a post-MVP returning-player layer | **Resolved 2026-07-15 — CD ratified "free text, with guardrails."** Built (§15). The exception is bounded and **binding**: strictly **local-only** (`bardo_lives.intake`); **never transmitted, never in the Ledger** (bare tallies stay sacred — no PII, no free text server-side); **no runtime LLM** (pure string substitution); `sanitizeOther` strips control chars + angle brackets, collapses whitespace, caps at 40, echoes only via `textContent`; questions are light *preferences* only (a drink, a place, a sound), never identity/PII/how-you-died. This exception applies to the intake layer ALONE; the game proper stays buttons-only |
+| OD-15 | **The instability layer** (CD directive 2026-07-16) — rare, random flickers ("that sometimes happens here") and phantom options that surface and are apologetically withdrawn, to keep the between feeling unstable and un-lingerable. Introduces intentional presentation-time non-determinism, which sits beside the "deterministic everywhere testable" pillar | **Resolved 2026-07-16 — CD directed it; carve-out ratified.** The pillar is preserved by *scope*: the instability layer is **presentation-only** and touches **no game state, no Ledger, no reachability, no sigil** — the deterministic core is exactly as deterministic as before. It is gated to a real, motion-friendly browser (`animated`) and is a no-op under reduced motion and in the no-canvas test env, so nothing testable ever observes it. Content (`content/instability/instability.json`) is **digit-free** (validated) so a flicker can never read as Ledger truth (§4.4); phantom options are inert (no choice id, no tally, own-listener-only) and **aria-hidden/unfocusable** so no keyboard/SR soul chases a ghost. Excluded from endings, the endgame rung (#5 stays unadorned), the survey, and the sincere boot notice. See `docs/THE_BARD_AND_THE_ENTITY.md` §"the middle is not a stable place." |
 
 ## 14. Pre-playtest design evaluation
 
@@ -737,6 +738,40 @@ cross-life agency-immunization arc; trimming the meta-hedge stack the tester
 flagged; the Cloudflare deploy (`wrangler.toml` ready). See `docs/TESTER_SWOT.md`.
 
 ## 13. Session log (append-only)
+
+- **2026-07-16 — The last three moments + the instability layer + a reading of the
+  Bard and the entity (CD directive).** Shipped the remaining theatrical moments,
+  built the instability layer the CD asked for, and — on the CD's invitation —
+  wrote a design reading. **#7 THINNING-AS-DEPLETION:** the Vigil ramp now reserves
+  the lone pulse (sparse 9) for the plea and END GAME, so the face wears down
+  *gradually* and only collapses to a single point at the emotional floor; that
+  point also **breathes slower** there (`pulseCells` slows its phase at high
+  sparseness) — a tired heartbeat under the loudest pleading. **#5 END GAME
+  UNADORNED:** the endgame rung arrives through the same quiet path, held at its
+  thinnest, with no flourish of any kind — and the instability layer is suppressed
+  once it appears. The withholding is the theatre. **#11 THE CROWD-WASH:** clicking
+  the conformity rung blooms `blot.crowd()` — a **fixed** impression of many faint
+  motes that bloom and fade back to your single point as the true count is spoken.
+  Honesty guardrail (§4.4) honored by construction: a fixed density (never the real
+  figure), no arrangement that reads as a count, gone in ~1.5 s — atmosphere, not a
+  data-viz. **THE INSTABILITY LAYER (OD-15):** the between now flickers — rare,
+  random asides ("that sometimes happens here"; a few let the mask slip) with a
+  desk shudder and a face-tear, and phantom options that surface among the choices
+  and are apologetically withdrawn ("FORM VII-C — DO NOT SURFACE"). Presentation-
+  ONLY: no state, no Ledger, no reachability; gated to a real browser; digit-free
+  (validated); phantoms inert + aria-hidden/unfocusable; excluded from endings, the
+  endgame rung, the survey, and the sincere boot notice. It keeps the player off
+  balance and the place un-lingerable. **THE READING** (`docs/THE_BARD_AND_THE_
+  ENTITY.md`): a collaborator's pass casting the game as a question arriving →
+  processing → a decision gate — the entity as the question-as-substrate (no
+  verdict, thins under holding), the Bard as the process that runs on it (bureaucrat
+  because processing is procedure), the instability as the medium under load, the
+  crowd as the other instances surfacing, the gate as the one thing that refuses to
+  perform. It ends with a four-way test for future features. 144 tests (+6); tsc
+  clean; 66 KB gz; verified in real Chromium at 900/375/320px (Vigil-depletion
+  aria-labels, the crowd-wash, a forced phantom + aside, the unadorned END GAME),
+  zero console errors. Now shipped: #1–#11 except the retired-into-satisfied edges;
+  the theatrical menu is complete.
 
 - **2026-07-16 — The sigil writes itself, the room breathes, and the entity finds
   its voice (CD directive: "#10 and #8 and… the audio design… as playful and

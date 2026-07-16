@@ -122,6 +122,18 @@ describe('the Rorschach — the Bard\'s face (Gate 4)', () => {
     expect(flavors).toEqual(new Set(['attend', 'sway']));
   });
 
+  it('the lone pulse breathes slower as the field depletes (#7 thinning-as-depletion)', () => {
+    // A shallow field pulses briskly (phase turns every 2 ticks); a fully
+    // depleted field — the plea and END GAME (sparse 9) — holds each phase
+    // twice as long: a tired heartbeat, not a metronome.
+    const at = (sparse: number, tick: number) => frame(params('point', { sparseness: sparse }), tick);
+    expect(at(0, 0)).not.toBe(at(0, 2)); // brisk: changed by tick 2
+    expect(at(9, 0)).toBe(at(9, 2)); // depleted: still the same at tick 2
+    expect(at(9, 0)).not.toBe(at(9, 4)); // ...but changed by tick 4
+    // and it stays deterministic
+    expect(at(9, 5)).toBe(frame(params('point', { sparseness: 9 }), 5));
+  });
+
   it('every mood carries a text alternative', () => {
     for (const mood of MOODS) {
       expect(describeMood(mood).length).toBeGreaterThan(10);

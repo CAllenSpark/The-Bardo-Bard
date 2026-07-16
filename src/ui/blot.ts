@@ -48,6 +48,8 @@ interface Particle {
   vy: number;
   age: number;
   life: number;
+  /** A crowd mote (#11): faint, and it blooms-then-fades rather than just fading. */
+  faint?: boolean;
 }
 
 export class Blot {
@@ -82,6 +84,7 @@ export class Blot {
   private recoilThreshold = 3; // every Nth encounter, it backs away instead
   private recoilUntil = 0;
   private gaspUntil = 0; // it forgets to follow your cursor — a held breath
+  private glitchUntil = 0; // the unstable place tears for a beat (CD 2026-07-16)
   private particles: Particle[] = [];
 
   private readonly onPointerMove = (e: PointerEvent): void => {
@@ -222,6 +225,43 @@ export class Blot {
         life: 11 + Math.random() * 8,
       });
     }
+  }
+
+  /** They were company (the designer's #11): as the true count is spoken, the
+   *  near-blank face briefly populates — a wash of many faint motes that bloom
+   *  and fade, then thin back to the single point. Honesty guardrail (§4.4):
+   *  atmosphere, never a data-viz — a FIXED impression, never the real figure,
+   *  no arrangement that reads as a count. Reduced-motion no-op. */
+  crowd(): void {
+    if (this.reduced || !this.ctx) return;
+    const w = this.wrap.clientWidth;
+    const h = this.wrap.clientHeight;
+    if (w < 2 || h < 2) return;
+    const n = 52; // a fixed impression of many — NOT the real count (§4.4)
+    const spread = Math.min(w, h) * 0.46;
+    for (let i = 0; i < n; i += 1) {
+      const ang = Math.random() * TAU;
+      const rad = Math.sqrt(Math.random()) * spread; // even areal scatter
+      this.particles.push({
+        ch: Math.random() < 0.5 ? '·' : '∘',
+        x: w / 2 + Math.cos(ang) * rad,
+        y: h / 2 + Math.sin(ang) * rad * 0.7,
+        vx: (Math.random() - 0.5) * 0.08,
+        vy: (Math.random() - 0.5) * 0.06,
+        age: 0,
+        life: 12 + Math.random() * 9,
+        faint: true,
+      });
+    }
+  }
+
+  /** The between tears for a beat (CD 2026-07-16): a brief signal-glitch of the
+   *  face, part of the instability layer. Presentation only; reduced-motion
+   *  no-op. Paired in the UI with the Bard's dismissal and a page shudder. */
+  glitch(ms = 320): void {
+    if (this.reduced || !this.ctx) return;
+    this.glitchUntil = this.clock() + ms;
+    this.react('jitter');
   }
 
   /** The entity claims the whole browser for a moment, floods, then recollects
@@ -383,6 +423,12 @@ export class Blot {
 
     ctx.clearRect(0, 0, w, h);
 
+    // The between tears for a beat (CD 2026-07-16): while a glitch is live, a
+    // few horizontal slices of the face jump sideways — a signal fault.
+    const nowMs = this.clock();
+    const glitchAmt =
+      nowMs < this.glitchUntil ? Math.max(0, Math.min(1, (this.glitchUntil - nowMs) / 320)) : 0;
+
     const haloStrength = special ? 0 : Math.max(0, 1 - this.sparseness / 6);
     if (haloStrength > 0.01) {
       const hx = ox + gridW / 2;
@@ -404,6 +450,8 @@ export class Blot {
       const rowA = cellsA[y]!;
       const rowB = cellsB[y]!;
       const py = oy + (y + 0.5) * cellH;
+      // a torn slice jumps sideways while the glitch is live (~half the rows)
+      const tear = glitchAmt > 0 && Math.random() < 0.5 ? (Math.random() - 0.5) * cellW * 5 * glitchAmt : 0;
       for (let x = 0; x < COLS; x += 1) {
         const a = rowA[x]!;
         const b = rowB[x]!;
@@ -421,16 +469,23 @@ export class Blot {
         const shimmer = 0.78 + 0.22 * Math.sin(tickF * 0.55 + phase);
         ctx.globalAlpha = Math.min(1, (0.16 + 0.84 * Math.min(1, v * 1.15)) * shimmer);
         ctx.fillStyle = v < 0.35 ? INK_DIM : v < 0.65 ? INK_BODY : INK_CORE;
-        ctx.fillText(ch, ox + (x + 0.5) * cellW, py);
+        ctx.fillText(ch, ox + tear + (x + 0.5) * cellW, py);
       }
     }
 
-    // shed letters, over the ink
+    // transient motes, over the ink: shed letters (emit) fade out; crowd motes
+    // (#11) are fainter and bloom-then-fade — an impression arriving and gone.
     if (this.particles.length) {
-      ctx.font = `${Math.max(6, cellH)}px ${FONT_STACK}`;
-      ctx.fillStyle = INK_CORE;
       for (const p of this.particles) {
-        ctx.globalAlpha = Math.max(0, 1 - p.age / p.life) * 0.75;
+        if (p.faint) {
+          ctx.font = `${Math.max(5, cellH * 0.8)}px ${FONT_STACK}`;
+          ctx.fillStyle = INK_DIM;
+          ctx.globalAlpha = Math.sin(Math.min(1, p.age / p.life) * Math.PI) * 0.4;
+        } else {
+          ctx.font = `${Math.max(6, cellH)}px ${FONT_STACK}`;
+          ctx.fillStyle = INK_CORE;
+          ctx.globalAlpha = Math.max(0, 1 - p.age / p.life) * 0.75;
+        }
         ctx.fillText(p.ch, p.x, p.y);
       }
     }

@@ -77,6 +77,19 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-16** — **The last moments · the instability layer · a reading**
+  (CD directive; Compass §13/OD-15). #5 END GAME arrives unadorned (thinnest lone
+  pulse, no flourish, glitches suppressed); #7 the Vigil thins gradually and
+  reserves a slower lone-pulse heartbeat for the plea + END GAME; #11 the
+  conformity fold blooms a fixed crowd-wash that fades back to your single point
+  (§4.4-safe atmosphere, never the real figure). **The instability layer:** the
+  between flickers — random asides ("that sometimes happens here") with a desk
+  shudder, and phantom options that surface and are apologetically withdrawn.
+  Presentation-only (no state/Ledger/reachability), real-browser-only, digit-free,
+  phantoms inert + aria-hidden; excluded from endings/endgame/survey/boot. Wrote a
+  design reading (`docs/THE_BARD_AND_THE_ENTITY.md`): question arriving → processing
+  → a decision gate, with a four-way test for future features. The theatrical menu
+  is complete. 144 tests; 66 KB gz; verified in real Chromium at 900/375/320px.
 - **2026-07-16** — **The sigil writes itself · the room breathes · the entity's
   voice** (CD directive; Compass §13, `docs/THEATRICAL_PASS.md`). #10: the soul
   sigil inks its strokes on (`pathLength` + `stroke-dashoffset`), the memory-mark

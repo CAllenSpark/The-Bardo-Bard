@@ -97,11 +97,15 @@ function emptyGrid(cols: number, rows: number): Cell[][] {
   );
 }
 
-function pulseCells(tick: number, cols: number, rows: number): Cell[][] {
+function pulseCells(tick: number, cols: number, rows: number, sparse = 0): Cell[][] {
   const grid = emptyGrid(cols, rows);
   const cy = Math.floor(rows / 2);
   const cx = Math.floor(cols / 2);
-  const phase = Math.floor(tick / 2) % PULSE_CHARS.length;
+  // The lone point breathes slower as the field depletes (the designer's #7:
+  // manipulation costs the entity something visible). At the plea/endgame the
+  // pulse is at its wateriest — a tired heartbeat, not a metronome.
+  const div = 2 + Math.max(0, sparse - 8) * 2; // 2 normally; 4 at sparse 9
+  const phase = Math.floor(tick / div) % PULSE_CHARS.length;
   grid[cy]![cx] = { ch: PULSE_CHARS[phase]!, v: PULSE_V[phase]! };
   return grid;
 }
@@ -128,9 +132,9 @@ export function frameCells(params: BlotParams, tick: number): Cell[][] {
   const held = gesture === 'attend' || gesture === 'sway';
   const envelope = g > 0 ? (held ? g : Math.sin(g * Math.PI)) : 0;
 
-  if (mood === 'point' || sparse >= 9) return pulseCells(tick, COLS, ROWS);
+  if (mood === 'point' || sparse >= 9) return pulseCells(tick, COLS, ROWS, sparse);
   if (mood === 'ember') return emberCells(tick, seed, COLS, ROWS);
-  if (gesture === 'still' && envelope > 0.3) return pulseCells(tick, COLS, ROWS);
+  if (gesture === 'still' && envelope > 0.3) return pulseCells(tick, COLS, ROWS, sparse);
 
   const t = tick * (mood === 'soft' ? 0.05 : mood === 'fear' ? 0.35 : 0.12);
   const cx = (COLS - 1) / 2;

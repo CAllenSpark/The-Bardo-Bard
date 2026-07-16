@@ -279,6 +279,31 @@
     .rebirth { transition: opacity 850ms ease; }
     .rebirth.rising { opacity: 1; }
   }
+  /* THE INSTABILITY LAYER (CD 2026-07-16): the between flickers. A dismissive
+     aside from the Bard; a phantom option that should not be lit; a brief
+     shudder of the whole desk. Presentation-only, and only ever mounted in a
+     real motion-friendly browser (see glitch.ts / main.ts). */
+  .desk-aside { color: var(--dim); font-style: italic; opacity: 0; margin: 0.9rem 0 0; }
+  .desk-aside.show { opacity: 0.9; }
+  .choice.phantom { color: var(--dim); border-color: #2a2a2e; border-style: dashed; opacity: 0; }
+  .choice.phantom.show { opacity: 0.7; }
+  @media (prefers-reduced-motion: no-preference) {
+    .desk-aside { transition: opacity 600ms ease; }
+    .choice.phantom { transition: opacity 260ms ease, transform 400ms ease; }
+    .choice.phantom.show { animation: phantom-flicker 1.7s ease-in-out infinite; }
+    .choice.phantom.retract { opacity: 0; transform: translateX(-7px); }
+    @keyframes phantom-flicker { 0%, 100% { opacity: 0.7; } 45% { opacity: 0.46; } 55% { opacity: 0.8; } }
+    .desk-glitch { animation: desk-shudder 360ms ease 1; }
+    @keyframes desk-shudder {
+      0% { transform: translate(0, 0); }
+      15% { transform: translate(-2px, 1px); }
+      30% { transform: translate(3px, -1px); }
+      45% { transform: translate(-2px, 0); }
+      60% { transform: translate(2px, 1px); }
+      78% { transform: translate(-1px, -1px); }
+      100% { transform: translate(0, 0); }
+    }
+  }
   .profile-rule { color: var(--dim); letter-spacing: 0.2em; margin: 0 0 1rem; }
   .profile-title { font-size: 1.1em; font-weight: 600; color: var(--accent); margin: 0 0 1rem; }
   .profile-body { margin: 0 0 1.25rem; }

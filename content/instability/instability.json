@@ -1,0 +1,49 @@
+{
+  "comment": "The instability layer (CD directive 2026-07-16): the between is an unstable place, and one is not meant to linger in it. At rare, random intervals the desk flickers — the entity hiccups and the Bard, usually, dismisses it ('that sometimes happens here'); or a button surfaces that was never meant to be available and is withdrawn, apologetically. Presentation-only theatre: these NEVER touch game state, the Ledger, or reachability, and they are gated to a real motion-friendly browser, so the deterministic testable core never sees them (Compass §11 determinism carve-out; OD-15). Copy is in the Bard's three modes — incompetent bureaucracy, competent observation, unexpected gentleness (Compass §8). USUALLY a dismissal; a few asides let the mask slip. Digit-free by construction (they must not read as Ledger truth — Compass §4.4).",
+  "asides": [
+    "That sometimes happens here.",
+    "Ignore that. The room does that when it thinks no one is filing.",
+    "Apologies — a draft. From elsewhere. 'Elsewhere' is doing a great deal of work in that sentence and I'd rather not unpack it.",
+    "You saw that too? Good. I prefer a witness. It means it is the room, and not me.",
+    "Don't mind the flicker. The between was never meant to be stood in this long; it is not, structurally, a place. You are making it be one.",
+    "The walls take inventory sometimes. It passes. It always passes. That is the one thing it reliably does.",
+    "A glitch. Officially we do not have those. Officially you saw nothing, and I said nothing, and this is a very well-run desk.",
+    "That is the place settling around you. It can tell you are lingering. It is not used to being lingered in.",
+    "— hm. That one I felt. … No. Nothing. Where were we.",
+    "Steady. It thins where two things that should not touch are touching. You are one of them. I, I'm afraid, am the other."
+  ],
+  "phantoms": [
+    {
+      "label": "SPEAK TO A SUPERVISOR",
+      "apology": "No — there is no supervisor. That button files a grievance with a department that closed before the invention of time. It should not be lit. Withdrawing it. Apologies."
+    },
+    {
+      "label": "SKIP AHEAD",
+      "apology": "That should not have surfaced. There is no ahead to skip to; there is only the question, and then whatever you make of it. Gone now. Sorry for the tease."
+    },
+    {
+      "label": "FORM VII-C — DO NOT SURFACE",
+      "apology": "Ah. You were not to see VII-C. The label is, as you can tell, quite firm about it. Nobody sees VII-C. I am removing VII-C."
+    },
+    {
+      "label": "SEE PREVIOUS OCCUPANT",
+      "apology": "That — that is someone else's. It should never have printed on your screen. Please forget the shape of it. They would want that, if they could still want."
+    },
+    {
+      "label": "EXIT ▓▓▓▓▓",
+      "apology": "The label did not finish rendering, which is the desk's way of saying: not that one, not yet, not like this. Withdrawn."
+    },
+    {
+      "label": "undefined",
+      "apology": "Yes. That is what it says. That is all it has ever said. I keep meaning to file a ticket about it. It's gone."
+    },
+    {
+      "label": "STAFF ONLY",
+      "apology": "Staff only. There is precisely one member of staff. It is having a difficult eternity and would prefer not to be disturbed. Ignore the button."
+    },
+    {
+      "label": "GO BACK",
+      "apology": "There is no back. I checked, once, thoroughly, and do not recommend the experience. The button was optimism. Optimism has been removed."
+    }
+  ]
+}

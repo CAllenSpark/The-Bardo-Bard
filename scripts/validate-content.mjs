@@ -250,6 +250,28 @@ export function validateContent() {
     errors.push('reincarnation.json: a1_consent template forbidden (§9.2 — the Vigil stays archetypal)');
   }
 
+  // The instability layer (CD 2026-07-16; OD-15): well-formed asides + phantoms,
+  // and digit-free by construction — these render into the live screen and must
+  // never read as Ledger truth (Compass §4.4). Presentation-only content; never
+  // validated as encounters or census.
+  const instability = loadJson(join(CONTENT, 'instability', 'instability.json'));
+  if (!Array.isArray(instability.asides) || instability.asides.length === 0) {
+    errors.push('instability.json: asides must be a non-empty array');
+  }
+  for (const aside of instability.asides ?? []) {
+    if (typeof aside !== 'string' || !aside.trim()) errors.push('instability.json: each aside must be non-empty text');
+    if (/\d/.test(aside ?? '')) errors.push(`instability.json: aside must be digit-free (Compass §4.4): "${aside}"`);
+  }
+  if (!Array.isArray(instability.phantoms) || instability.phantoms.length === 0) {
+    errors.push('instability.json: phantoms must be a non-empty array');
+  }
+  for (const p of instability.phantoms ?? []) {
+    if (!p?.label || !p?.apology) errors.push(`instability.json: phantom needs label and apology`);
+    if (/\d/.test(`${p?.label ?? ''}${p?.apology ?? ''}`)) {
+      errors.push(`instability.json: phantom must be digit-free (Compass §4.4): "${p?.label}"`);
+    }
+  }
+
   // Returning-customer intake (§15 / OD-14): well-formed questions, and every
   // injection must reference a real question — a stray {value} would put a blank
   // in the Bard's mouth. (The survey is local-only; never validated as census.)

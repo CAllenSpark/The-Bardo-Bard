@@ -21,6 +21,9 @@ import { Blot } from './ui/blot';
 import { appendVigilBeat, appendVigilOption, ensureCrisisFooter, render } from './ui/render';
 import type { RenderOptions } from './ui/render';
 import { mountAudioToggle, voice } from './ui/audio';
+import { Glitch } from './ui/glitch';
+import type { GlitchContent } from './ui/glitch';
+import instabilityFile from '../content/instability/instability.json';
 import reincarnationFile from '../content/reincarnation/reincarnation.json';
 import ladderFile from '../content/vigil/ladder.json';
 import scheduleFile from '../content/vigil/schedule.json';
@@ -75,6 +78,7 @@ function fillMemory(template: string, prior: Life): string | null {
   return missing ? null : filled;
 }
 const SURVEY = surveyFile as unknown as Survey;
+const INSTABILITY = instabilityFile as unknown as GlitchContent;
 const SCHEDULE = scheduleFile as unknown as { rungs: { id: string; afterMs: number }[] };
 const CONFIRMATION_ACKS = (confirmationFile as unknown as { acks: Record<string, string> }).acks;
 const MANIFEST_KEYS = Object.keys(manifestFile as Record<string, string[]>);
@@ -401,6 +405,11 @@ export function mount(root: HTMLElement): void {
         const rung = rungById(rungId);
         blot.react('bloom'); // the Bard got what it asked for
         voice.note('bloom');
+        // THEY WERE COMPANY (#11): as the true count is spoken, the near-blank
+        // face briefly populates — a wash of many faint motes that bloom and
+        // fade back to your single point. Atmosphere, never the real figure
+        // (§4.4 honesty guardrail — see blot.crowd()).
+        if (rungId === 'conformity') blot.crowd();
         state = vigilFold(state, rung);
         flushTallies();
         rerender({ ackLine: rung.ack ? fillCensus(rung.ack) : undefined });
@@ -461,9 +470,16 @@ export function mount(root: HTMLElement): void {
       const rung = rungById(scheduled.id);
       appendVigilBeat(root, rung.beat);
       appendVigilOption(root, rung.id, rung.label, handlers);
-      // The face thins as the silence lengthens (v1 §17.2: silence reduces
-      // to sparse points or a single pulse — the CD's living pixel).
-      vigilSparseness = Math.min(9, SCHEDULE.rungs.findIndex((r) => r.id === scheduled.id) + 2);
+      // The face thins as the silence lengthens (v1 §17.2). #7 thinning-as-
+      // depletion: a gentle ramp that reserves the lone pulse (sparse 9) for the
+      // plea and END GAME — the emotional floor — so the entity wears down
+      // gradually and only collapses to a single tired point at the very end
+      // (which also breathes slower there; see rorschach pulseCells). #5 END GAME
+      // UNADORNED: the endgame rung arrives through this same quiet path, held at
+      // its thinnest, with no entrance flourish of any kind — the withholding is
+      // the theatre.
+      const idx = SCHEDULE.rungs.findIndex((r) => r.id === scheduled.id);
+      vigilSparseness = scheduled.id === 'plea' || scheduled.id === 'endgame' ? 9 : Math.min(8, idx + 2);
       blot.set(moodFor(graph, state), vigilSparseness);
       updateCues(); // the ladder grew — there may now be more below
     });
@@ -547,6 +563,22 @@ export function mount(root: HTMLElement): void {
       }
     });
   }
+
+  // The instability layer (CD 2026-07-16): rare, random flickers and phantom
+  // options that keep the between feeling unstable — a place one is not meant to
+  // linger in. Presentation-only and real-browser-only (never in tests, never
+  // under reduced motion); excluded from endings, the endgame rung (#5 stays
+  // unadorned), the survey, and the sincere boot notice. See src/ui/glitch.ts.
+  const canGlitch = (): boolean =>
+    animated &&
+    !transitioning &&
+    !state.ended &&
+    state.node !== 'boot_notice' &&
+    !state.node.startsWith('omega_') &&
+    !root.querySelector('[data-rung-id="endgame"]') &&
+    !stage.querySelector('[data-survey-act]');
+  const glitch = new Glitch({ root, stage, blot, canGlitch, content: INSTABILITY });
+  if (animated) glitch.start();
 
   ensureCrisisFooter();
   mountAudioToggle();
