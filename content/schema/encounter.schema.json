@@ -81,6 +81,11 @@
             "react": {
               "type": "string",
               "enum": ["bloom", "contract", "jitter", "still", "none"]
+            },
+            "entrance": {
+              "type": "string",
+              "description": "A theatrical entrance flourish when the node is first shown. 'emit': letters swirl off the entity as the question arrives (kept rare — the first question and the verbs only; CD 2026-07-16).",
+              "enum": ["emit"]
             }
           }
         },

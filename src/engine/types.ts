@@ -35,10 +35,10 @@ export interface EncounterNode {
   text: NodeText;
   choices?: ChoiceDef[];
   labels?: string[];
-  /** The Bard's face at this node (Compass Phase 4): authored mood, and
-   *  optionally the reaction to any choice made here ('still' = deliberate
-   *  non-response). */
-  visual?: { mood?: string; react?: string };
+  /** The Bard's face at this node (Compass Phase 4): authored mood, the
+   *  reaction to any choice made here ('still' = deliberate non-response), and
+   *  an optional entrance flourish ('emit' = letters swirl off as it arrives). */
+  visual?: { mood?: string; react?: string; entrance?: string };
   a11y: string;
   fallback: string;
 }

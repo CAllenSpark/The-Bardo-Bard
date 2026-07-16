@@ -111,6 +111,7 @@
       "labels": [
         "FICTION: the form that does not rank"
       ],
+      "visual": { "entrance": "emit" },
       "a11y": "Nine unranked verbs: return, remain, dissolve, create, witness, appeal, loop, spiral, or refuse the premise.",
       "fallback": "Nine verbs, none ranked. Choose the motion, not the doctrine."
     },

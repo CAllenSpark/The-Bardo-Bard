@@ -2,39 +2,53 @@ import type { Cell, Gesture, Mood } from '../engine/rorschach';
 import { COLS, ROWS, describe, frame, frameCells, rampChar } from '../engine/rorschach';
 
 /**
- * The Bard's face, mounted — the dominant presence on the desk (CD directive
- * 2026-07-14: hypnotic, responsive, a moving art piece; the Self-Portrait's
- * energy in the Bardo's ink).
+ * The Bard's face, mounted — the dominant presence on the desk (CD 2026-07-14:
+ * hypnotic, responsive, a moving art piece; 2026-07-16: living art with plans
+ * of its own — it follows the cursor, blooms when touched, pools when you hold,
+ * and now and then backs away as if wary of the encounter).
  *
  * Two bodies, one brain:
  *  - Canvas body (browsers): the deterministic frame grid painted at display
- *    rate, ink intensity blended between adjacent ticks so the blot moves like
- *    liquid; per-glyph shimmer; a faint breathing halo; the whole field drifts
- *    a few pixels toward the pointer — attention, the only sense it has.
+ *    rate, ink blended between adjacent ticks so the blot moves like liquid; a
+ *    breathing halo; the whole field leans toward the pointer; transient letter
+ *    particles can swirl off it (emit) to announce a new question.
  *  - Text body (no 2D context, e.g. jsdom): the original <pre> at ~7 fps.
  *
- * The character grid itself stays a pure function of (params, tick) — life
- * comes from advancing the tick, never from randomness. Under
- * prefers-reduced-motion the face holds a single still frame and all gestures
- * (one-shot and held) are skipped: the character survives, the motion does not.
+ * The character grid itself stays a pure function of (params, tick). Under
+ * prefers-reduced-motion the face holds one still frame and ALL of the above
+ * (gestures, drift, pooling, recoil, particles, takeover) is skipped: the
+ * character survives, the motion does not.
  */
 
 const TICK_MS = 140;
 const GESTURE_TICKS = 8;
 const SEED = 108;
-/** Held attention eases in over ~4 ticks and lets go a little slower. */
 const HOLD_IN_TICKS = 4;
 const HOLD_OUT_TICKS = 6;
 
-/** Cell aspect of the page's monospace stack — width as a fraction of height. */
 const CELL_ASPECT = 0.62;
 const FONT_STACK = '"IBM Plex Mono", "Menlo", "Consolas", monospace';
 
-/** Ink by intensity: dim ground, body, and the bright living core. */
 const INK_DIM = '#6f6f68';
 const INK_BODY = '#9a9a90';
 const INK_CORE = '#c2c8b2';
 const HALO_RGB = '184, 196, 168'; // --accent
+
+/** How the field leans toward the pointer, and how much a held press pools it. */
+const DRIFT_MAX = 13; // px of lean toward the cursor at rest
+const POOL_MULT = 2.3; // extra pull while a press is held (flows around the cursor)
+const RECOIL_MS = 1100; // how long the entity keeps its distance when it recoils
+const TAU = Math.PI * 2;
+
+interface Particle {
+  ch: string;
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  age: number;
+  life: number;
+}
 
 export class Blot {
   private readonly wrap: HTMLElement;
@@ -44,7 +58,7 @@ export class Blot {
   private mood: Mood = 'calm';
   private sparseness = 0;
   private gesture: Gesture = 'none';
-  private gestureStart = 0; // in ticks (fractional in the canvas body)
+  private gestureStart = 0;
   private held: Gesture = 'none';
   private heldLevel = 0;
   private heldTarget = 0;
@@ -56,11 +70,41 @@ export class Blot {
   private t0 = -1;
   private tickF = 0;
   private lastNow = 0;
-  private pointerX = 0.5; // 0..1 across the viewport
-  private drift = 0; // eased px offset toward the pointer
+
+  // interaction — the living art (CD 2026-07-16)
+  private pointerX = 0.5; // 0..1 of the viewport
+  private pointerY = 0.5;
+  private driftX = 0;
+  private driftY = 0;
+  private pooling = 0; // 0..1 — a held press pulls the ink toward the cursor
+  private poolTarget = 0;
+  private engagements = 0;
+  private recoilThreshold = 3; // every Nth encounter, it backs away instead
+  private recoilUntil = 0;
+  private particles: Particle[] = [];
+
   private readonly onPointerMove = (e: PointerEvent): void => {
-    const w = window.innerWidth || 1;
-    this.pointerX = Math.min(1, Math.max(0, e.clientX / w));
+    this.pointerX = Math.min(1, Math.max(0, e.clientX / (window.innerWidth || 1)));
+    this.pointerY = Math.min(1, Math.max(0, e.clientY / (window.innerHeight || 1)));
+  };
+  private readonly onPointerDown = (e: PointerEvent): void => {
+    this.poolTarget = 1; // holding pools the ink toward you
+    // A press on a button is a choice, not an encounter with the entity — leave
+    // those to the authored reaction. A press anywhere else is you reaching for
+    // the creature: mostly it leans in and blooms; now and then it recoils.
+    if (e.target instanceof Element && e.target.closest('button')) return;
+    this.engagements += 1;
+    if (this.engagements >= this.recoilThreshold) {
+      this.engagements = 0;
+      this.recoilThreshold = 3 + Math.floor(Math.random() * 3); // 3–5
+      this.recoilUntil = this.clock() + RECOIL_MS;
+      this.react('contract'); // a flinch — it keeps its distance
+    } else {
+      this.react('bloom'); // it likes being reached for
+    }
+  };
+  private readonly onPointerUp = (): void => {
+    this.poolTarget = 0;
   };
   private readonly onResize = (): void => this.resize();
   private readonly onVisibility = (): void => {
@@ -90,6 +134,8 @@ export class Blot {
       window.addEventListener('resize', this.onResize);
       if (!this.reduced) {
         window.addEventListener('pointermove', this.onPointerMove);
+        window.addEventListener('pointerdown', this.onPointerDown);
+        window.addEventListener('pointerup', this.onPointerUp);
         document.addEventListener('visibilitychange', this.onVisibility);
         this.startLoop();
       } else {
@@ -110,6 +156,10 @@ export class Blot {
     }
   }
 
+  private clock(): number {
+    return typeof performance !== 'undefined' ? performance.now() : Date.now();
+  }
+
   /** Set the face's weather. Label updates so the description stays true. */
   set(mood: Mood, sparseness = 0): void {
     this.mood = mood;
@@ -124,7 +174,7 @@ export class Blot {
     if (this.reduced || gesture === 'none' || gesture === 'attend' || gesture === 'sway') return;
     this.gesture = gesture;
     this.gestureStart = this.pre ? this.tick : this.tickF;
-    this.heldTarget = 0; // a reaction supersedes hover attention
+    this.heldTarget = 0;
     if (this.pre) this.drawText();
   }
 
@@ -140,8 +190,34 @@ export class Blot {
     this.heldTarget = 0;
   }
 
-  /** The entity claims the whole browser as its stage for a moment, floods, then
-   *  recollects into its band (a transition flourish; CD 2026-07-16). */
+  /** Shed a scatter of letters that swirl off the ink — the question emerging
+   *  from the entity (CD 2026-07-16). Rare by design; reduced-motion no-op. */
+  emit(text: string): void {
+    if (this.reduced || !this.ctx) return;
+    const w = this.wrap.clientWidth;
+    const h = this.wrap.clientHeight;
+    if (w < 2 || h < 2) return;
+    const chars = text.replace(/\s+/g, '');
+    if (!chars) return;
+    const n = Math.min(7, chars.length);
+    for (let i = 0; i < n; i += 1) {
+      const ch = chars[Math.floor((i * chars.length) / n)] ?? '·';
+      const ang = (i / n) * TAU + (Math.random() - 0.5) * 0.6;
+      const speed = 0.7 + Math.random() * 0.6;
+      this.particles.push({
+        ch,
+        x: w / 2 + (Math.random() - 0.5) * w * 0.14,
+        y: h / 2 + (Math.random() - 0.5) * h * 0.14,
+        vx: Math.cos(ang) * speed,
+        vy: Math.sin(ang) * speed - 0.25, // a slight upward drift as they leave
+        age: 0,
+        life: 11 + Math.random() * 8,
+      });
+    }
+  }
+
+  /** The entity claims the whole browser for a moment, floods, then recollects
+   *  into its band (a text-free transition flourish). */
   takeover(ms: number): void {
     if (this.reduced || !this.ctx) return;
     this.wrap.classList.add('stage-full');
@@ -156,9 +232,11 @@ export class Blot {
   destroy(): void {
     if (this.timer !== null) clearInterval(this.timer);
     this.stopLoop();
+    window.removeEventListener('resize', this.onResize);
     if (this.ctx) {
-      window.removeEventListener('resize', this.onResize);
       window.removeEventListener('pointermove', this.onPointerMove);
+      window.removeEventListener('pointerdown', this.onPointerDown);
+      window.removeEventListener('pointerup', this.onPointerUp);
       document.removeEventListener('visibilitychange', this.onVisibility);
     }
     this.wrap.remove();
@@ -167,8 +245,6 @@ export class Blot {
   // ── canvas body ────────────────────────────────────────────────────────
 
   private probeCanvas(): CanvasRenderingContext2D | null {
-    // jsdom offers no 2D context (and logs when probed), so the text body is
-    // taken directly there — which also keeps the DOM tests on the text path.
     if (typeof navigator !== 'undefined' && /jsdom/i.test(navigator.userAgent)) return null;
     if (typeof requestAnimationFrame !== 'function') return null;
     try {
@@ -201,16 +277,43 @@ export class Blot {
   }
 
   private ease(dtTicks: number): void {
+    // held hover attention (attend / sway near a button)
     const rate = this.heldTarget > this.heldLevel ? HOLD_IN_TICKS : HOLD_OUT_TICKS;
-    const step = dtTicks / rate;
     this.heldLevel =
       this.heldTarget > this.heldLevel
-        ? Math.min(this.heldTarget, this.heldLevel + step)
-        : Math.max(this.heldTarget, this.heldLevel - step);
+        ? Math.min(this.heldTarget, this.heldLevel + dtTicks / rate)
+        : Math.max(this.heldTarget, this.heldLevel - dtTicks / rate);
     if (this.heldLevel === 0 && this.heldTarget === 0) this.held = 'none';
-    // attention drift: the field leans a few pixels toward the pointer
-    const target = (this.pointerX - 0.5) * 10;
-    this.drift += (target - this.drift) * Math.min(1, dtTicks * 0.12);
+
+    // pooling — a held press pulls the ink harder toward the cursor
+    this.pooling =
+      this.poolTarget > this.pooling
+        ? Math.min(this.poolTarget, this.pooling + dtTicks / 4)
+        : Math.max(this.poolTarget, this.pooling - dtTicks / 8);
+
+    // drift toward (or, when recoiling, away from) the pointer
+    const recoiling = this.clock() < this.recoilUntil;
+    const sign = recoiling ? -1.4 : 1;
+    const rect = this.wrap.getBoundingClientRect();
+    const dx = this.pointerX * (window.innerWidth || 1) - (rect.left + rect.width / 2);
+    const dy = this.pointerY * (window.innerHeight || 1) - (rect.top + rect.height / 2);
+    const dist = Math.hypot(dx, dy) || 1;
+    const mag = DRIFT_MAX * (1 + (POOL_MULT - 1) * this.pooling) * sign;
+    const targetX = (dx / dist) * mag;
+    const targetY = (dy / dist) * mag * 0.6; // less vertical — stay mostly in the band
+    this.driftX += (targetX - this.driftX) * Math.min(1, dtTicks * 0.12);
+    this.driftY += (targetY - this.driftY) * Math.min(1, dtTicks * 0.12);
+
+    // shed letters drift and fade
+    if (this.particles.length) {
+      for (const p of this.particles) {
+        p.x += p.vx * dtTicks;
+        p.y += p.vy * dtTicks;
+        p.vy += 0.02 * dtTicks; // a little settling
+        p.age += dtTicks;
+      }
+      this.particles = this.particles.filter((p) => p.age < p.life);
+    }
   }
 
   private resize(): void {
@@ -251,8 +354,6 @@ export class Blot {
     const f = frac * frac * (3 - 2 * frac);
     const cellsA = frameCells(params, tickA);
     const cellsB = frameCells(params, tickA + 1);
-    // point/ember/still draw their own sparse glyphs; fields re-pick from the
-    // ramp after blending so the ink morphs smoothly between ticks.
     const special =
       this.mood === 'point' || this.mood === 'ember' || this.sparseness >= 9 ||
       (gesture === 'still' && Math.sin(Math.min(Math.max(gestureT, 0), 1) * Math.PI) > 0.3);
@@ -261,18 +362,19 @@ export class Blot {
     const cellW = cellH * CELL_ASPECT;
     const gridW = cellW * COLS;
     const gridH = cellH * ROWS;
-    const ox = (w - gridW) / 2 + this.drift;
-    const oy = (h - gridH) / 2;
-    // attend leans the whole body down a little, beyond the ink's own shift
+    // clamp the lean so the ink never wanders out of its band
+    const dx = Math.max(-cellW * 3, Math.min(cellW * 3, this.driftX));
+    const dy = Math.max(-cellH * 1.4, Math.min(cellH * 1.4, this.driftY));
+    const ox = (w - gridW) / 2 + dx;
     const lean = gesture === 'attend' ? gestureT * cellH * 0.6 : 0;
+    const oy = (h - gridH) / 2 + dy + lean;
 
     ctx.clearRect(0, 0, w, h);
 
-    // the halo — a faint breath of light behind the ink, fading as the Vigil thins
     const haloStrength = special ? 0 : Math.max(0, 1 - this.sparseness / 6);
     if (haloStrength > 0.01) {
       const hx = ox + gridW / 2;
-      const hy = oy + gridH / 2 + lean;
+      const hy = oy + gridH / 2;
       const hr = Math.max(gridW, gridH) * 0.55;
       const halo = ctx.createRadialGradient(hx, hy, hr * 0.1, hx, hy, hr);
       const a = (0.05 + 0.02 * Math.sin(tickF * 0.11)) * haloStrength;
@@ -289,7 +391,7 @@ export class Blot {
     for (let y = 0; y < ROWS; y += 1) {
       const rowA = cellsA[y]!;
       const rowB = cellsB[y]!;
-      const py = oy + (y + 0.5) * cellH + lean;
+      const py = oy + (y + 0.5) * cellH;
       for (let x = 0; x < COLS; x += 1) {
         const a = rowA[x]!;
         const b = rowB[x]!;
@@ -297,18 +399,27 @@ export class Blot {
         if (v <= 0.03) continue;
         let ch: string;
         if (special) {
-          ch = (f < 0.5 ? a.ch : b.ch);
+          ch = f < 0.5 ? a.ch : b.ch;
           if (ch === ' ') ch = a.ch !== ' ' ? a.ch : b.ch;
         } else {
           ch = rampChar(v);
         }
         if (ch === ' ') continue;
-        // per-glyph shimmer: a slow, deterministic breathing of brightness
         const phase = x * 127.1 + y * 311.7;
         const shimmer = 0.78 + 0.22 * Math.sin(tickF * 0.55 + phase);
         ctx.globalAlpha = Math.min(1, (0.16 + 0.84 * Math.min(1, v * 1.15)) * shimmer);
         ctx.fillStyle = v < 0.35 ? INK_DIM : v < 0.65 ? INK_BODY : INK_CORE;
         ctx.fillText(ch, ox + (x + 0.5) * cellW, py);
+      }
+    }
+
+    // shed letters, over the ink
+    if (this.particles.length) {
+      ctx.font = `${Math.max(6, cellH)}px ${FONT_STACK}`;
+      ctx.fillStyle = INK_CORE;
+      for (const p of this.particles) {
+        ctx.globalAlpha = Math.max(0, 1 - p.age / p.life) * 0.75;
+        ctx.fillText(p.ch, p.x, p.y);
       }
     }
     ctx.globalAlpha = 1;

@@ -34,6 +34,7 @@
         }
       ],
       "labels": ["FICTION: the Bard, the desk, and the detection of processes"],
+      "visual": { "entrance": "emit" },
       "a11y": "The Bard asks whether you would like to continue being identifiable. Four options: yes; no; define the word you; or ask who is asking.",
       "fallback": "Something is asking if you would like to keep being you. Answer, or question the question."
     },

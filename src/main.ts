@@ -111,6 +111,7 @@ export function mount(root: HTMLElement): void {
   let state: GameState = createState(graph);
   let tallied = 0;
   let completionsSent = false;
+  let lastEmitNode = ''; // the last node whose entrance flourish has played
 
   // ── Reincarnation (Phase 5): the desk remembers, locally and optionally.
   let prior = lastLife();
@@ -454,6 +455,14 @@ export function mount(root: HTMLElement): void {
       unlockedChoices: unlockedGated(),
     });
     blot.set(moodFor(graph, state), vigilSparseness);
+    // Letters swirl off the entity as an authored question arrives (§ theatrical
+    // pass; kept rare — the first question and the nine verbs only). Only on
+    // entering the node, never on same-node re-renders.
+    const entered = getNode(graph, state.node);
+    if (entered.visual?.entrance === 'emit' && lastEmitNode !== state.node) {
+      blot.emit(entered.text.base.slice(0, 28));
+    }
+    lastEmitNode = state.node;
     startVigilIfEligible();
     // A fresh screen starts at the top of its scroll box, and the cues re-read
     // whether there is more above or below.
