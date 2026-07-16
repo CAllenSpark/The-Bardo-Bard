@@ -79,6 +79,21 @@ cosmology / no secretly correct response"* — both halves, explicitly:
   said to is still playing someone else's game (§4.5). The exit is real; it is
   still not a doctrine.
 
+**Evolution — the matured thesis (CD, 2026-07-15).** The phrasing "the most
+correct ending is not to play" was always the *author's* north star, never a
+verdict; the CD has now leveled it explicitly. Declining is **one door among
+many** — "not right or wrong, just a choice to see what is behind a path not yet
+taken." The fuller thesis the piece moves toward: *a philosophical simulator for
+the games we are asked to play.* You cannot win by playing **unseeingly**; but
+having seen the structure, you may choose to play it, ungoverned, **with
+intention** — and it can be a joy to play something someone else dreamed up, if
+you arrive as a soul who chose the table rather than one the table chose. This
+completes the heart rather than reversing it (the Vigil taught that you *can*
+decline; the maturation is that declining was never the crown, only the first
+seam you notice). Curiosity — not abstention — is the base currency of agency.
+The reincarnation arc that carries this is **§15 (The Cycle Ladder)**; it must
+never crown intention-play either. Both remain doors.
+
 ### 1.3 The philosophical report's role
 
 `docs/reference/` includes a research report synthesizing Egyptian psychostasia,
@@ -587,7 +602,77 @@ the soul record (phrases already in `glyph.json`); author four **D3** acks; give
 beat; a soft in-place retraction for the **hope/loss** rungs if left un-clicked
 (safety). Full detail and the prioritized P0/P1/P2 list: `docs/DESIGN_EVAL.md`.
 
+## 15. The Cycle Ladder (reincarnation-gated progression)
+
+CD directive 2026-07-15. **Each return lets the player see one more seam** in the
+structure, without ever being overt about the do-not-play path (§1.2: one door
+among many). The game *expects looping* — like Hades, returning is part of
+continuing, not a failure to play "correctly." Curiosity is the currency; the
+Bard grows incrementally more candid and the world slightly more porous the more
+a soul comes back. Keyed to completed-run count (`lifeCount`).
+
+**Invariants (binding, inherit from §1.2/§4/§9):**
+- **Curiosity, never correctness.** Any nudge toward an untaken path is "you have
+  not walked here," never "you should." The dominance floor and the no-crown rule
+  hold; intention-play is *also* never crowned.
+- **§9.2 stays intact.** Nothing here touches `a1_consent` or the Vigil; the
+  first question is archetypal every run. The reflection dialogue is a *prologue*
+  before `a1` and never references waiting-as-answer or the Vigil mechanic.
+- **Local-only, optional.** All gating is `localStorage` (`bardo_lives`); a
+  blocked store simply means none of it appears. Nothing new is tallied — the
+  Ledger never hears about reincarnation depth or the dialogue.
+- **The wink, not the reveal.** The Bard is *aware of the game* and speaks off
+  the record about the games we agree to play — itself included — but never
+  confesses to being software.
+
+**What ships now (first pass — asides + one dialogue):**
+- **Intro variety.** `greeting_returns_deeper` varies the boot framing on the
+  3rd/4th/5th-and-beyond visit (`reincarnation.json`), each one a seam more
+  candid, so looping never goes stale.
+- **The curiosity nudge (the "thumb on the scale").** When a soul has repeated
+  the **same** first-encounter choice across every past life, the desk names a
+  door it has never opened (`nudge_a2`, exemplar at `a2_light`; extends to
+  b1/e1/f1). Infra: `memory.choiceHistory(tally)`; fires only on a genuine rut;
+  deterministic (first untaken door in authored order). Framed as curiosity,
+  explicitly "the desk does not rank doors."
+- **OFF THE FORM** (`content/system/reflection.json`) — the flagship. Unlocks
+  after **3 completed cycles** via a **gated** boot choice (`reflect`; the
+  general run-gating mechanism is `choice.gated` in the schema + `unlockedChoices`
+  in render — reusable for future run-gated options, Scope option 2). A buttons-
+  only, hub-and-spoke conversation: the Bard sets down the clipboard and talks
+  about why a desk needs a form (legibility as the price of being served), why a
+  soul keeps asking when the light holds every answer, whether a game you can see
+  is still a cage, and — the warm turn — its one unlicensed piece of advice:
+  *join the games, on purpose, as a soul who chose the table.* Levels refusal as
+  one move ("not the throne"), voices the matured thesis without preaching, and
+  drops into `a1_consent` when the player is done. Act 0, untallied.
+
+**Deferred (offered, not yet built):** genuinely new run-gated *branches* on
+runs 4–5 (Scope option 2/3); extending the curiosity nudge beyond `a2`; the
+"each drag needs less force" agency-immunization arc across lives.
+
 ## 13. Session log (append-only)
+
+- **2026-07-15 — The Cycle Ladder, first pass (CD directive; §15).** Reincarnation
+  now reveals the seams. The CD asked that each run help the player see the
+  structure a little more — expecting looping (Hades), nudging untaken paths by
+  *curiosity not correctness*, and, after three cycles, opening a dialogue with a
+  Bard who is *aware of the game* (the wink, not the reveal). Two CD forks were
+  asked via the question tool but it aborted twice; proceeded on the recommended
+  defaults (both drawn from the CD's own message): **the heart → "one door among
+  many / join with intention"** (§1.2 evolution recorded), and **scope → asides +
+  one dialogue** as the first pass. Shipped: intro variety across loops
+  (`greeting_returns_deeper`); the curiosity "thumb on the scale"
+  (`memory.choiceHistory` + `nudge_a2`, fires only on a genuine rut, names an
+  unopened door, "the desk does not rank doors"); a general run-gating mechanism
+  (`choice.gated` + `unlockedChoices`); and **OFF THE FORM**
+  (`content/system/reflection.json`), a 6-node buttons-only dialogue unlocked at
+  3 completed cycles, voicing the matured thesis (join with intention) and
+  leveling refusal as one move ("not the throne"), dropping into `a1`. §9.2
+  intact (nothing touches the first question or the Vigil; verified). 123 tests
+  (+6); 53 KB gz; driven in real Chromium at 900/375/320px, zero console errors.
+  Deferred (offered): new run-gated branches on runs 4–5, nudges beyond a2, the
+  cross-life agency-immunization arc.
 
 - **2026-07-15 — Agency over insight (CD directive, prompted by a "beat the
   matrix" essay).** The CD surfaced an essay (Darshak Rana) whose spine —

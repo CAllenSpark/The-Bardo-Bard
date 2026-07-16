@@ -9,7 +9,7 @@ import { exportTotenpass, importTotenpass } from './engine/totenpass';
 import { buildSigil } from './engine/sigil';
 import { GLYPH_DISCLOSURE, buildGlyphText, phrase } from './engine/glyph';
 import { computeProfile } from './engine/profile';
-import { forgetLives, lastLife, lifeCount, longAbsence, noteOmegaReturn, recordLife } from './engine/memory';
+import { choiceHistory, forgetLives, lastLife, lifeCount, longAbsence, noteOmegaReturn, recordLife } from './engine/memory';
 import type { Life } from './engine/memory';
 import type { Gesture, Mood } from './engine/rorschach';
 import { hoverGesture } from './engine/rorschach';
@@ -41,10 +41,16 @@ interface Ladder {
 const LADDER = ladderFile as unknown as Ladder;
 const REINCARNATION = reincarnationFile as unknown as {
   greeting_return: string;
+  greeting_returns_deeper: string[];
   greeting_long_absence: string;
   greeting_omega: string[];
+  nudge_a2: string;
   node_lines: Record<string, string>;
 };
+
+/** Reincarnation depth at which the Bard sets down the clipboard (CD: "after
+ *  the 3rd cycle"). The gated boot choice `reflect` unlocks here. */
+const REFLECT_UNLOCK_LIVES = 3;
 
 /** Fill {A2}/{B1}/{E1}/{F1} from a prior life's phrase book; null if a slot is unfillable. */
 function fillMemory(template: string, prior: Life): string | null {
@@ -107,7 +113,15 @@ export function mount(root: HTMLElement): void {
       const returns = noteOmegaReturn();
       bootGreeting = REINCARNATION.greeting_omega[Math.min(returns, REINCARNATION.greeting_omega.length) - 1];
     } else {
-      bootGreeting = fillMemory(REINCARNATION.greeting_return, prior) ?? undefined;
+      // Intro variety across loops (Cycle Ladder §15): the first return uses
+      // greeting_return; each deeper visit varies the framing so looping never
+      // goes stale and the desk grows one seam more candid. lives === prior
+      // count: 1 = 2nd visit, 2 = 3rd (deeper[0]), 3 = 4th (deeper[1]), … .
+      const lives = lifeCount();
+      const deeper = REINCARNATION.greeting_returns_deeper;
+      const template =
+        lives <= 1 ? REINCARNATION.greeting_return : deeper[Math.min(lives - 2, deeper.length - 1)]!;
+      bootGreeting = fillMemory(template, prior) ?? undefined;
     }
     if (bootGreeting && longAbsence()) bootGreeting += `\n\n${REINCARNATION.greeting_long_absence}`;
   };
@@ -121,6 +135,24 @@ export function mount(root: HTMLElement): void {
     const template = REINCARNATION.node_lines[nodeId];
     if (!template) return undefined;
     return fillMemory(template, prior) ?? undefined;
+  };
+
+  /** The curiosity 'thumb on the scale' (Cycle Ladder §15): when a soul has
+   *  repeated the SAME first-encounter choice across every past life, the Bard
+   *  names a door it has never opened — curiosity, never a verdict, never at
+   *  a1 (§9.2). Deterministic: the first untaken door in authored order. */
+  const nudgeFor = (nodeId: string): string | undefined => {
+    if (nodeId !== 'a2_light') return undefined; // exemplar; extends to b1/e1/f1
+    const history = choiceHistory('A2');
+    if (history.length < 2 || new Set(history).size !== 1) return undefined; // needs a real rut
+    const always = history[0]!;
+    const untaken = (getNode(graph, 'a2_light').choices ?? []).find(
+      (c) => c.id !== always && !c.gated,
+    );
+    if (!untaken) return undefined;
+    return REINCARNATION.nudge_a2
+      .replace('{A2_ALWAYS}', phrase('A2', always))
+      .replace('{A2_UNTAKEN}', untaken.label);
   };
 
   // The Ledger endpoint; empty string = offline by design (seed census).
@@ -304,8 +336,10 @@ export function mount(root: HTMLElement): void {
       glyph: trueEnding ? { text: buildGlyphText(state, soulN), disclosure: GLYPH_DISCLOSURE } : undefined,
       fullLedger: playedEnding ? buildFullLedger(graph, state) : undefined,
       totenpass: playedEnding ? exportTotenpass(state) : undefined,
-      memoryLine: memoryFor(state.node),
+      // The rut nudge supersedes the generic remembered line where it fires.
+      memoryLine: nudgeFor(state.node) ?? memoryFor(state.node),
       canForget: state.node === 'boot_notice' && (prior !== null || lifeCount() > 0),
+      unlockedChoices: lifeCount() >= REFLECT_UNLOCK_LIVES ? new Set(['reflect']) : undefined,
     });
     blot.set(moodFor(graph, state), vigilSparseness);
     startVigilIfEligible();

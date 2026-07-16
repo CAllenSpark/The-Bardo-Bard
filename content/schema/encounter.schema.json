@@ -54,7 +54,11 @@
                 "type": "object",
                 "additionalProperties": { "type": "number" }
               },
-              "goto": { "type": "string" }
+              "goto": { "type": "string" },
+              "gated": {
+                "type": "boolean",
+                "description": "Run-gated choice (Compass §15 Cycle Ladder): present in the graph (so it stays reachable and FSM-routable) but only rendered when the engine unlocks it by reincarnation depth. Never a tallied choice."
+              }
             }
           }
         },

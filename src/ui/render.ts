@@ -28,6 +28,10 @@ export interface RenderOptions {
   memoryLine?: string;
   /** Offer the Lethe control on the boot screen (lives exist to forget). */
   canForget?: boolean;
+  /** Gated choice ids the engine has unlocked this render (Compass §15 Cycle
+   *  Ladder). A gated choice not listed here is present in the graph but not
+   *  drawn — the door exists before the soul is deep enough to see it. */
+  unlockedChoices?: Set<string>;
 }
 
 const EXIT_LABELS: Record<StandingExitId, string> = {
@@ -95,6 +99,9 @@ export function render(
   const choices = document.createElement('div');
   choices.className = 'choices';
   for (const choice of node.choices ?? []) {
+    // A run-gated door is in the graph but only drawn once unlocked by
+    // reincarnation depth (Compass §15). It never carries a tally.
+    if (choice.gated && !options.unlockedChoices?.has(choice.id)) continue;
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'choice';

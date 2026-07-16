@@ -1,12 +1,18 @@
 {
-  "comment": "Second-incarnation copy (Compass Phase 5). {F1}/{A2}/{B1}/{E1} are phrase-book phrases from the PRIOR life. §9.2 GUARD, binding: none of these lines may render at a1_consent or inside the Vigil — a returning player's Vigil is as archetypal as their first. The engine enforces this by having no a1 template at all.",
+  "comment": "Second-incarnation copy (Compass Phase 5; Cycle Ladder §15, CD 2026-07-15). {F1}/{A2}/{B1}/{E1} are phrase-book phrases from the PRIOR life. §9.2 GUARD, binding: none of these lines may render at a1_consent or inside the Vigil — a returning player's Vigil is as archetypal as their first. The engine enforces this by having no a1 template at all. greeting_return is the first-return line; greeting_returns_deeper[i] varies the intro on the 3rd/4th/5th-and-beyond visit so looping does not go stale (Hades: returning is part of continuing) and the desk grows incrementally more candid — seeing one more seam each time — without ever naming the game outright. nudge_a2 is the curiosity 'thumb on the scale': shown only when a soul has repeated the SAME first-encounter choice across every past life, it names a door never opened. Framed as curiosity, never correctness (Compass §15 invariant).",
   "greeting_return": "The desk remembers a soul shaped like you.\nLast incarnation, you {F1}. The forms have been adjusted\naccordingly — which is to say: not at all, and yet.",
+  "greeting_returns_deeper": [
+    "Twice now. The desk is developing what it is expressly\nforbidden from calling a fondness. Last time, you {F1}. The\nnotice below has not changed. You have. Read it anyway — the\nritual was always the point, not the news.",
+    "Three. At three, the manual says, a returning soul stops\nbeing an anomaly and becomes a pattern, and patterns are\npermitted to be spoken to plainly. Last time, you {F1}. You\nmay notice the desk is standing a little off its script\ntoday.",
+    "Again, and welcome. We are past counting now, which suits\nthe desk — it was never any good at counting the things that\nmattered. Last time, you {F1}. The forms are the same. The\nlight is the same. The only variable this room has ever had\nis you. So: what are you curious about this time?"
+  ],
   "greeting_long_absence": "(Considerable Earth time has elapsed. Locally, no time has\npassed. The Department apologizes for any inconvenience.)",
   "greeting_omega": [
     "You came back.\n\nSurprising. Most who leave the way you did do not revisit\nthis place.\n\nWelcome back. Shall we begin again?",
     "Again and… again?\n\nWell. This is very rare indeed. The exception has been\ncaught, re-caught, and filed under RECURRING MIRACLES,\nMINOR.",
     "The desk has stopped being surprised, which surprises it.\n\nCome in. Your door is where you left it — nowhere,\neverywhere, and so on. The kettle, against policy, is on."
   ],
+  "nudge_a2": "You have stood at this light before, and every time you\n{A2_ALWAYS}. The door marked [ {A2_UNTAKEN} ] has never once\nhad your hand on it. I am not saying it is the better door —\nthe desk does not rank doors. I am saying curiosity is the one\ncurrency this place cannot counterfeit, and you appear to have\nsome to spend.",
   "node_lines": {
     "a2_light": "The light has arranged itself differently this time.\nIt remembers you. Last time, you {A2}.",
     "b1_beverage_cart": "The cart slows as it passes you. Last time, you {B1}.\nThe seventh cup regards you with something like recognition.",

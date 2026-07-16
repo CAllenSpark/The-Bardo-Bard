@@ -15,6 +15,10 @@ export interface ChoiceDef {
   /** Additive numeric effects on the state flags. */
   state?: Record<string, number>;
   goto: string;
+  /** Run-gated (Compass §15 Cycle Ladder): in the graph so it stays reachable
+   *  and FSM-routable, but only rendered when the engine unlocks it by
+   *  reincarnation depth. Never a tallied choice. */
+  gated?: boolean;
 }
 
 /** Ledger node keys — the canonical Compass §3 manifest, and no other. */

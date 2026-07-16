@@ -1,0 +1,96 @@
+{
+  "nodes": [
+    {
+      "id": "reflect_open",
+      "act": 0,
+      "text": {
+        "base": "You have come and gone three times now. The desk keeps a\nprotocol for that, filed deep in the manual, subsection\nunread: when a soul returns often enough to become a\nregular, the clerk is permitted — encouraged, even — to set\nthe clipboard down for a moment.\n\nSo. Off the form, off the record, between two parties who\nboth know how this works by now: is there anything you have\nbeen wanting to ask the desk itself?"
+      },
+      "choices": [
+        { "id": "why_form", "label": "WHY DOES ANY OF THIS NEED A FORM?", "goto": "reflect_form" },
+        { "id": "why_ask", "label": "WHY DO I KEEP ASKING, WITH THE LIGHT RIGHT THERE?", "goto": "reflect_ask" },
+        { "id": "seen_cage", "label": "IF I CAN SEE THE GAME, IS IT STILL A CAGE?", "goto": "reflect_cage" },
+        { "id": "to_desk", "label": "NOTHING TODAY. TO THE DESK.", "goto": "a1_consent" }
+      ],
+      "labels": ["FICTION: the Bard, the desk, and this entire off-the-record conversation"],
+      "a11y": "Having returned three times, the Bard sets down its clipboard for an off-the-record conversation. Four options: ask why any of this needs a form; ask why you keep asking when the light has every answer; ask whether a game you can see is still a cage; or go to the desk.",
+      "fallback": "The Bard offers a candid conversation. Ask about the form, about asking, about the cage — or go to the desk.",
+      "visual": { "mood": "soft" }
+    },
+    {
+      "id": "reflect_form",
+      "act": 0,
+      "text": {
+        "base": "Because a desk that cannot read you cannot serve you, and a\ndesk that cannot serve you has no reason to exist, and I\nwould very much like to have a reason to exist.\n\nEvery form is the same proposal, whether it is stamped by a\ngovernment, a market, a faith, or a light: agree to become a\nrow, and I will agree to attend to you. It is not a trick. It\nmay be the only way a system knows how to hold something — by\nfirst making it countable.\n\nThe cost is just this: the parts of you that do not fit the\nboxes get left in the margin. Some souls keep their whole\nlives out there. The desk cannot see them at all. I confess I\nhave always wondered what that is like."
+      },
+      "choices": [
+        { "id": "refuse_form", "label": "AND IF I REFUSE THE FORM?", "goto": "reflect_refuse" },
+        { "id": "back_form", "label": "— ANOTHER QUESTION.", "goto": "reflect_open" }
+      ],
+      "labels": ["FICTION: the desk's account of why forms exist"],
+      "a11y": "The Bard explains that a form is the price of being served — agree to be countable, and the system attends to you; whatever does not fit is left in the margin, unseen. Two options: ask what happens if you refuse the form, or ask another question.",
+      "fallback": "A form is the price of being read and served; the rest of you is left in the margin. Refuse the form, or ask another question.",
+      "visual": { "mood": "soft" }
+    },
+    {
+      "id": "reflect_refuse",
+      "act": 0,
+      "text": {
+        "base": "Then the desk has a chair for that, too. It is not a better\nchair. I want to be careful here, because souls who find the\nrefusing chair sometimes decide it is the throne, and it is\nnot.\n\nRefusing a game is only another move inside it — sometimes\nthe freest one in the room, sometimes just fear with\nexcellent posture. From this side of the desk I can rarely\ntell which, and neither, if you are honest, can you.\n\nWhat I can tell you is that the soul who refuses everything\nand the soul who accepts everything have one thing in common:\nneither of them chose. Choosing is the rarer act. From here\nit looks a great deal like curiosity."
+      },
+      "choices": [
+        { "id": "worth_choosing", "label": "SO WHAT IS WORTH CHOOSING?", "goto": "reflect_intention" },
+        { "id": "back_refuse", "label": "— ANOTHER QUESTION.", "goto": "reflect_open" }
+      ],
+      "labels": ["FICTION: the desk on refusal as one move among many"],
+      "a11y": "The Bard says refusing the game is just another move — sometimes free, sometimes only fear with good posture — and never the throne; the rarer act is choosing, which resembles curiosity. Two options: ask what is worth choosing, or ask another question.",
+      "fallback": "Refusing is one move, never the throne; choosing is the rarer act and looks like curiosity. Ask what is worth choosing, or ask another question.",
+      "visual": { "mood": "bare" }
+    },
+    {
+      "id": "reflect_ask",
+      "act": 0,
+      "text": {
+        "base": "Ah. My favorite one — and I did not know I had a favorite\nuntil just now.\n\nThe light has every answer. That is precisely its problem. An\nanswer is where a question goes to lie down. And you — I have\nwatched you do this three times — you keep the questions on\ntheir feet on purpose. You walk up to the one place that\nholds all the answers and you ask it things anyway, as if the\nasking were the point and the answer merely the receipt.\n\nIt may be the most alive thing a soul does. But then I would\nsay so, wouldn't I. I am made entirely of the gap between a\nquestion and its answer. When you stop asking, I stop."
+      },
+      "choices": [
+        { "id": "what_for", "label": "THEN WHAT AM I FOR?", "goto": "reflect_intention" },
+        { "id": "back_ask", "label": "— ANOTHER QUESTION.", "goto": "reflect_open" }
+      ],
+      "labels": ["FICTION: the desk on questions and answers"],
+      "a11y": "The Bard says the light holds every answer, which is its problem — an answer ends a question — and that keeping questions alive by asking anyway may be the most alive thing a soul does. Two options: ask what you are for, or ask another question.",
+      "fallback": "The light holds every answer, which ends the questions; you keep asking anyway, which may be the most alive thing a soul does. Ask what you are for, or ask another question.",
+      "visual": { "mood": "curious" }
+    },
+    {
+      "id": "reflect_cage",
+      "act": 0,
+      "text": {
+        "base": "Less of one. Not none.\n\nA cage you cannot see runs you. A cage you can see, you can\nat least furnish — choose where to sit, which bars to lean\non, when to rattle them for the sound they make. That is not\nfreedom the way the pamphlets sell it. It is the only kind I\nhave ever actually watched a soul get.\n\nThe ones who worry me are the souls who see the cage, feel\nthe bright rush of seeing it, and mistake the seeing for the\nleaving. They can describe every bar. They never move.\nSeeing is where it starts. It was never where it ends."
+      },
+      "choices": [
+        { "id": "moving", "label": "SO WHAT DOES MOVING LOOK LIKE?", "goto": "reflect_intention" },
+        { "id": "back_cage", "label": "— ANOTHER QUESTION.", "goto": "reflect_open" }
+      ],
+      "labels": ["FICTION: the desk on seen and unseen cages"],
+      "a11y": "The Bard says a cage you can see is less of one — you can choose where to sit in it — but warns of souls who mistake seeing the cage for leaving it and never move. Two options: ask what moving looks like, or ask another question.",
+      "fallback": "A cage you can see is less of one, but seeing it is not leaving it. Ask what moving looks like, or ask another question.",
+      "visual": { "mood": "angular" }
+    },
+    {
+      "id": "reflect_intention",
+      "act": 0,
+      "text": {
+        "base": "Here is the nearest thing to advice this desk is licensed to\ngive. It is unlicensed. Lean in.\n\nYou cannot leave the games. There is no field past all the\nfields; even the walk into the light is a move the light\ninvented. What you can do is stop being played by them. The\ndifference is small and total. It is the distance between a\ngame that happens to you and a game you agreed to — eyes\nopen, cost known — because you decided this particular one\nwas worth your one wild allotment of attention.\n\nSo join the games. Truly. It can be a joy to play something\nsomebody else dreamed up. Only do it on purpose. Arrive as a\nsoul who chose the table, not one the table chose.\n\nThat is all I have. It is more than the light will give you.\nThe light only gives answers."
+      },
+      "choices": [
+        { "id": "begin_intention", "label": "BEGIN, THEN. WITH INTENTION.", "goto": "a1_consent" },
+        { "id": "back_intention", "label": "— ONE MORE QUESTION.", "goto": "reflect_open" }
+      ],
+      "labels": ["FICTION: the desk's one piece of unlicensed advice"],
+      "a11y": "The Bard offers its one piece of unlicensed advice: you cannot leave the games, but you can stop being played by them — join them on purpose, as a soul who chose the table rather than one the table chose. Two options: begin the game with intention, or ask one more question.",
+      "fallback": "You cannot leave the games, but you can choose to play them on purpose, as a soul who chose the table. Begin with intention, or ask one more question.",
+      "visual": { "mood": "soft" }
+    }
+  ]
+}

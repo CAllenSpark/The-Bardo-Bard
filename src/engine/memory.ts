@@ -84,6 +84,18 @@ export function lifeCount(): number {
   return loadMemory()?.lives.length ?? 0;
 }
 
+/**
+ * The choice this soul committed for a given tally, once per past life, in
+ * order (Compass §15 Cycle Ladder). Lets the desk notice a rut and point at a
+ * door never opened — curiosity, never a verdict. Lives without that tally
+ * (e.g. an Ω run for A2) are skipped, not counted as a choice.
+ */
+export function choiceHistory(tally: string): string[] {
+  const memory = loadMemory();
+  if (!memory) return [];
+  return memory.lives.map((life) => life.choices[tally]).filter((c): c is string => Boolean(c));
+}
+
 /** Count a post-END-GAME return (the repeatable caught exception, OD-7). */
 export function noteOmegaReturn(): number {
   const memory = loadMemory();

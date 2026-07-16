@@ -77,6 +77,17 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-15** — **The Cycle Ladder, first pass** (CD directive; Compass §15).
+  Reincarnation now reveals the seams: intro variety across loops so returning
+  never goes stale (Hades), a curiosity "thumb on the scale" that names an
+  unopened door after a genuine rut (never a verdict — "the desk does not rank
+  doors"), a general run-gating mechanism (`choice.gated` + `unlockedChoices`),
+  and **OFF THE FORM** — a buttons-only dialogue that unlocks after 3 completed
+  cycles, in which a Bard aware of the game (the wink, not the reveal) voices the
+  matured thesis: you cannot leave the games, but you can play them on purpose,
+  as a soul who chose the table. §1.2 heart evolved (declining is one door among
+  many). §9.2 intact. 123 tests (+6); 53 KB gz; verified in real Chromium at
+  900/375/320px.
 - **2026-07-15** — **Agency over insight** (CD directive; Compass §13). Prompted
   by a "beat the matrix" essay whose thesis (legibility, borrowed desire, the
   ungovernable margin, and — the one challenge — insight-is-inert / agency-is-

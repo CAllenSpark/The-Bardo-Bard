@@ -8,9 +8,10 @@
       },
       "choices": [
         { "id": "begin", "label": "BEGIN", "goto": "a1_consent" },
+        { "id": "reflect", "label": "A WORD WITH THE DESK, OFF THE RECORD", "goto": "reflect_open", "gated": true },
         { "id": "decline", "label": "NOT TODAY", "goto": "boot_decline" }
       ],
-      "a11y": "A plain-language content and data notice from the Bardo Bard, followed by two options: begin, or not today.",
+      "a11y": "A plain-language content and data notice from the Bardo Bard, followed by two options: begin, or not today. Returning souls who have completed the desk several times are also offered an off-the-record word with the Bard.",
       "fallback": "A notice about death, counting, and consent. Begin, or don't."
     },
     {
