@@ -32,6 +32,29 @@
     flex-direction: column;
     align-items: center;
   }
+  /* IT WAS ALWAYS THE ROOM (#8): rarely and only for a recognized soul, the
+     whole page takes on a faint breathing tint in the entity's colour, as if the
+     creature filled the browser, then recedes. Body/background level only — never
+     the ink canvas over text. z-index:-1 keeps it behind all of the desk's copy.
+     Reduced motion: no tint at all (the breath is the point of it). */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(62% 52% at 50% 42%,
+      color-mix(in srgb, var(--accent) 15%, transparent), transparent 72%);
+    opacity: 0;
+    transition: opacity 1400ms ease;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    body.stage-breath::before { animation: room-breath 7s ease-in-out infinite; }
+    @keyframes room-breath {
+      0%, 100% { opacity: 0.45; }
+      50% { opacity: 1; }
+    }
+  }
   #bardo {
     width: 100%;
     max-width: 44rem;
@@ -177,7 +200,23 @@
     max-width: 100%;
   }
   @media (prefers-reduced-motion: no-preference) {
-    .sigil-particle { animation: sigil-pulse 2.6s ease-in-out infinite; }
+    /* THE SIGIL WRITES ITSELF (#10): the perimeter and rings ink themselves on,
+       the fractures and moving mark follow, the memory-mark at the heart settles
+       last, and the carried point arrives after all of it — a single dot, alone,
+       for the Ω sigil. Reduced motion: the sigil is simply, fully drawn. */
+    .sigil .sig-draw {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: sigil-ink 900ms ease forwards;
+    }
+    .sigil .sig-late { animation-delay: 450ms; }
+    .sigil .sig-fade { opacity: 0; animation: sigil-arrive 700ms ease 550ms forwards; }
+    .sigil .sig-center { opacity: 0; animation: sigil-arrive 650ms ease 1050ms forwards; }
+    @keyframes sigil-ink { to { stroke-dashoffset: 0; } }
+    @keyframes sigil-arrive { from { opacity: 0; } to { opacity: 1; } }
+    .sigil-particle {
+      animation: sigil-arrive 700ms ease 1350ms backwards, sigil-pulse 2.6s ease-in-out 2100ms infinite;
+    }
     @keyframes sigil-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
   }
   .system-row { margin-top: 1.5rem; display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }

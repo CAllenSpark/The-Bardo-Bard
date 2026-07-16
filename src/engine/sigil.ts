@@ -76,9 +76,11 @@ export function buildSigil(state: GameState, incarnation = 1): Sigil {
     points.push(`${(cx + radius * Math.cos(angle)).toFixed(1)},${(cy + radius * Math.sin(angle)).toFixed(1)}`);
   }
   // An open perimeter drops one edge: a polyline that does not return home.
+  // pathLength="1" + .sig-draw let the stroke ink itself on (the designer's #10);
+  // reduced motion shows it fully drawn (Compass §16 / THEATRICAL_PASS.md).
   const perimeter = open
-    ? `<polyline points="${points.join(' ')}" fill="none" stroke-width="2"/>`
-    : `<polygon points="${points.join(' ')}" fill="none" stroke-width="2"/>`;
+    ? `<polyline points="${points.join(' ')}" fill="none" stroke-width="2" pathLength="1" class="sig-draw"/>`
+    : `<polygon points="${points.join(' ')}" fill="none" stroke-width="2" pathLength="1" class="sig-draw"/>`;
 
   const fractures: string[] = [];
   const fractureCount = Math.min(4, flag(state, 'correction') + flag(state, 'refusal'));
@@ -87,16 +89,17 @@ export function buildSigil(state: GameState, incarnation = 1): Sigil {
     const r1 = 20 + (hashString(`${seed}r${i}`) % 18);
     fractures.push(
       `<line x1="${(cx + r1 * Math.cos(a)).toFixed(1)}" y1="${(cy + r1 * Math.sin(a)).toFixed(1)}" ` +
-        `x2="${(cx + (r1 + 16) * Math.cos(a)).toFixed(1)}" y2="${(cy + (r1 + 16) * Math.sin(a)).toFixed(1)}" stroke-width="1"/>`,
+        `x2="${(cx + (r1 + 16) * Math.cos(a)).toFixed(1)}" y2="${(cy + (r1 + 16) * Math.sin(a)).toFixed(1)}" stroke-width="1" pathLength="1" class="sig-draw sig-late"/>`,
     );
   }
 
-  // Chirality: a spiral arm turns; a loop closes.
+  // Chirality: a spiral arm turns; a loop closes. Its own dash pattern rules out
+  // the draw-on trick, so the moving mark fades in with the details instead.
   let motion = '';
   if (verb === 'spiral') {
-    motion = `<path d="M ${cx} ${cy - 34} A 34 34 0 1 1 ${cx - 24} ${cy + 24}" fill="none" stroke-width="1" stroke-dasharray="3 4"/>`;
+    motion = `<path d="M ${cx} ${cy - 34} A 34 34 0 1 1 ${cx - 24} ${cy + 24}" fill="none" stroke-width="1" stroke-dasharray="3 4" class="sig-fade"/>`;
   } else if (verb === 'loop') {
-    motion = `<circle cx="${cx}" cy="${cy}" r="34" fill="none" stroke-width="1" stroke-dasharray="3 4"/>`;
+    motion = `<circle cx="${cx}" cy="${cy}" r="34" fill="none" stroke-width="1" stroke-dasharray="3 4" class="sig-fade"/>`;
   }
 
   const particleAngle = ((seed % 360) / 360) * Math.PI * 2;
@@ -105,13 +108,16 @@ export function buildSigil(state: GameState, incarnation = 1): Sigil {
     `r="3" fill="currentColor" stroke="none" class="sigil-particle"/>`;
 
   const memory = committed(state, 'B1');
-  const center = memory && CENTER_GLYPHS[memory] ? CENTER_GLYPHS[memory](memory) : '';
+  const centerMark = memory && CENTER_GLYPHS[memory] ? CENTER_GLYPHS[memory](memory) : '';
+  // The heart of the sigil arrives last — the strokes ink themselves, then the
+  // memory-mark settles in (the designer's #10). Group-faded so it lands as one.
+  const center = centerMark ? `<g class="sig-center">${centerMark}</g>` : '';
 
   // Rings count completed incarnations (v1 §16: number of rings = repeat runs).
   const ringCount = Math.min(3, Math.max(0, incarnation - 1));
   let rings = '';
   for (let i = 0; i < ringCount; i += 1) {
-    rings += `<circle cx="${cx}" cy="${cy}" r="${70 + i * 6}" fill="none" stroke-width="0.6" opacity="0.5"/>`;
+    rings += `<circle cx="${cx}" cy="${cy}" r="${70 + i * 6}" fill="none" stroke-width="0.6" opacity="0.5" pathLength="1" class="sig-draw"/>`;
   }
 
   const svg =

@@ -77,6 +77,17 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-16** — **The sigil writes itself · the room breathes · the entity's
+  voice** (CD directive; Compass §13, `docs/THEATRICAL_PASS.md`). #10: the soul
+  sigil inks its strokes on (`pathLength` + `stroke-dashoffset`), the memory-mark
+  landing last, the carried point after — the Ω sigil a single dot arriving alone.
+  #8: a *recognized* soul's boot breathes a faint accent tint across the whole
+  page (body/background only, never ink over text), then recedes. Audio redesign:
+  the drone bed gained soft pentatonic bells that voice the entity's gestures and
+  its idle curiosity — playful, wandering, and never a verdict (pitch advances on
+  every note; timbre only mirrors the visible gesture); still opt-in, still never
+  autoplays. All reduced-motion-safe. Now shipped: #1/#2/#3/#4/#6/#8/#9/#10.
+  138 tests; 63 KB gz; verified in real Chromium at 900/375/320px + reduced-motion.
 - **2026-07-16** — **Theatrical moments + survey-per-loop fix** (CD directive;
   Compass §13). Fixed a state bug: the returning-customer intake could be re-taken
   on the same home screen — now offered once per life (reset on CONTINUE). Built

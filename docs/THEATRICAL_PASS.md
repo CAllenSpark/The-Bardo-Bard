@@ -13,18 +13,28 @@ directive.*
   disclosure via `visual.entrance:"flood"`, the entity silent); #4 THE MOMENT
   BETWEEN (the fade-to-light rebirth on CONTINUE, entity coming apart and
   blooming back, in-band so it never paints over text); #6 THE HELD NON-RESPONSE
-  (answering the keeper's `react:"still"` holds the silence ~1.4s); #9 THE CURSOR
-  GASP (`visual.entrance:"gasp"` on `back_threshold` freezes the cursor-lean for
-  a beat). The living-art interactivity (cursor-follow, click-bloom, pooling,
-  wary recoil) and the fixed-stage layout are the frame these ride on. Timed
-  flourishes are gated to a real motion-friendly browser (`animated`), so tests
-  and reduced-motion resolve instantly.
+  (answering the keeper's `react:"still"` holds the silence ~1.4s); #8 IT WAS
+  ALWAYS THE ROOM (a recognized soul's boot breathes a faint accent-coloured tint
+  across the whole page — body/background level only, never ink over text — then
+  recedes; reduced-motion: no tint); #9 THE CURSOR GASP (`visual.entrance:"gasp"`
+  on `back_threshold` freezes the cursor-lean for a beat); #10 THE SIGIL WRITES
+  ITSELF (the sigil's strokes ink themselves on via `pathLength="1"` +
+  `stroke-dashoffset`, the memory-mark settling last, the carried point arriving
+  after all of it — and the Ω sigil a single dot alone in negative space;
+  reduced-motion: fully drawn). The living-art interactivity (cursor-follow,
+  click-bloom, pooling, wary recoil), the entity's **voice** (opt-in generative
+  audio — see below), and the fixed-stage layout are the frame these ride on.
+  Timed flourishes are gated to a real motion-friendly browser (`animated`), so
+  tests and reduced-motion resolve instantly.
+- **The voice (audio):** the drone bed gained soft pentatonic bells that voice
+  the entity's own gestures and its idle curiosity — playful and varied, and, by
+  construction, never a verdict: pitch comes from a wandering index that advances
+  on every note (the same gesture never sounds the same twice), timbre only
+  mirrors the visible gesture. Opt-in, never autoplays; a no-op without WebAudio.
 - **Recommended next (not yet built):** #5 END GAME UNADORNED and #7
   thinning-as-depletion (both largely already satisfied — the endgame rung
-  arrives at the thinnest pulse with no flourish; verify and tune); #10 the sigil
-  writing itself (SVG stroke-dashoffset — feasible, Medium); #8 the
-  browser-as-stage breath (body-level tint, NEVER the ink canvas over text);
-  #11 the crowd-wash (build with the §4.4 honesty guardrail or cut).
+  arrives at the thinnest pulse with no flourish; verify and tune); #11 the
+  crowd-wash (build with the §4.4 honesty guardrail or cut).
 
 ---
 

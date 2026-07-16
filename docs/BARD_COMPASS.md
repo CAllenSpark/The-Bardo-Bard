@@ -738,6 +738,38 @@ flagged; the Cloudflare deploy (`wrangler.toml` ready). See `docs/TESTER_SWOT.md
 
 ## 13. Session log (append-only)
 
+- **2026-07-16 — The sigil writes itself, the room breathes, and the entity finds
+  its voice (CD directive: "#10 and #8 and… the audio design… as playful and
+  curious as the entity").** Three moments from `docs/THEATRICAL_PASS.md`, plus an
+  audio redesign. **#10 THE SIGIL WRITES ITSELF:** the soul-record sigil now inks
+  itself on — `pathLength="1"` + a `stroke-dashoffset` draw-on for the perimeter,
+  rings and fractures; the moving mark (its own dash pattern rules out the trick)
+  fades in with them; the memory-mark at the heart settles **last**; the carried
+  point arrives after all of it. The Ω sigil is a single dot that arrives alone in
+  vast negative space. Reduced-motion: fully drawn, no hidden strokes. **#8 IT WAS
+  ALWAYS THE ROOM:** for a soul the Bard has *recognized* (§15), the boot greeting
+  breathes a faint accent-coloured radial tint across the whole page — **body/
+  background level only** (`body::before`, `z-index:-1`), never the ink canvas over
+  text (the standing rule + the caught takeover bug) — for a few seconds, then it
+  recedes. Rare and earned; an ordinary return does not trigger it; reduced-motion:
+  no tint. **THE VOICE (audio):** the Phase-5 drone bed kept, but the entity now
+  has a voice — soft pentatonic bells that voice its own visible gestures (bloom
+  brighter, contract lower) and, in stillness, an idle *curiosity* note it plays on
+  its own; the bed gained a slow cutoff drift so it, too, is faintly curious.
+  **The non-verdict invariant is preserved by construction** (§4/§15): a tone's
+  pitch comes from a wandering index that advances on *every* note, so the same
+  gesture never sounds the same twice and can encode no ranking — timbre only
+  mirrors the gesture the player already sees. This supersedes Phase 5's "the
+  drone does not react to choices" stance: the voice reacts exactly as the face
+  does — deliberately, and meaninglessly. Still opt-in, still never autoplays
+  (engine constructed only in the toggle's click handler), still a silent no-op
+  without WebAudio. New guard: a unit test locks the draw-on markup and the lone-Ω
+  dot. 138 tests (+1); tsc clean; 63 KB gz; verified in real Chromium at
+  900/375/320px + reduced-motion (sigil draw-on and particle-arrives-last, Ω lone
+  dot, the recognized-boot breath and its recession, an ordinary boot staying
+  still, and sound-on choices playing without error), zero console errors. Now
+  shipped: #1/#2/#3/#4/#6/#8/#9/#10; queued: #5/#7 (mostly satisfied), #11.
+
 - **2026-07-16 — Presentation & theatrical pass (CD directive).** Two shipped
   commits + a commissioned Journey/ustwo designer pass (`docs/THEATRICAL_PASS.md`).
   **Structural (reported fixes):** the desk is now a **fixed stage** — the viewport

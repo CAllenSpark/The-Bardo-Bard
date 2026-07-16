@@ -45,10 +45,20 @@ describe('the sigil (Gate 4: deterministic evidence)', () => {
     expect(sigil.svg).toContain('polyline'); // complicate opened the perimeter — it does not return home
   });
 
-  it('the Ω sigil is almost entirely negative space', () => {
+  it('is authored to write itself: strokes ink on, the heart lands last (#10)', () => {
+    const sigil = buildSigil(play(SPIRAL_PATH));
+    expect(sigil.svg).toContain('pathLength="1"'); // normalized so the draw-on times evenly
+    expect(sigil.svg).toContain('class="sig-draw"'); // the perimeter inks itself on
+    expect(sigil.svg).toContain('class="sig-center"'); // the memory-mark arrives last
+    expect(sigil.svg).toContain('class="sig-fade"'); // the spiral arm fades in (its dashes rule out draw-on)
+  });
+
+  it('the Ω sigil is almost entirely negative space — a lone dot that just arrives', () => {
     const sigil = buildSigil(omegaState());
     expect(sigil.svg.length).toBeLessThan(300);
     expect((sigil.svg.match(/<circle/g) ?? []).length).toBe(1);
+    expect(sigil.svg).toContain('sigil-particle');
+    expect(sigil.svg).not.toContain('sig-draw'); // nothing to ink — the dot simply arrives
     expect(sigil.description).toContain('empty space');
   });
 });

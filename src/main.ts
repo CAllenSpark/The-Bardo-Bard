@@ -20,7 +20,7 @@ import { hoverGesture } from './engine/rorschach';
 import { Blot } from './ui/blot';
 import { appendVigilBeat, appendVigilOption, ensureCrisisFooter, render } from './ui/render';
 import type { RenderOptions } from './ui/render';
-import { mountAudioToggle } from './ui/audio';
+import { mountAudioToggle, voice } from './ui/audio';
 import reincarnationFile from '../content/reincarnation/reincarnation.json';
 import ladderFile from '../content/vigil/ladder.json';
 import scheduleFile from '../content/vigil/schedule.json';
@@ -262,6 +262,14 @@ export function mount(root: HTMLElement): void {
     rebirthEl.classList.add('rising');
     window.setTimeout(() => rebirthEl.classList.remove('rising'), 1100);
   };
+  // IT WAS ALWAYS THE ROOM (the designer's #8): once, for a soul the Bard has
+  // recognized, the whole page breathes in the entity's colour for a few seconds
+  // then recedes. Rare and earned; body-level tint only, never ink over text.
+  const roomBreath = (): void => {
+    if (!animated || typeof document === 'undefined') return;
+    document.body.classList.add('stage-breath');
+    window.setTimeout(() => document.body.classList.remove('stage-breath'), 6500);
+  };
 
   // Hover attention (CD directive 2026-07-14): when a pointer rests on any
   // button the face draws down with anticipation — or dances, if the hash of
@@ -337,7 +345,12 @@ export function mount(root: HTMLElement): void {
 
   const reactToChoice = (effects: Record<string, number> | undefined): void => {
     const authored = getNode(graph, state.node).visual?.react as Gesture | undefined;
-    blot.react(authored ?? gestureFor(effects));
+    const gesture = authored ?? gestureFor(effects);
+    blot.react(gesture);
+    // The voice follows the visible reaction — never the choice's meaning, and
+    // never the held silence (which stays silent). Pitch wanders, so it ranks
+    // nothing (see audio.ts).
+    if (gesture !== 'still' && gesture !== 'none') voice.note(gesture);
   };
 
   const handlers = {
@@ -387,6 +400,7 @@ export function mount(root: HTMLElement): void {
       } else {
         const rung = rungById(rungId);
         blot.react('bloom'); // the Bard got what it asked for
+        voice.note('bloom');
         state = vigilFold(state, rung);
         flushTallies();
         rerender({ ackLine: rung.ack ? fillCensus(rung.ack) : undefined });
@@ -497,10 +511,15 @@ export function mount(root: HTMLElement): void {
     // light (the walk into the light). Kept rare and deterministic.
     const entered = getNode(graph, state.node);
     if (lastEntranceNode !== state.node) {
+      if (typeof document !== 'undefined') document.body.classList.remove('stage-breath');
       const entrance = entered.visual?.entrance;
-      if (entrance === 'emit') blot.emit(entered.text.base.slice(0, 28));
-      else if (entrance === 'gasp') blot.gasp(1300);
+      if (entrance === 'emit') {
+        blot.emit(entered.text.base.slice(0, 28));
+        voice.note('attend'); // a faint tone as the question thinks itself into being
+      } else if (entrance === 'gasp') blot.gasp(1300);
       else if (entrance === 'flood') flood();
+      // The room breathes for a recognized soul at the desk (#8) — rare, earned.
+      if (state.node === 'boot_notice' && isRecognized()) roomBreath();
     }
     lastEntranceNode = state.node;
     startVigilIfEligible();
