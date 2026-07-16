@@ -140,6 +140,19 @@ export class Blot {
     this.heldTarget = 0;
   }
 
+  /** The entity claims the whole browser as its stage for a moment, floods, then
+   *  recollects into its band (a transition flourish; CD 2026-07-16). */
+  takeover(ms: number): void {
+    if (this.reduced || !this.ctx) return;
+    this.wrap.classList.add('stage-full');
+    this.resize();
+    this.react('bloom');
+    window.setTimeout(() => {
+      this.wrap.classList.remove('stage-full');
+      this.resize();
+    }, ms);
+  }
+
   destroy(): void {
     if (this.timer !== null) clearInterval(this.timer);
     this.stopLoop();

@@ -11,6 +11,8 @@ export interface RenderHandlers {
   onForget: () => void;
   /** Launch the returning-customer intake survey (§15 / OD-14). */
   onIntake: () => void;
+  /** Begin the next life from an ending — the turn of the loop (CD 2026-07-16). */
+  onContinue: () => void;
 }
 
 export interface RenderOptions {
@@ -206,6 +208,20 @@ export function render(
       row.appendChild(exportButton);
       screen.appendChild(row);
     }
+
+    // CONTINUE — the loop turns: begin the next life. The record stands; a
+    // played ending returns to the desk, the closed Ω desk reopens as the
+    // caught exception ("you came back. Surprising.").
+    const continueRow = document.createElement('div');
+    continueRow.className = 'continue-row';
+    const continueButton = document.createElement('button');
+    continueButton.type = 'button';
+    continueButton.className = 'continue';
+    continueButton.dataset.systemId = 'continue';
+    continueButton.textContent = node.id.startsWith('omega_') ? 'BEGIN AGAIN' : 'CONTINUE';
+    continueButton.addEventListener('click', () => handlers.onContinue());
+    continueRow.appendChild(continueButton);
+    screen.appendChild(continueRow);
   }
 
   // The passport desk: totenpass import, Lethe, and the codex — boot only.

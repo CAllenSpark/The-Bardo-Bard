@@ -15,9 +15,13 @@
   * { box-sizing: border-box; }
   html { height: 100%; }
   body {
-    /* min-height, never height: a fixed-height flex body shrinks #bardo to
-       one viewport and traps the sticky doors bar mid-page on long screens. */
-    min-height: 100%;
+    /* The desk is a fixed stage now (CD 2026-07-16): the viewport does not
+       scroll — the entity is pinned in view and the text/choices scroll within
+       their own box. body is the whole stage; #bardo fills it, the crisis line
+       pins beneath. */
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
     margin: 0;
     background: var(--field);
     color: var(--ink);
@@ -31,14 +35,51 @@
   #bardo {
     width: 100%;
     max-width: 44rem;
-    min-height: 100vh;
-    min-height: 100dvh;
-    flex-shrink: 0;
+    flex: 1;
+    min-height: 0;
     padding: 1rem 1.25rem 0;
     display: flex;
     flex-direction: column;
   }
-  .screen { flex: 1; }
+  /* The scroll box: text and choices live here and scroll; the entity above and
+     the crisis line below stay put. Glowing cues appear when there is more. */
+  .scroll-region { position: relative; flex: 1; min-height: 0; display: flex; }
+  #stage {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #303034 transparent;
+  }
+  #stage::-webkit-scrollbar { width: 8px; }
+  #stage::-webkit-scrollbar-thumb { background: #303034; border-radius: 4px; }
+  .scroll-cue {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    color: var(--accent);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 320ms ease;
+    z-index: 5;
+    text-shadow: 0 0 8px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+  .scroll-cue.up { top: 0; background: linear-gradient(to bottom, var(--field), transparent); }
+  .scroll-cue.down { bottom: 0; background: linear-gradient(to top, var(--field), transparent); }
+  .scroll-region.can-up .scroll-cue.up,
+  .scroll-region.can-down .scroll-cue.down { opacity: 0.9; pointer-events: auto; cursor: pointer; }
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-region.can-up .scroll-cue.up,
+    .scroll-region.can-down .scroll-cue.down { animation: cue-glow 1.8s ease-in-out infinite; }
+    @keyframes cue-glow { 0%, 100% { opacity: 0.45; } 50% { opacity: 0.95; } }
+  }
+  .screen { min-height: min-content; }
   .bard-text {
     white-space: pre-wrap;
     font: inherit;
@@ -58,11 +99,9 @@
   button:hover { border-color: var(--accent); color: var(--accent); }
   button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .doors {
-    /* Sticky, in normal flow: always visible while scrolling, but reserves its
-       own space at the end of the column so it can never cover the last
-       choice — a fixed overlay failed the mobile tap-target audit. */
-    position: sticky;
-    bottom: 0;
+    /* End of the scroll content (the entity is pinned above, so the doors no
+       longer need to be sticky; the glowing down-cue signals them when the
+       screen is long). */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -89,15 +128,24 @@
   .ack { color: var(--dim); }
   .ledger-reveal, .full-ledger { color: var(--dim); font-size: 0.85em; }
   .blot-wrap {
-    /* THE BARD — the dominant zone (CD mockup 2026-07-14): the face owns the
-       top of the desk, the text and choices sit beneath it. */
+    /* THE BARD — the dominant zone (CD mockup 2026-07-14), now pinned in view
+       above the scroll box (CD 2026-07-16) so it can never scroll away. */
     position: relative;
-    height: clamp(11rem, 38vh, 20rem);
+    height: clamp(10rem, 34vh, 19rem);
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1rem;
     color: #80807a;
+  }
+  /* The entity claiming the whole browser as its stage (a transition flourish). */
+  .blot-wrap.stage-full {
+    position: fixed;
+    inset: 0;
+    height: auto;
+    margin: 0;
+    z-index: 40;
   }
   .blot-canvas {
     position: absolute;
@@ -158,13 +206,40 @@
     min-width: 10rem;
   }
   .crisis {
+    flex-shrink: 0;
     width: 100%;
+    max-width: 44rem;
     text-align: center;
-    font-size: 0.72em;
+    font-size: 0.68em;
+    line-height: 1.5;
     color: var(--dim);
-    padding: 1.25rem 1rem 1.5rem;
+    padding: 0.5rem 1rem 0.7rem;
   }
   .crisis a { color: inherit; }
+  /* CONTINUE — begin the next life. Prominent, centered, the turn of the loop. */
+  .continue-row { display: flex; justify-content: center; margin: 2.5rem 0 1.5rem; }
+  .continue {
+    font-size: 1em;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    border-color: var(--accent);
+    padding: 0.7rem 2rem;
+    text-align: center;
+  }
+  .continue:hover { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  /* The rebirth: the screen goes to light between one life and the next. */
+  .rebirth {
+    position: fixed;
+    inset: 0;
+    background: #f2f1ea;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 60;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .rebirth { transition: opacity 850ms ease; }
+    .rebirth.rising { opacity: 1; }
+  }
   .profile-rule { color: var(--dim); letter-spacing: 0.2em; margin: 0 0 1rem; }
   .profile-title { font-size: 1.1em; font-weight: 600; color: var(--accent); margin: 0 0 1rem; }
   .profile-body { margin: 0 0 1.25rem; }

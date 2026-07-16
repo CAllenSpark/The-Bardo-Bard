@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { mount } from '../src/main';
 import { clearTallies } from '../src/engine/tally';
 import { lifeCount, loadMemory, recordLife } from '../src/engine/memory';
@@ -139,6 +139,25 @@ describe('THE BREATH (Gate 5): reincarnation, Lethe, the codex', () => {
     expect(lifeCount()).toBe(0);
     expect(localStorage.getItem('bardo_completed')).toBeNull();
     expect(root.querySelector('.memory')).toBeNull();
+  });
+
+  it('CONTINUE turns the loop: an ending returns to the desk as a fresh life', () => {
+    vi.useFakeTimers();
+    try {
+      const root = freshMount();
+      for (const id of SPINE) clickChoice(root, id);
+      const cont = root.querySelector('button.continue') as HTMLButtonElement | null;
+      expect(cont?.textContent).toBe('CONTINUE');
+      expect(lifeCount()).toBe(1); // the life just lived is recorded
+      cont!.click();
+      vi.advanceTimersByTime(1400); // ride the rebirth to the far side
+      // back at the desk, greeted as a return, at the top of a fresh run
+      expect(root.textContent).toContain('NOTICE, FILED IN PLAIN LANGUAGE');
+      expect(root.querySelector('.memory')?.textContent).toContain('Last incarnation, you chose SPIRAL');
+      expect(root.querySelector('button.continue')).toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('the codex is reachable from boot and from the profile', () => {

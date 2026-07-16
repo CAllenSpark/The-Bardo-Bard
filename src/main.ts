@@ -190,12 +190,61 @@ export function mount(root: HTMLElement): void {
   configureCensus({ url: ledgerUrl });
   void refreshCensus(MANIFEST_KEYS);
 
-  // The Bard's face lives above the stage and survives re-renders.
+  // The Bard's face lives above the stage and survives re-renders. The stage
+  // scrolls within its own box (CD 2026-07-16) so the entity is never scrolled
+  // out of view; glowing cues appear when there is more text above or below.
   root.textContent = '';
   const blot = new Blot(root);
+  const scrollRegion = document.createElement('div');
+  scrollRegion.className = 'scroll-region';
   const stage = document.createElement('div');
   stage.id = 'stage';
-  root.appendChild(stage);
+  scrollRegion.appendChild(stage);
+  const cueUp = document.createElement('div');
+  cueUp.className = 'scroll-cue up';
+  cueUp.setAttribute('aria-hidden', 'true');
+  cueUp.textContent = '▴';
+  const cueDown = document.createElement('div');
+  cueDown.className = 'scroll-cue down';
+  cueDown.setAttribute('aria-hidden', 'true');
+  cueDown.textContent = '▾';
+  cueUp.addEventListener('click', () => stage.scrollBy({ top: -stage.clientHeight * 0.8, behavior: 'smooth' }));
+  cueDown.addEventListener('click', () => stage.scrollBy({ top: stage.clientHeight * 0.8, behavior: 'smooth' }));
+  scrollRegion.append(cueUp, cueDown);
+  root.appendChild(scrollRegion);
+
+  const updateCues = (): void => {
+    const max = stage.scrollHeight - stage.clientHeight;
+    scrollRegion.classList.toggle('can-up', stage.scrollTop > 4);
+    scrollRegion.classList.toggle('can-down', stage.scrollTop < max - 4);
+  };
+  stage.addEventListener('scroll', updateCues, { passive: true });
+  if (typeof window !== 'undefined') window.addEventListener('resize', updateCues);
+
+  // The rebirth: the screen goes to light between one life and the next, so the
+  // loop feels like a life occurred in the moment between (CD 2026-07-16).
+  const reduced =
+    typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rebirthEl = document.createElement('div');
+  rebirthEl.className = 'rebirth';
+  rebirthEl.setAttribute('aria-hidden', 'true');
+  if (typeof document !== 'undefined') document.body.appendChild(rebirthEl);
+  const rebirth = (atPeak: () => void): void => {
+    if (reduced || typeof requestAnimationFrame !== 'function') {
+      atPeak();
+      return;
+    }
+    // The entity comes apart with you as the screen goes to light, and the new
+    // life blooms open on the far side (the designer's "moment between"). The
+    // drama stays in the entity's band so it never paints over the desk's text.
+    blot.react('contract');
+    rebirthEl.classList.add('rising'); // fade to light
+    window.setTimeout(() => {
+      atPeak(); // a life turns over behind the light
+      blot.react('bloom'); // and the next one opens
+      window.setTimeout(() => rebirthEl.classList.remove('rising'), 250); // fade back in
+    }, 900);
+  };
 
   // Hover attention (CD directive 2026-07-14): when a pointer rests on any
   // button the face draws down with anticipation — or dances, if the hash of
@@ -336,6 +385,24 @@ export function mount(root: HTMLElement): void {
       if (clock) stopVigil();
       mountSurvey(stage, SURVEY, () => rerender());
     },
+    onContinue: () => {
+      // The loop turns (CD 2026-07-16): the screen goes to light, a life passes
+      // in the white, and the desk re-opens for the next one. The life just
+      // lived is already recorded (onEnded), so the next boot greets a return.
+      stopVigil();
+      rebirth(() => {
+        state = createState(graph);
+        tallied = 0;
+        completionsSent = false;
+        vigilSpent = false;
+        hiddenLineShown = false;
+        vigilSparseness = 0;
+        prior = lastLife();
+        rememberBoot();
+        void refreshCensus(MANIFEST_KEYS);
+        rerender();
+      });
+    },
   };
 
   const startVigilIfEligible = (): void => {
@@ -348,6 +415,7 @@ export function mount(root: HTMLElement): void {
       // to sparse points or a single pulse — the CD's living pixel).
       vigilSparseness = Math.min(9, SCHEDULE.rungs.findIndex((r) => r.id === scheduled.id) + 2);
       blot.set(moodFor(graph, state), vigilSparseness);
+      updateCues(); // the ladder grew — there may now be more below
     });
     // A second, visibility-locked clock volunteers the relational retractions
     // if the player keeps waiting past hope/loss (P0-6). No buttons, no state.
@@ -387,6 +455,10 @@ export function mount(root: HTMLElement): void {
     });
     blot.set(moodFor(graph, state), vigilSparseness);
     startVigilIfEligible();
+    // A fresh screen starts at the top of its scroll box, and the cues re-read
+    // whether there is more above or below.
+    stage.scrollTop = 0;
+    updateCues();
   };
 
   // Waiting must be waiting (Compass §4.3): hidden-tab time never counts, and
