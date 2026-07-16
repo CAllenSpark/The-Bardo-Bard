@@ -738,6 +738,27 @@ flagged; the Cloudflare deploy (`wrangler.toml` ready). See `docs/TESTER_SWOT.md
 
 ## 13. Session log (append-only)
 
+- **2026-07-16 — Presentation & theatrical pass (CD directive).** Two shipped
+  commits + a commissioned Journey/ustwo designer pass (`docs/THEATRICAL_PASS.md`).
+  **Structural (reported fixes):** the desk is now a **fixed stage** — the viewport
+  no longer scrolls; the entity is **pinned in view** above a **scroll box** for
+  the text/choices, with glowing ▴/▾ cues (clickable) when there is more; the
+  doors are no longer sticky (the box + cue carry reachability). A **CONTINUE**
+  button turns the loop from any true ending (BEGIN AGAIN on the closed Ω desk),
+  riding a **rebirth** transition: the screen fades to light, a life passes in the
+  white, the desk re-opens greeting a return; the entity contracts as the light
+  rises and blooms open after — **kept in its band** so it never paints over text
+  (a takeover-over-text bug caught in verification and fixed). **Feeling:** the
+  entity is now living art — 2D cursor-follow, click-to-bloom, press-to-pool, and
+  a wary **recoil** every 3rd–5th encounter; and **letters swirl off it**
+  (`visual.entrance:"emit"`, a transient canvas particle layer) as an authored
+  question arrives — **rare by design**, authored on `a1_consent` and `f1_verbs`
+  only (the designer's restraint note). All interactivity + emit + rebirth are
+  reduced-motion no-ops. Maps to the designer's #1/#2/#4; #3/#5/#6/#7/#8/#9/#10/#11
+  remain queued (the `takeover()` primitive is in place for #3's light-flood).
+  136 tests (+1); tsc clean; 62 KB gz; verified in real Chromium at 900/375/320px,
+  zero console errors.
+
 - **2026-07-15 — Full Mad-Libs coverage + the Ω-glyph spark (CD directive; §15).**
   Wired the last four intake variables to nodes reached in normal play
   (weather→Department, animal→claims, joy→life review, word→verdict), each tied to

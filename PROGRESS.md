@@ -77,6 +77,16 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-16** — **Presentation & theatrical pass** (CD directive; Compass §13,
+  `docs/THEATRICAL_PASS.md`). Fixed stage: the entity is pinned in view above a
+  scroll box with glowing ▴/▾ cues (the reported scroll-away bug). A CONTINUE
+  button turns the loop from any ending through a fade-to-light **rebirth** ("a
+  life occurred in the moment between"). The entity is now living art —
+  cursor-follow, click-bloom, press-to-pool, wary recoil — and **letters swirl
+  off it** as the first question and the nine verbs arrive (rare, content-driven).
+  All new motion is reduced-motion-safe. A commissioned Journey/ustwo designer
+  proposed 11 moments; #1/#2/#4 shipped, the rest queued. 136 tests; 62 KB gz;
+  verified in real Chromium.
 - **2026-07-15** — **Full Mad-Libs coverage + the Ω-glyph spark** (CD directive;
   Compass §15). Wired the last four intake variables to nodes reached in normal
   play (weather / animal / joy / word), each tied to a running gag; a test guards
