@@ -7,21 +7,24 @@ theatrical moments. Recorded verbatim below; it is a design menu, not a
 directive.*
 
 **Status of these moments (2026-07-16):**
-- **Shipped this session:** #4 THE MOMENT BETWEEN (the fade-to-light rebirth on
-  CONTINUE, with the entity coming apart and blooming back — done in-band so it
-  never paints over text); #1/#2 THE QUESTION COMES FROM IT / THE VERBS BLOOM
-  (letters swirl off the entity, `visual.entrance:"emit"`, authored on
-  `a1_consent` and `f1_verbs` only — kept rare per the restraint note). The
-  living-art interactivity (cursor-follow, click-bloom, pooling, wary recoil)
-  and the fixed-stage layout (pinned entity + scroll box + cues) are the frame
-  these ride on.
-- **Recommended next (not yet built):** #3 THE WALK INTO THE LIGHT (white flood
-  from the single point at END GAME — the `takeover()` primitive is already in
-  the blot for this text-free moment); #5 END GAME UNADORNED; #6 WHOM DO I SERVE
-  held stillness; #7 the thinning-as-depletion tuning; #9 THE CURSOR GASP at
-  `back_threshold`; #10 the sigil writing itself; #8 the browser-as-stage breath
-  (do it as a body-level tint, never the ink canvas over text — see the bug note
-  in §13); #11 the crowd-wash (build with the §4.4 honesty guardrail or cut).
+- **Shipped:** #1/#2 THE QUESTION COMES FROM IT / THE VERBS BLOOM (letters swirl
+  off the entity, `visual.entrance:"emit"`, on `a1_consent` and `f1_verbs` only);
+  #3 THE WALK INTO THE LIGHT (at END GAME the screen floods to light over the
+  disclosure via `visual.entrance:"flood"`, the entity silent); #4 THE MOMENT
+  BETWEEN (the fade-to-light rebirth on CONTINUE, entity coming apart and
+  blooming back, in-band so it never paints over text); #6 THE HELD NON-RESPONSE
+  (answering the keeper's `react:"still"` holds the silence ~1.4s); #9 THE CURSOR
+  GASP (`visual.entrance:"gasp"` on `back_threshold` freezes the cursor-lean for
+  a beat). The living-art interactivity (cursor-follow, click-bloom, pooling,
+  wary recoil) and the fixed-stage layout are the frame these ride on. Timed
+  flourishes are gated to a real motion-friendly browser (`animated`), so tests
+  and reduced-motion resolve instantly.
+- **Recommended next (not yet built):** #5 END GAME UNADORNED and #7
+  thinning-as-depletion (both largely already satisfied — the endgame rung
+  arrives at the thinnest pulse with no flourish; verify and tune); #10 the sigil
+  writing itself (SVG stroke-dashoffset — feasible, Medium); #8 the
+  browser-as-stage breath (body-level tint, NEVER the ink canvas over text);
+  #11 the crowd-wash (build with the §4.4 honesty guardrail or cut).
 
 ---
 

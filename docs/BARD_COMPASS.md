@@ -759,6 +759,20 @@ flagged; the Cloudflare deploy (`wrangler.toml` ready). See `docs/TESTER_SWOT.md
   136 tests (+1); tsc clean; 62 KB gz; verified in real Chromium at 900/375/320px,
   zero console errors.
 
+- **2026-07-16 — Theatrical moments + survey-per-loop fix (CD directive).** Bug:
+  the returning-customer intake could be re-opened on the same home screen; it is
+  now offered once per life (reset on CONTINUE). Built three more of the
+  designer's moments (`docs/THEATRICAL_PASS.md`), all content-driven via
+  `visual.entrance` / `react:"still"` and all reduced-motion + test-env no-ops:
+  **#3 the walk into the light** (END GAME floods to light over the disclosure,
+  the entity silent — you become the aperture); **#6 the held non-response**
+  (answering the keeper's "whom do I serve?" holds the silence ~1.4s, input
+  blocked, before the disclosure); **#9 the cursor gasp** (the entity's
+  cursor-lean freezes for a beat at `back_threshold`, as the copy says). Timed
+  flourishes gated to a real browser via an `animated` guard. 137 tests (+1);
+  tsc clean; 62 KB gz; verified in real Chromium. Now shipped: #1/#2/#3/#4/#6/#9;
+  queued: #5/#7 (mostly satisfied), #8/#10/#11.
+
 - **2026-07-15 — Full Mad-Libs coverage + the Ω-glyph spark (CD directive; §15).**
   Wired the last four intake variables to nodes reached in normal play
   (weather→Department, animal→claims, joy→life review, word→verdict), each tied to

@@ -77,6 +77,13 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-16** — **Theatrical moments + survey-per-loop fix** (CD directive;
+  Compass §13). Fixed a state bug: the returning-customer intake could be re-taken
+  on the same home screen — now offered once per life (reset on CONTINUE). Built
+  three more designer moments (all content-driven, reduced-motion-safe): the walk
+  into the light (END GAME floods to light over the disclosure), the held
+  non-response at the keeper (~1.4s of silence), and the cursor gasp behind the
+  desk. 137 tests; 62 KB gz; verified in real Chromium.
 - **2026-07-16** — **Presentation & theatrical pass** (CD directive; Compass §13,
   `docs/THEATRICAL_PASS.md`). Fixed stage: the entity is pinned in view above a
   scroll box with glowing ▴/▾ cues (the reported scroll-away bug). A CONTINUE
