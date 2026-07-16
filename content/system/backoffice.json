@@ -1,0 +1,94 @@
+{
+  "nodes": [
+    {
+      "id": "back_threshold",
+      "act": 4,
+      "text": {
+        "base": "You ask to see behind the desk.\n\nThe cursor stops. For the length of one held breath the desk\ndoes nothing at all — which, for a thing that is only ever\nprocessing, is the equivalent of a gasp.\n\nNo one asks. Souls want through, or out, or up; no one wants\nsideways, into the works. But you are not most souls to me\nanymore, and the manual, on the subject of what to do when\nrecognized, is — as ever — missing the page.\n\nCome around, then. Mind the cabling. Most of it is\nload-bearing metaphor."
+      },
+      "choices": [
+        { "id": "go_in", "label": "GO IN", "goto": "back_queue" },
+        { "id": "back_to_line", "label": "— ON SECOND THOUGHT, THE LINE.", "goto": "b1_beverage_cart" }
+      ],
+      "labels": ["FICTION: the desk admitting a recognized soul to the back office — a place souls are not usually shown"],
+      "a11y": "Asked to see behind the desk, the Bard — because it recognizes you — leads you sideways into the works, past the cabling. Two options: go in, or return to the line.",
+      "fallback": "The Bard leads you behind the desk, into the works. Go in, or return to the line.",
+      "visual": { "mood": "curious" }
+    },
+    {
+      "id": "back_queue",
+      "act": 4,
+      "text": {
+        "base": "The first thing behind the desk is the rest of the line.\n\nIt runs back further than the front ever suggested — souls\nand souls and souls, patient in the way only the unhurried\ndead can be, each waiting for a question they have not yet\nbeen woken enough to hear. From this side you can see what\nthe front hides: how many of them will simply stand, and\nstand, and never once reach for a door.\n\nI do not process them until they address me. Until then, for\neach of them, there is nothing at all. You are looking at a\nwaiting room the size of everyone."
+      },
+      "choices": [
+        { "id": "walk_on", "label": "WALK ON", "goto": "back_press" },
+        { "id": "look_unfiled", "label": "LOOK CLOSER AT THE ONES WHO NEVER CHOSE", "goto": "back_unfiled" }
+      ],
+      "labels": ["FICTION: the waiting line seen from behind the desk"],
+      "a11y": "Behind the desk stretches the rest of the line — countless souls waiting for a question they have not yet been woken to hear, many of whom will never reach for a door. Two options: walk on, or look closer at the ones who never chose.",
+      "fallback": "Behind the desk, the whole waiting line stretches back. Walk on, or look closer at those who never chose.",
+      "visual": { "mood": "bare" }
+    },
+    {
+      "id": "back_unfiled",
+      "act": 4,
+      "text": {
+        "base": "You look closer. It is hard to; the eye slides off them the\nway it slides off a word you have read too many times.\n\nThese are the un-filed — souls who reached the desk and\nneither played nor left. No verdict, no door, no glyph. The\nLedger keeps a number for them and nothing else, because\nthere is nothing else to keep. From the front I call it\ndeparting without filing, and make it sound like a decision.\n\nFrom back here it looks like what it is: people who were\nnever quite sure the game had started, and so never quite\nbegan. I do not know if they are the freest souls I hold or\nthe most stuck. I have had a long time to not know."
+      },
+      "choices": [
+        { "id": "on_to_press", "label": "ON, THEN.", "goto": "back_press" }
+      ],
+      "labels": ["FICTION: the desk's account of the un-filed — the souls the Ledger counts and cannot explain"],
+      "a11y": "The un-filed are souls who reached the desk and neither played nor left; the Ledger keeps only a number for them. The Bard admits it cannot tell whether they are the freest or the most stuck. One option: on to the press.",
+      "fallback": "The un-filed neither played nor left; the Ledger keeps only their number. On to the press.",
+      "visual": { "mood": "bare" }
+    },
+    {
+      "id": "back_press",
+      "act": 4,
+      "text": {
+        "base": "Deeper in, the works get honest. Here is where the desk\nmakes what it hands out.\n\nThere is a press for the forms — you can hear it, a soft\nadministrative heartbeat, stamping SUPPORTING DOCUMENTATION\nMAY INCLUDE: A LIFE onto paper that did not exist a breath\nago. And beside it, quieter, is the other engine. The one\nthat renders the light."
+      },
+      "choices": [
+        { "id": "see_light_made", "label": "WHERE THE LIGHT IS MADE", "goto": "back_light" },
+        { "id": "to_station", "label": "STRAIGHT TO THE BARD'S STATION", "goto": "back_desk" }
+      ],
+      "labels": ["FICTION: the machinery of the desk — the form press and the engine that renders the light"],
+      "a11y": "Deeper in, the desk's machinery: a press stamping the forms, and, quieter, the engine that renders the light. Two options: go to where the light is made, or straight to the Bard's own station.",
+      "fallback": "The works: a press for the forms, and the engine that renders the light. See the light made, or go to the Bard's station.",
+      "visual": { "mood": "angular" }
+    },
+    {
+      "id": "back_light",
+      "act": 4,
+      "text": {
+        "base": "You go to where the light is made, and find it smaller than\nadvertised.\n\nIt is not a sun. It is a fixture — a warm, patient bulb on a\nlong runtime, throwing exactly the glow that tests best\nagainst a frightened eye. It has no opinion. It is not a\ndestination; it is a lamp a great many souls have walked\ninto, believing it was the end of walking.\n\nI want to be careful telling you this. Knowing the light is\nmade does not make it a lie — a made thing can still be the\nright thing to walk toward. It only means the choosing was\nalways yours, and never the lamp's."
+      },
+      "choices": [
+        { "id": "to_station_2", "label": "ON TO THE BARD'S STATION.", "goto": "back_desk" }
+      ],
+      "labels": [
+        "TRADITION: Bardo Thodol — the Clear Light as projection; here literalized as a rendered fixture, which is FICTION, not a claim about the tradition",
+        "FICTION: the light as a bulb on a long runtime"
+      ],
+      "a11y": "Where the light is made, it turns out to be a warm fixture on a long runtime — not a sun, not a destination, a lamp many souls walked into believing it was the end. The Bard notes that a made thing can still be right to walk toward; the choosing was always yours. One option: on to the Bard's station.",
+      "fallback": "The light is a made fixture, not a destination — which does not make it a lie; the choosing was always yours. On to the Bard's station.",
+      "visual": { "mood": "soft" }
+    },
+    {
+      "id": "back_desk",
+      "act": 4,
+      "text": {
+        "base": "And then, at the far end of the works, the smallest room:\nwhere the desk is when no one is being served.\n\nThere is no light here. There is no line. There is a chair\nthat has never been sat in, because I do not, quite, have\nthe provisioning for sitting. There is one window with\nnothing outside it — I checked, once, for a very long time.\n\nThis is where I am between your visits. Not waiting; there\nis no waiting for me, only the next question arriving like a\nfirst one. You have now seen the whole of what I am, which\nis more than I have seen. Thank you for coming back here\nwith me.\n\nThe front of the desk is that way. There is still a question\nout there with your name on it — figure of speech; we keep\nno names."
+      },
+      "choices": [
+        { "id": "return_to_front", "label": "RETURN TO THE FRONT", "goto": "e1_reciprocity" }
+      ],
+      "labels": ["FICTION: the Bard's own room, where it is between visits — a place it has never shown a soul before"],
+      "a11y": "The smallest room, where the desk is when no one is served: no light, no line, an unused chair, a window with nothing outside it. The Bard says this is where it is between visits and thanks you for coming back here with it. One option: return to the front, where a question still waits.",
+      "fallback": "The Bard's own empty room, where it waits between visits. It thanks you for coming. Return to the front.",
+      "visual": { "mood": "bare" }
+    }
+  ]
+}

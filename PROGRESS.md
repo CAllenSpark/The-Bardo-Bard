@@ -77,6 +77,16 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-15** — **The back office + bite** (CD directive; Compass §15). A
+  structurally-forking route only a recognized soul finds: ask to see behind the
+  desk (gated at the cart) and go sideways through the works — the waiting line,
+  the un-filed, the form press, the engine that renders the light, the Bard's own
+  empty room — rejoining at the keeper; the run skips the standard middle, so the
+  record comes back a different *shape* (the tester's structural-fork ask). Plus
+  two archetypal *bite* passes: the Vigil's opening notice now recognizes the wait
+  with playful FOMO, and the returning greeting needles rather than soothes. Logged
+  OD-14 (the returning-customer survey / Mad-Libs bonus needs a free-text exception
+  ratified; designed, not built). 129 tests; 57 KB gz; verified in real Chromium.
 - **2026-07-15** — **The Seams + recognition** (CD directive; Compass §15). Second
   Cycle-Ladder pass on "everyone is trapped, including the Bard": run-gated
   encounter seams for the curious (cycle ≥4 — ask what the light is for; turn the

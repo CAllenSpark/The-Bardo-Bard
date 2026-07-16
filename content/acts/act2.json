@@ -53,13 +53,19 @@
           "label": "NOTHING — you're fine, thanks",
           "state": { "sovereign_thirst": 1, "defiance": 1 },
           "goto": "c0_dept_intro"
+        },
+        {
+          "id": "see_behind",
+          "label": "ASK TO SEE BEHIND THE DESK",
+          "goto": "back_threshold",
+          "gated": true
         }
       ],
       "labels": [
         "TRADITION: Orphic gold lamellae (Petelia, Hipponion) — the springs of Lethe and Mnemosyne",
         "FICTION: the Beverage Cart of the Dead, its cart, and its tap water"
       ],
-      "a11y": "A beverage cart offers seven cups, described in turn: Lethe, Mnemosyne, Mercy, Distillation, Communion, tap water, or nothing.",
+      "a11y": "A beverage cart offers seven cups, described in turn: Lethe, Mnemosyne, Mercy, Distillation, Communion, tap water, or nothing. A soul the Bard has come to recognize is also offered a way sideways: to ask to see behind the desk.",
       "fallback": "The cart squeaks. Choose a cup, or don't."
     },
     {

@@ -173,7 +173,9 @@ export function mount(root: HTMLElement): void {
     const ids: string[] = [];
     if (lives >= REFLECT_UNLOCK_LIVES) ids.push('reflect');
     if (lives >= SEAM_UNLOCK_LIVES) ids.push('ask_light', 'serve_turnabout');
-    if (isRecognized()) ids.push('want_bard');
+    // Recognition is the key to the back office: once the Bard relates to you
+    // as a peer, it will show you the works (a structurally different route).
+    if (isRecognized()) ids.push('want_bard', 'see_behind');
     return ids.length ? new Set(ids) : undefined;
   };
 

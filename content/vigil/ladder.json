@@ -3,7 +3,7 @@
   "rungs": [
     {
       "id": "patience",
-      "beat": "Still here. That's fine. The desk is very good at fine.\n\n(If you were hoping the question improves with age: it doesn't. It is the same question. I can make it get on with itself, if you'd like.)",
+      "beat": "Oh — trouble deciding? It happens to the best filings. Choices can be genuinely difficult, particularly the ones that turn out not to matter, which is most of them.\n\nStill: the desk does run on momentum, and there is, I'm assured, an enormous amount of afterlife going on just past this question. It would be a pity to keep it waiting. It has been so looking forward to you.",
       "label": "JUST GET ON WITH IT",
       "ack": "At once. The desk approves of momentum, officially.",
       "state": { "vigil_patience": 1 }

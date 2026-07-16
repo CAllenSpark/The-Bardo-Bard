@@ -219,6 +219,39 @@ describe('THE CYCLE LADDER (§15): reincarnation reveals the seams', () => {
     expect(isRecognized()).toBe(false);
   });
 
+  it('the back office forks the structure and rejoins at the keeper', () => {
+    const graph = buildGraph();
+    let s: GameState = createState(graph);
+    for (const id of ['begin', 'yes', 'approach', 'see_behind', 'go_in', 'walk_on', 'to_station', 'return_to_front']) {
+      s = advance(graph, s, id);
+    }
+    expect(s.node).toBe('e1_reciprocity'); // the backstage corridor rejoins the keeper
+    const tallies = new Set(s.committed.filter((c) => c.tally).map((c) => c.tally));
+    expect(tallies.has('A2')).toBe(true); // the early spine still happened
+    expect(tallies.has('C1')).toBe(false); // ...but the Department never got its turn
+    expect(tallies.has('D2')).toBe(false); // a genuinely different shape
+    // the backstage steps are never census-relevant, even from a tallied node
+    expect(s.committed.find((c) => c.choice === 'see_behind')?.tally).toBeUndefined();
+  });
+
+  it('the way behind the desk opens only to a recognized soul', () => {
+    const toCart = (root: HTMLElement): void => {
+      clickChoice(root, 'begin');
+      clickChoice(root, 'yes');
+      clickChoice(root, 'approach');
+    };
+    let root = freshMount(); // a first-timer
+    toCart(root);
+    expect(hasChoice(root, 'see_behind')).toBe(false);
+
+    raiseRecognition(); // the Bard has seen you
+    root = freshMount();
+    toCart(root);
+    expect(hasChoice(root, 'see_behind')).toBe(true);
+    clickChoice(root, 'see_behind');
+    expect(root.textContent).toContain('behind the desk');
+  });
+
   it('the Bard\'s own question stays closed to a soul who has not recognized it', () => {
     for (let i = 0; i < 3; i += 1) seedLife('approach'); // OFF THE FORM unlocked, not recognized
     const root = freshMount();

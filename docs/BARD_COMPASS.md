@@ -574,6 +574,7 @@ Externalize state between phases in `PROGRESS.md` + one git commit per gate.
 | OD-11 | Dashboard vs. reveal-after-lock: how much census may a prospective player see pre-play? | **Resolved by CD 2026-07-13:** headlines only ("souls served" + the unexplained Ω row); per-node splits after a completed run; time-series trends deferred |
 | OD-12 | Share-glyph compact code carries the full committed-choice vector (more than the visible emoji), with a copy-time disclosure line | Open — proposed as specced in §7; CD may prefer code = visible emoji only (weakens Soul Analysis to act-level comparison) |
 | OD-13 | Standing-exit tally mapping | **Resolved 2026-07-13 (Phase 1):** shared choices — exits tally F1 as `return` / `light` (`light` is the tenth F1 choice); no early/late distinction server-side. Passages scale early/mid/late client-side by act |
+| OD-14 | **Returning-customer survey / Mad-Libs** free-text `OTHER` (CD bonus, 2026-07-15) — the buttons-only/no-free-text pillar forbids free text *at MVP*; the survey is a post-MVP returning-player layer | **Open — needs CD ratification of the exception.** Proposed guardrails, binding if accepted: strictly **local-only** (localStorage, like reincarnation memory); **never transmitted, never in the Ledger** (the Ledger stays bare tallies — no PII, no free text server-side); **no runtime LLM** (Mad-Libs is pure string substitution); length-capped + newline-stripped; survey asks only light *preferences* (a drink, a small joy, a place), never identity/PII/how-you-died. Alternative if declined: buttons-only with a rich option set + a "SURPRISE ME" that picks for you (keeps the pillar intact, loses the player's own words) |
 
 ## 14. Pre-playtest design evaluation
 
@@ -673,13 +674,58 @@ seeker who can change the game master itself:
   recognition is truer, not better — no ending, unlock, or advantage rides on it,
   and it is reversible.
 
-**Still deferred (offered):** a branch that genuinely forks the *structure* (not
-just prose) so replay reveals a different shape — the tester SWOT's discussion
-point #3; extending the curiosity nudge beyond `a2`; the cross-life
-agency-immunization arc. See `docs/TESTER_SWOT.md` for the indie-narrative
-reception read that frames these.
+**Third pass — the back office + bite (CD 2026-07-15).**
+- **A structurally-forking route (the tester SWOT's point #3).** Once recognized,
+  a gated `see_behind` at the beverage cart opens **the back office**
+  (`content/system/backoffice.json`, act 4, untallied): a soul who is no longer
+  *most souls* is taken **sideways into the works** instead of being processed —
+  the rest of the waiting line and the un-filed, the form press and the engine
+  that *renders the light* (a bulb on a long runtime — "a made thing can still be
+  the right thing to walk toward"), and the smallest room, where the Bard is
+  between visits. It rejoins at the E1 keeper (which now lands differently). This
+  genuinely forks the *shape*: the run skips B2–D3, so the soul record comes back
+  sparse in the middle ("the Department never got its turn with you") — replay
+  reveals a different structure, not just different prose. Has its own internal
+  branch (the un-filed / where-the-light-is-made). Never crowned; the doors are
+  always in the room.
+- **Bite (the tester SWOT's point #2, CD "bite. yes.").** Two register shifts,
+  both archetypal (never personal — §9.2/§9.3 hold): the Vigil's opening notice
+  now *recognizes the wait* with teeth and playful bureaucratic FOMO ("trouble
+  deciding? … an enormous amount of afterlife going on just past this question …
+  it has been so looking forward to you") in place of the limp idle murmur the
+  tester flagged; and the returning greeting needles rather than soothes ("Back
+  already — and yes, I noticed the 'already' … They do all come back … I would be
+  flattered, if the desk were provisioned for flattery"). Neither favors any
+  option; the Vigil beat tempts *action*, not a door.
+
+**Still deferred (offered):** the **returning-customer survey / Mad-Libs
+personalization** (CD bonus idea 2026-07-15) — a ~10-question, buttons-or-skip-or-
+OTHER survey whose answers inject as `{variables}` through the run and are diffed
+across lives (variety gently favored as curiosity). **Carries a formal invariant
+exception to weigh** (OD-14 below): OTHER is free text, which the buttons-only/no-
+free-text pillar forbids at MVP — proposed as a strictly local, never-transmitted,
+never-in-the-Ledger, no-runtime-LLM returning-player layer. Also still open:
+extending the curiosity nudge beyond `a2`; the cross-life agency-immunization arc.
+See `docs/TESTER_SWOT.md`.
 
 ## 13. Session log (append-only)
+
+- **2026-07-15 — The back office + bite (CD directive; §15, third Cycle-Ladder
+  pass).** Acting on the CD's "everyone is trapped, including the Bard" and the
+  tester SWOT: shipped **a structurally-forking route** — a recognized soul can
+  ask to see behind the desk (gated `see_behind` at the cart → `backoffice.json`,
+  6 act-4 untallied nodes: the waiting line, the un-filed, the form press, the
+  engine that renders the light, the Bard's empty room), rejoining at the keeper;
+  the run skips B2–D3 so the record comes back a genuinely different *shape*, not
+  just different prose (tester point #3). Plus two **bite** passes (tester point
+  #2, CD "bite. yes."), both archetypal: the Vigil's opening notice now
+  recognizes the wait with playful bureaucratic FOMO instead of the limp murmur
+  ("trouble deciding? … so looking forward to you"), and the returning greeting
+  needles rather than soothes ("I noticed the 'already' … provisioned for
+  flattery"). Logged **OD-14** — the CD's returning-customer survey / Mad-Libs
+  bonus needs a ratified free-text exception (local-only, never in the Ledger, no
+  runtime LLM); designed, not yet built. 129 tests (+2); 57 KB gz; verified in
+  real Chromium at 900/375/320px, zero console errors. §9.2 intact.
 
 - **2026-07-15 — The Seams + recognition; indie-narrative SWOT (CD directive;
   §15).** Second Cycle-Ladder pass on the CD's frame "everyone is trapped,

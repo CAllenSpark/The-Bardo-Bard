@@ -53,7 +53,7 @@ describe('THE VIGIL (Gate 2)', () => {
     expect(buttons(root, 'button[data-rung-id]')).toHaveLength(0);
     vi.advanceTimersByTime(250);
     expect(buttons(root, 'button').find((b) => b.dataset.rungId === 'patience')).toBeDefined();
-    expect(root.textContent).toContain('The desk is very good at fine');
+    expect(root.textContent).toContain('trouble deciding');
 
     vi.advanceTimersByTime(ENDGAME_AT - 25_000);
     const rungIds = buttons(root, 'button[data-rung-id]').map((b) => b.dataset.rungId);
