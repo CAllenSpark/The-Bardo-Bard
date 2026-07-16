@@ -77,6 +77,13 @@ named human sign-off. No unmapped items.
   Compass §13/§13.1 for per-gate detail), P0 design-eval batch applied, local-run
   issues on the CD's Mac fixed (dev/serve scripts, dependency-guard install
   hints, jsdom `localStorage.clear` shim in tests).
+- **2026-07-15** — **Full Mad-Libs coverage + the Ω-glyph spark** (CD directive;
+  Compass §15). Wired the last four intake variables to nodes reached in normal
+  play (weather / animal / joy / word), each tied to a running gag; a test guards
+  nothing collected goes unspoken. Shipped the tester's #1: the END GAME glyph is
+  now a first-class, emoji-free, method-concealing *absence* — the shareable
+  anomaly built to make a stranger ask "how did you get a blank one?" 135 tests;
+  61 KB gz; verified in real Chromium (incl. the full Vigil-to-Ω walk).
 - **2026-07-15** — **The Returning-Customer Intake / Mad-Libs** (CD bonus; Compass
   §15, OD-14 resolved). Optional second-visit intake: ~8 light-preference
   questions (button / SKIP / OTHER free-text), stored local-only and injected as

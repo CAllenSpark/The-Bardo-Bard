@@ -70,6 +70,17 @@ describe('THE RETURNING-CUSTOMER INTAKE (§15 / OD-14): local-only Mad-Libs', ()
     expect(personalize('boot_notice', SURVEY, intake)).toBeUndefined(); // no injection there
   });
 
+  // ── nothing is collected that is never spoken ──────────────────────────────
+  it('every question the survey asks is injected somewhere in the run', () => {
+    const injectedVars = new Set(Object.values(SURVEY.injections).map((i) => i.var));
+    for (const q of SURVEY.questions) {
+      expect(injectedVars.has(q.id), `question "${q.id}" is collected but never spoken`).toBe(true);
+    }
+    // and the newly-wired nodes speak their variable
+    expect(personalize('d1_review', SURVEY, { joy: { value: 'a good pen', source: 'preset' } })).toContain('a good pen');
+    expect(personalize('c0_dept_intro', SURVEY, { weather: { value: 'fog', source: 'preset' } })).toContain('fog');
+  });
+
   // ── the diff gently favors variety, and never invents a change ─────────────
   it('intakeDiff compares only answers given both times', () => {
     expect(intakeDiff(null, { drink: { value: 'lemonade', source: 'preset' } }).hadPrior).toBe(false);

@@ -100,6 +100,10 @@
   "injections": {
     "a2_light": { "var": "place", "line": "You told the desk you would rather be {value}. The light has noticed, and is — even now — doing a quiet impression of {value}. Badly. It is a light, not a set designer." },
     "b1_beverage_cart": { "var": "drink", "line": "As a soul who, on a genuinely too-hot day, reaches for {value}: the cart has thoughts about that. It keeps them to itself. Professional discretion, and also it is a cart." },
+    "c0_dept_intro": { "var": "weather", "line": "You said your weather — the kind that makes you most yourself — is {value}. The Department has requisitioned some, at considerable expense, for the next part. It will get it slightly wrong. It always does; that is how you will know it tried." },
+    "c1_claims": { "var": "animal", "line": "For the file: you would, on balance, trust {value}. The desk keeps no such creature on staff. It records the answer regardless — whom a soul decides to trust is far more diagnostic than whom they fear, and considerably cheaper to store." },
+    "d1_review": { "var": "joy", "line": "Somewhere in this review, near the bottom, in the margin the auditors are trained to skip, is the small joy you named: {value}. It is — for whatever the desk's opinion is worth — the entry it would keep, if keeping were allowed. It is not allowed. You knew that." },
+    "d2_verdict": { "var": "word", "line": "A word you admitted you overuse: {value}. You have not said it here — you cannot; the keyboard budget, you'll recall, was reallocated — and yet I have heard it under everything you chose. We all have a {value}. The desk's is 'filed'." },
     "e1_reciprocity": { "var": "sound", "line": "You once named a sound you love: {value}. I have been running it, very low, under this whole confession. You did not notice — which is the kindest thing {value} has ever done for anyone." },
     "f0_disclosure": { "var": "comfort", "line": "You said you would return forever to {value}. That is the entire trick, you know — a thing you would choose again with your eyes open, knowing the cost. Keep hold of whatever taught you that." }
   },

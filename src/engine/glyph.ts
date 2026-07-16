@@ -71,8 +71,20 @@ export function buildGlyphText(state: GameState, soulN: number): string {
   const lines = [`THE BARDO BARD · soul №${soulN.toLocaleString('en-US')}`];
 
   if (byTally.has('OMEGA')) {
-    // The rarest glyph is nearly blank (Compass §4.2) — and explains nothing.
-    lines.push('', '·', '');
+    // The rarest glyph is a deliberate, shareable absence (Compass §4.2; the
+    // tester SWOT's "ship the spark"): nearly blank, emoji-free (renders
+    // everywhere, never as boxes), and it withholds how it was earned — the
+    // whole point is that a friend sees an empty one and has to ask.
+    lines.push(
+      '',
+      '',
+      '              ·',
+      '',
+      '',
+      'a record the Ledger could not fill —',
+      'and the desk declines, this once, to say how.',
+      '',
+    );
   } else {
     for (const key of GLYPH.glyphOrder) {
       const choice = byTally.get(key);

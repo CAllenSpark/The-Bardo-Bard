@@ -713,11 +713,41 @@ Ledger, no runtime LLM, `sanitizeOther` caps/strips, textContent-only, preferenc
 only. Engine `src/engine/intake.ts` + UI `src/ui/survey.ts` + `content/survey/`;
 validated for injection/question integrity; Lethe wipes it with everything else.
 
+**Fifth pass — full Mad-Libs coverage + the Ω-glyph spark (2026-07-15).**
+- **All eight intake answers are now spoken.** The four remaining variables wired
+  to nodes reached in normal play, each hooked to an established running gag:
+  `weather`→`c0_dept_intro` (the Department requisitions some, gets it slightly
+  wrong), `animal`→`c1_claims` (whom you trust is more diagnostic than whom you
+  fear), `joy`→`d1_review` (the entry the desk would keep, if keeping were
+  allowed), `word`→`d2_verdict` (heard under everything you chose; the desk's is
+  'filed'). A test now guards that no answer is collected without being spoken.
+  (These four fire on normal runs, not the back-office route, which skips the
+  middle — one more reason to replay the front.)
+- **The Ω-glyph spark (tester SWOT's top recommendation, "ship the spark").** The
+  END GAME glyph is now a first-class shareable *absence*: a nearly-empty block
+  (a lone `·`, generous void) with a method-concealing tag — *"a record the
+  Ledger could not fill — and the desk declines, this once, to say how."* —
+  emoji-free so it never boxes, and validated to leak no "wait/vigil/END GAME".
+  Against a normal six-emoji glyph it reads as an unmistakable anomaly: the
+  object built to make a stranger ask *how did you get a blank one?* — the
+  broadcaster the reception hinges on (`docs/TESTER_SWOT.md` §5).
+
 **Still deferred (offered):** extending the curiosity nudge beyond `a2`; the
-cross-life agency-immunization arc; more Mad-Libs injection points (four wired,
-the rest collected and diffable). See `docs/TESTER_SWOT.md`.
+cross-life agency-immunization arc; trimming the meta-hedge stack the tester
+flagged; the Cloudflare deploy (`wrangler.toml` ready). See `docs/TESTER_SWOT.md`.
 
 ## 13. Session log (append-only)
+
+- **2026-07-15 — Full Mad-Libs coverage + the Ω-glyph spark (CD directive; §15).**
+  Wired the last four intake variables to nodes reached in normal play
+  (weather→Department, animal→claims, joy→life review, word→verdict), each tied to
+  a running gag; a test guards that nothing collected goes unspoken. And shipped
+  the tester SWOT's #1 recommendation: the END GAME glyph is now a first-class,
+  emoji-free, method-concealing **absence** — "a record the Ledger could not fill
+  — and the desk declines, this once, to say how" — the shareable anomaly built
+  to make a stranger ask *how did you get a blank one?* 135 tests (+1); tsc clean;
+  61 KB gz; verified in real Chromium (incl. the full Vigil-to-Ω walk), zero
+  console errors.
 
 - **2026-07-15 — The Returning-Customer Intake / Mad-Libs (CD bonus; §15, OD-14
   resolved).** CD ratified "free text, with guardrails." Built an optional
