@@ -113,6 +113,26 @@ describe('THE RETURNING-CUSTOMER INTAKE (§15 / OD-14): local-only Mad-Libs', ()
     expect(freshMount().querySelector('button[data-system-id="intake"]')).not.toBeNull();
   });
 
+  // ── once filed, not offered again until the next loop ──────────────────────
+  it('the intake is offered once per life, then not until the next loop', () => {
+    seedLife();
+    const root = freshMount();
+    expect(root.querySelector('button[data-system-id="intake"]')).not.toBeNull();
+    // take it: open, skip everything, file
+    (root.querySelector('button[data-system-id="intake"]') as HTMLButtonElement).click();
+    act(root, 'next')!.click();
+    for (let i = 0; i < SURVEY.questions.length && act(root, 'skip'); i += 1) act(root, 'skip')!.click();
+    act(root, 'back')!.click(); // outro → the desk (completed)
+    // no longer offered this loop
+    expect(root.querySelector('button[data-system-id="intake"]')).toBeNull();
+    // ...but a fresh loop offers it again: play in, take a door to an ending,
+    // then CONTINUE turns the loop.
+    (root.querySelector('button.choice[data-choice-id="begin"]') as HTMLButtonElement).click();
+    (root.querySelector('button.door[data-exit-id="exit_light"]') as HTMLButtonElement).click();
+    (root.querySelector('button.continue') as HTMLButtonElement).click();
+    expect(root.querySelector('button[data-system-id="intake"]')).not.toBeNull();
+  });
+
   // ── the whole flow: answer (incl. OTHER), inject, then note the change ──────
   it('an answer in your own words comes back in the Bard\'s mouth, then a change is noted', () => {
     seedLife();

@@ -111,7 +111,9 @@ export function mount(root: HTMLElement): void {
   let state: GameState = createState(graph);
   let tallied = 0;
   let completionsSent = false;
-  let lastEmitNode = ''; // the last node whose entrance flourish has played
+  let lastEntranceNode = ''; // the last node whose entrance flourish has played
+  let intakeTakenThisLoop = false; // the intake is offered once per life, then not until the next
+  let transitioning = false; // true while a held non-response plays out (blocks input)
 
   // ── Reincarnation (Phase 5): the desk remembers, locally and optionally.
   let prior = lastLife();
@@ -222,16 +224,22 @@ export function mount(root: HTMLElement): void {
   stage.addEventListener('scroll', updateCues, { passive: true });
   if (typeof window !== 'undefined') window.addEventListener('resize', updateCues);
 
-  // The rebirth: the screen goes to light between one life and the next, so the
-  // loop feels like a life occurred in the moment between (CD 2026-07-16).
+  // Timed screen flourishes (rebirth, light-flood, the held non-response) run
+  // only in a real, motion-friendly browser — never under reduced motion and
+  // never in the no-canvas test env, where they resolve instantly and keep the
+  // synchronous playthroughs deterministic (CD 2026-07-16).
   const reduced =
     typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animated =
+    !reduced &&
+    typeof requestAnimationFrame === 'function' &&
+    (typeof navigator === 'undefined' || !/jsdom/i.test(navigator.userAgent));
   const rebirthEl = document.createElement('div');
   rebirthEl.className = 'rebirth';
   rebirthEl.setAttribute('aria-hidden', 'true');
   if (typeof document !== 'undefined') document.body.appendChild(rebirthEl);
   const rebirth = (atPeak: () => void): void => {
-    if (reduced || typeof requestAnimationFrame !== 'function') {
+    if (!animated) {
       atPeak();
       return;
     }
@@ -245,6 +253,14 @@ export function mount(root: HTMLElement): void {
       blot.react('bloom'); // and the next one opens
       window.setTimeout(() => rebirthEl.classList.remove('rising'), 250); // fade back in
     }, 900);
+  };
+  // The walk into the light (the designer's #3): at END GAME the screen floods
+  // to white over the already-rendered disclosure, holds a breath, and clears —
+  // you don't reach the light, you become the aperture. Reduced-motion: no flood.
+  const flood = (): void => {
+    if (!animated) return;
+    rebirthEl.classList.add('rising');
+    window.setTimeout(() => rebirthEl.classList.remove('rising'), 1100);
   };
 
   // Hover attention (CD directive 2026-07-14): when a pointer rests on any
@@ -326,6 +342,7 @@ export function mount(root: HTMLElement): void {
 
   const handlers = {
     onChoice: (choiceId: string) => {
+      if (transitioning) return; // a held non-response is playing out
       const leaving = getNode(graph, state.node);
       const choice = leaving.choices?.find((c) => c.id === choiceId);
       reactToChoice(choice?.state);
@@ -336,12 +353,25 @@ export function mount(root: HTMLElement): void {
       // The confirmation pattern pays off: 'the record, working' shown working.
       const ackLine = leaving.tally === 'D3' ? CONFIRMATION_ACKS[choiceId] : undefined;
       if (clock) stopVigil();
-      state = advance(graph, state, choiceId);
-      flushTallies();
-      onEnded();
-      rerender({ reveal: latestReveal(), ackLine });
+      const proceed = (): void => {
+        transitioning = false;
+        state = advance(graph, state, choiceId);
+        flushTallies();
+        onEnded();
+        rerender({ reveal: latestReveal(), ackLine });
+      };
+      // The held non-response (the designer's #6): when a node answers with
+      // stillness ('whom do I serve?'), the desk holds the silence before it
+      // moves on — the mirror refusing, for a beat, to reflect you.
+      if (leaving.visual?.react === 'still' && animated) {
+        transitioning = true;
+        window.setTimeout(proceed, 1400);
+      } else {
+        proceed();
+      }
     },
     onExit: (exitId: StandingExitId) => {
+      if (transitioning) return;
       if (clock) stopVigil();
       state = takeExit(graph, state, exitId);
       flushTallies();
@@ -383,8 +413,12 @@ export function mount(root: HTMLElement): void {
     onIntake: () => {
       // The intake takes over the stage; when the soul returns to the desk, the
       // boot re-renders (now carrying whatever it filed). Local-only throughout.
+      // Once filed, it is not offered again until the next loop (CD 2026-07-16).
       if (clock) stopVigil();
-      mountSurvey(stage, SURVEY, () => rerender());
+      mountSurvey(stage, SURVEY, (completed) => {
+        if (completed) intakeTakenThisLoop = true;
+        rerender();
+      });
     },
     onContinue: () => {
       // The loop turns (CD 2026-07-16): the screen goes to light, a life passes
@@ -398,6 +432,7 @@ export function mount(root: HTMLElement): void {
         vigilSpent = false;
         hiddenLineShown = false;
         vigilSparseness = 0;
+        intakeTakenThisLoop = false; // a new life may answer the desk's questions anew
         prior = lastLife();
         rememberBoot();
         void refreshCensus(MANIFEST_KEYS);
@@ -451,18 +486,23 @@ export function mount(root: HTMLElement): void {
           .filter(Boolean)
           .join('\n\n') || undefined,
       canForget: state.node === 'boot_notice' && (prior !== null || lifeCount() > 0),
-      canIntake: state.node === 'boot_notice' && lifeCount() >= 1,
+      canIntake: state.node === 'boot_notice' && lifeCount() >= 1 && !intakeTakenThisLoop,
       unlockedChoices: unlockedGated(),
     });
     blot.set(moodFor(graph, state), vigilSparseness);
-    // Letters swirl off the entity as an authored question arrives (§ theatrical
-    // pass; kept rare — the first question and the nine verbs only). Only on
-    // entering the node, never on same-node re-renders.
+    // Authored entrance flourishes (§ theatrical pass), fired once on entering a
+    // node, never on same-node re-renders: 'emit' — letters swirl off as the
+    // question arrives (first question + the nine verbs); 'gasp' — the entity
+    // forgets to follow your cursor for a beat; 'flood' — the screen goes to
+    // light (the walk into the light). Kept rare and deterministic.
     const entered = getNode(graph, state.node);
-    if (entered.visual?.entrance === 'emit' && lastEmitNode !== state.node) {
-      blot.emit(entered.text.base.slice(0, 28));
+    if (lastEntranceNode !== state.node) {
+      const entrance = entered.visual?.entrance;
+      if (entrance === 'emit') blot.emit(entered.text.base.slice(0, 28));
+      else if (entrance === 'gasp') blot.gasp(1300);
+      else if (entrance === 'flood') flood();
     }
-    lastEmitNode = state.node;
+    lastEntranceNode = state.node;
     startVigilIfEligible();
     // A fresh screen starts at the top of its scroll box, and the cues re-read
     // whether there is more above or below.

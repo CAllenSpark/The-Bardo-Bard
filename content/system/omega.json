@@ -36,7 +36,8 @@
       "a11y": "The Bard's final disclosure: rather than listing its levers it hands the waiting back to you as your own doing, retracts the suggestion that anyone waits in the light, admits it cannot tell presence from fear, and closes the desk. The game has ended.",
       "fallback": "The Bard hands the waiting back to you as your own doing, retracts what it could not know, and closes the desk.",
       "visual": {
-        "mood": "ember"
+        "mood": "ember",
+        "entrance": "flood"
       }
     }
   ]

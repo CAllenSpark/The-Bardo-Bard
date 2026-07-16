@@ -81,6 +81,7 @@ export class Blot {
   private engagements = 0;
   private recoilThreshold = 3; // every Nth encounter, it backs away instead
   private recoilUntil = 0;
+  private gaspUntil = 0; // it forgets to follow your cursor — a held breath
   private particles: Particle[] = [];
 
   private readonly onPointerMove = (e: PointerEvent): void => {
@@ -190,6 +191,13 @@ export class Blot {
     this.heldTarget = 0;
   }
 
+  /** It forgets to follow you — the cursor-lean freezes mid-motion for a held
+   *  breath, then resumes (the designer's "cursor gasp"). Reduced-motion no-op. */
+  gasp(ms: number): void {
+    if (this.reduced || !this.ctx) return;
+    this.gaspUntil = this.clock() + ms;
+  }
+
   /** Shed a scatter of letters that swirl off the ink — the question emerging
    *  from the entity (CD 2026-07-16). Rare by design; reduced-motion no-op. */
   emit(text: string): void {
@@ -291,18 +299,22 @@ export class Blot {
         ? Math.min(this.poolTarget, this.pooling + dtTicks / 4)
         : Math.max(this.poolTarget, this.pooling - dtTicks / 8);
 
-    // drift toward (or, when recoiling, away from) the pointer
-    const recoiling = this.clock() < this.recoilUntil;
-    const sign = recoiling ? -1.4 : 1;
-    const rect = this.wrap.getBoundingClientRect();
-    const dx = this.pointerX * (window.innerWidth || 1) - (rect.left + rect.width / 2);
-    const dy = this.pointerY * (window.innerHeight || 1) - (rect.top + rect.height / 2);
-    const dist = Math.hypot(dx, dy) || 1;
-    const mag = DRIFT_MAX * (1 + (POOL_MULT - 1) * this.pooling) * sign;
-    const targetX = (dx / dist) * mag;
-    const targetY = (dy / dist) * mag * 0.6; // less vertical — stay mostly in the band
-    this.driftX += (targetX - this.driftX) * Math.min(1, dtTicks * 0.12);
-    this.driftY += (targetY - this.driftY) * Math.min(1, dtTicks * 0.12);
+    // drift toward (or, when recoiling, away from) the pointer — unless it has
+    // gasped, in which case the lean holds dead still for a beat
+    const now = this.clock();
+    if (now >= this.gaspUntil) {
+      const recoiling = now < this.recoilUntil;
+      const sign = recoiling ? -1.4 : 1;
+      const rect = this.wrap.getBoundingClientRect();
+      const dx = this.pointerX * (window.innerWidth || 1) - (rect.left + rect.width / 2);
+      const dy = this.pointerY * (window.innerHeight || 1) - (rect.top + rect.height / 2);
+      const dist = Math.hypot(dx, dy) || 1;
+      const mag = DRIFT_MAX * (1 + (POOL_MULT - 1) * this.pooling) * sign;
+      const targetX = (dx / dist) * mag;
+      const targetY = (dy / dist) * mag * 0.6; // less vertical — stay mostly in the band
+      this.driftX += (targetX - this.driftX) * Math.min(1, dtTicks * 0.12);
+      this.driftY += (targetY - this.driftY) * Math.min(1, dtTicks * 0.12);
+    }
 
     // shed letters drift and fade
     if (this.particles.length) {

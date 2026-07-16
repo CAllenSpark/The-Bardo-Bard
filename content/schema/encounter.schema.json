@@ -84,8 +84,8 @@
             },
             "entrance": {
               "type": "string",
-              "description": "A theatrical entrance flourish when the node is first shown. 'emit': letters swirl off the entity as the question arrives (kept rare — the first question and the verbs only; CD 2026-07-16).",
-              "enum": ["emit"]
+              "description": "A theatrical entrance flourish when the node is first shown (CD 2026-07-16). 'emit': letters swirl off the entity as the question arrives (kept rare — the first question and the verbs only). 'gasp': the entity's cursor-lean freezes for a held breath. 'flood': the screen goes to light over the disclosure (the walk into the light).",
+              "enum": ["emit", "gasp", "flood"]
             }
           }
         },

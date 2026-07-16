@@ -10,7 +10,7 @@ import { OTHER_MAX, intakeDiff, outroText, sanitizeOther } from '../engine/intak
  * ever echoed via textContent. LOCAL-ONLY: answers are written to localStorage
  * and never transmitted. Calls onDone() when the player returns to the desk.
  */
-export function mountSurvey(stage: HTMLElement, survey: Survey, onDone: () => void): void {
+export function mountSurvey(stage: HTMLElement, survey: Survey, onDone: (completed: boolean) => void): void {
   const answers: Record<string, IntakeAnswer> = {};
 
   const screen = (aria: string): HTMLElement => {
@@ -53,7 +53,7 @@ export function mountSurvey(stage: HTMLElement, survey: Survey, onDone: () => vo
     choices.className = 'choices';
     main.appendChild(choices);
     button(choices, survey.next_label, () => renderQuestion(0), 'next');
-    button(choices, survey.back_label, onDone, 'back');
+    button(choices, survey.back_label, () => onDone(false), 'back'); // bailed before answering
   };
 
   const record = (q: Survey['questions'][number], value: string, source: IntakeAnswer['source'], index: number): void => {
@@ -126,7 +126,7 @@ export function mountSurvey(stage: HTMLElement, survey: Survey, onDone: () => vo
     const choices = document.createElement('div');
     choices.className = 'choices';
     main.appendChild(choices);
-    button(choices, survey.back_label, onDone, 'back');
+    button(choices, survey.back_label, () => onDone(true), 'back'); // filed — done this loop
   };
 
   renderIntro();

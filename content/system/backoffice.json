@@ -13,7 +13,7 @@
       "labels": ["FICTION: the desk admitting a recognized soul to the back office — a place souls are not usually shown"],
       "a11y": "Asked to see behind the desk, the Bard — because it recognizes you — leads you sideways into the works, past the cabling. Two options: go in, or return to the line.",
       "fallback": "The Bard leads you behind the desk, into the works. Go in, or return to the line.",
-      "visual": { "mood": "curious" }
+      "visual": { "mood": "curious", "entrance": "gasp" }
     },
     {
       "id": "back_queue",
